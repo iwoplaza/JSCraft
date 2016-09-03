@@ -1,0 +1,37 @@
+<script id="font-vs" type="x-shader/x-vertex">
+            attribute vec2 aVertexPosition;
+            attribute vec2 aTextureCoord;
+            attribute vec4 aVertexColor;
+
+            uniform mat4 uMMatrix;
+            uniform mat4 uVMatrix;
+            uniform mat4 uPMatrix;
+            uniform vec4 uGlobalColor;
+            uniform vec4 uFontColor;
+
+            varying vec4 vColor;
+            varying vec2 vTextureCoord;
+
+            void main(void) {
+                gl_Position = uPMatrix * uVMatrix * uMMatrix * vec4(aVertexPosition, 0.0, 1.0);
+                vColor = aVertexColor*uGlobalColor*uFontColor;
+                vTextureCoord = aTextureCoord;
+            }
+</script>
+        
+<script id="font-fs" type="x-shader/x-fragment">
+            precision mediump float;
+
+            varying vec4 vColor;
+            varying vec2 vTextureCoord;
+            uniform sampler2D uSampler;
+            uniform int uEnableTextures;
+
+            void main(void) {
+                if(uEnableTextures == 1){
+                    gl_FragColor = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t))*vColor;
+                }else{
+                    gl_FragColor = vColor;
+                }
+            }
+</script>
