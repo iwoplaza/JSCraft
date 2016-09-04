@@ -62,6 +62,8 @@ Blocks.registerCallback(function() {
     Blocks.registerBlock("cassetirite_ore", new Block().setDefaultTextureIndex(8));
     Blocks.registerBlock("diamond_ore", new Block().setDefaultTextureIndex(9));
     Blocks.registerBlock("emerald_ore", new Block().setDefaultTextureIndex(10));
+    Blocks.registerBlock("bedrock", new Block().setDefaultTextureIndex(11));
+    Blocks.registerBlock("cobblestone", new Block().setDefaultTextureIndex(12));
     
     var some = new BlockGrass().setDefaultTextureIndex(2);
     console.dir(some);
