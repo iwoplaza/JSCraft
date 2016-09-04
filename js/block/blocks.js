@@ -49,6 +49,7 @@ var Blocks = {
 };
 
 Blocks.addBlockTypeToLoadQueue("blockGrass");
+Blocks.addBlockTypeToLoadQueue("blockLog");
 
 Blocks.registerCallback(function() {
     Blocks.registerBlock("air", undefined);
@@ -64,6 +65,8 @@ Blocks.registerCallback(function() {
     Blocks.registerBlock("emerald_ore", new Block().setDefaultTextureIndex(10));
     Blocks.registerBlock("bedrock", new Block().setDefaultTextureIndex(11));
     Blocks.registerBlock("cobblestone", new Block().setDefaultTextureIndex(12));
+    Blocks.registerBlock("Log", new BlockLog().setDefaultTextureIndex(13));
+    Blocks.registerBlock("Leaves", new Block().setDefaultTextureIndex(15));
     
     var some = new BlockGrass().setDefaultTextureIndex(2);
     console.dir(some);
