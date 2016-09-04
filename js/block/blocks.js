@@ -55,6 +55,13 @@ Blocks.registerCallback(function() {
     Blocks.registerBlock("stone", new Block().setDefaultTextureIndex(0));
     Blocks.registerBlock("dirt", new Block().setDefaultTextureIndex(1));
     Blocks.registerBlock("grass", new BlockGrass().setDefaultTextureIndex(2));
+    Blocks.registerBlock("malachite_ore", new Block().setDefaultTextureIndex(4));
+    Blocks.registerBlock("hematite_ore", new Block().setDefaultTextureIndex(5));
+    Blocks.registerBlock("coal_ore", new Block().setDefaultTextureIndex(6));
+    Blocks.registerBlock("gold_ore", new Block().setDefaultTextureIndex(7));
+    Blocks.registerBlock("cassetirite_ore", new Block().setDefaultTextureIndex(8));
+    Blocks.registerBlock("diamond_ore", new Block().setDefaultTextureIndex(9));
+    Blocks.registerBlock("emerald_ore", new Block().setDefaultTextureIndex(10));
     
     var some = new BlockGrass().setDefaultTextureIndex(2);
     console.dir(some);
