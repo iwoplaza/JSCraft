@@ -11,6 +11,10 @@ var ResourceManager = {
             initSpritesheets();
             initAudio();
             TextureManager.preload();
+        },
+        
+        function() {
+            Blocks.registerBlocks();
         }
     ],
     currentPhase: 0,

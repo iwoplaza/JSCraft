@@ -14,26 +14,38 @@ BlockRenderType.renderType = function(p_buffer, p_id, p_x, p_y, p_z, p_textureIn
     BlockRenderType.registry[p_id].render(p_buffer, p_x, p_y, p_z, p_textureIndicies);
 }
 
-BlockRenderType.renderBox = function(p_buffer, offsetX, offsetY, offsetZ, width, height, length, p_textureIndicies) {
+BlockRenderType.renderBox = function(p_buffer, p_x, p_y, p_z, p_w, p_h, p_l, p_textureIndicies) {
+    var texturePadding = 0.3/2048;
     for(var i = 0; i < 6; i++) {
-        p_buffer.texCoords.push((p_textureIndicies[i]+0)/64);
-        p_buffer.texCoords.push((p_textureIndicies[i]+1)/64);
+        var u = p_textureIndicies[i]%64;
+        var v = Math.floor(p_textureIndicies[i]/64);
+        p_buffer.texCoords.push((u+0)/64+texturePadding);
+        p_buffer.texCoords.push((v+1)/64-texturePadding);
         
-        p_buffer.texCoords.push((p_textureIndicies[i]+1)/64);
-        p_buffer.texCoords.push((p_textureIndicies[i]+1)/64);
+        p_buffer.texCoords.push((u+1)/64-texturePadding);
+        p_buffer.texCoords.push((v+1)/64-texturePadding);
         
-        p_buffer.texCoords.push((p_textureIndicies[i]+0)/64);
-        p_buffer.texCoords.push((p_textureIndicies[i]+0)/64);
+        p_buffer.texCoords.push((u+0)/64+texturePadding);
+        p_buffer.texCoords.push((v+0)/64+texturePadding);
         
-        p_buffer.texCoords.push((p_textureIndicies[i]+1)/64);
-        p_buffer.texCoords.push((p_textureIndicies[i]+1)/64);
+        p_buffer.texCoords.push((u+1)/64-texturePadding);
+        p_buffer.texCoords.push((v+1)/64-texturePadding);
         
-        p_buffer.texCoords.push((p_textureIndicies[i]+0)/64);
-        p_buffer.texCoords.push((p_textureIndicies[i]+0)/64);
+        p_buffer.texCoords.push((u+0)/64+texturePadding);
+        p_buffer.texCoords.push((v+0)/64+texturePadding);
         
-        p_buffer.texCoords.push((p_textureIndicies[i]+1)/64);
-        p_buffer.texCoords.push((p_textureIndicies[i]+0)/64);
+        p_buffer.texCoords.push((u+1)/64-texturePadding);
+        p_buffer.texCoords.push((v+0)/64+texturePadding);
     }
+    
+    var margin = 0.0;
+    
+    var offsetX = p_x-margin;
+    var offsetY = p_y-margin;
+    var offsetZ = p_z-margin;
+    var width = p_w+margin*2;
+    var height = p_h+margin*2;
+    var length = p_l+margin*2;
     
     p_buffer.vertices.push.apply(p_buffer.vertices, [
         //Front
