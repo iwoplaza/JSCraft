@@ -4,6 +4,7 @@
         <title>JSCraft</title>
         
         <script type="text/javascript" src="js/lib/gl-matrix.js"></script>
+        <script type="text/javascript" src="js/lib/jquery.js"></script>
         
         <script type="text/javascript" src="js/util/vector2f.js"></script>
         <script type="text/javascript" src="js/util/vector3f.js"></script>

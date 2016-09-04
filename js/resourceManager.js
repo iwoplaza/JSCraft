@@ -11,6 +11,7 @@ var ResourceManager = {
             initSpritesheets();
             initAudio();
             TextureManager.preload();
+            Blocks.preloadBlockTypes();
         },
         
         function() {

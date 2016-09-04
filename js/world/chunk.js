@@ -16,7 +16,7 @@ function Chunk(){
 			for (var x = 0; x < Chunk.width; x++){
                 this.layers[y][x] = new Array(Chunk.width);
 				for (var z = 0; z < Chunk.width; z++){
-					this.layers[y][x][z] = {id:3};
+					this.layers[y][x][z] = {id:2};
 				}
 			}
 		}
@@ -24,7 +24,7 @@ function Chunk(){
 		for (var x = 0; x < Chunk.width; x++){
             this.layers[5][x] = new Array(Chunk.width);
 			for (var z = 0; z < Chunk.width; z++){
-				this.layers[5][x][z] = {id:2};
+				this.layers[5][x][z] = {id:3};
 			}
 		}
 	}

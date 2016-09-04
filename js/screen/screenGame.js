@@ -59,6 +59,18 @@ function createGameScreen() {
                 Camera.moveTarget(right);
             }
             
+            if(keyState[32]) {
+                Camera.moveTarget(0, 0.02*deltaTime, 0);
+            }
+            
+            if(keyState[90]) {
+                Camera.moveTarget(0, -0.02*deltaTime, 0);
+            }
+            
+            if(keyState[69]) {
+                Camera.rotation.y += 2;
+            }
+            
             if(keyState[81]) {
                 Camera.rotation.y -= 2;
             }
