@@ -10,6 +10,7 @@
         <script type="text/javascript" src="js/util/vector3f.js"></script>
         <script type="text/javascript" src="js/util/extensions.js"></script>
         <script type="text/javascript" src="js/util/mouse.js"></script>
+        <script type="text/javascript" src="js/util/pointerLock.js"></script>
         
         <script type="text/javascript" src="js/main.js"></script>
         <script type="text/javascript" src="js/math.js"></script>

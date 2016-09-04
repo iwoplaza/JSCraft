@@ -3,7 +3,15 @@ var Mouse = {
     y: 0,
     lastX: 0,
     lastY: 0,
+    movementX: 0,
+    movementY: 0,
     mouseState: [false, false, false],
+    timeout: undefined,
+    
+    onMouseStop: function() {
+        Mouse.movementX = 0;
+        Mouse.movementY = 0;
+    },
     
     getMouseWorldX() {
         return this.x/Camera.scale-Camera.getOffsetX()+Camera.x;
@@ -26,6 +34,18 @@ document.onmousemove = function(e) {
 
 	Mouse.x = e.pageX - canvas.getBoundingClientRect().left;
 	Mouse.y = e.pageY - canvas.getBoundingClientRect().top;
+    
+    Mouse.movementX = (e.movementX ||
+      e.mozMovementX          ||
+      e.webkitMovementX       ||
+      0)+0;
+    Mouse.movementY = (e.movementY ||
+      e.mozMovementY      ||
+      e.webkitMovementY   ||
+      0)+0;
+    
+    clearTimeout(Mouse.timeout);
+    Mouse.timeout = setTimeout(Mouse.onMouseStop, 10);
     
     runEventCallbacks("mouseMove");
 }

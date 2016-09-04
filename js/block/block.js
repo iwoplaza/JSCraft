@@ -26,5 +26,5 @@ Block.SIDE_FRONT = 0;
 Block.SIDE_BACK = 1;
 Block.SIDE_LEFT = 2;
 Block.SIDE_RIGHT = 3;
-Block.SIDE_BOTTOM = 4;
-Block.SIDE_TOP = 5;
+Block.SIDE_TOP = 4;
+Block.SIDE_BOTTOM = 5;

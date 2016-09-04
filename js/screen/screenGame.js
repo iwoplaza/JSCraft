@@ -19,6 +19,9 @@ function createGameScreen() {
             this.floatingCubeRO = new Mesh();
             drawTexturedCube(this.floatingCubeRO, -2, -2, -2, 4, 4, 4, [1, 0.7, 0.5, 1]);
             
+            Camera.setTarget(0, 0, -10);
+            Camera.rotation.y = 180;
+            
             World.world.blockMesh = new Mesh();
             World.world.renderBlocks();
         },
@@ -79,6 +82,12 @@ function createGameScreen() {
                 Camera.rotation.y += 2;
             }
             
+            if(PointerLock.isLocked()) {
+                var mouseSensitivity = 0.7;
+                Camera.rotation.y += Mouse.movementX*mouseSensitivity;
+                Camera.rotation.x += Mouse.movementY*mouseSensitivity;
+            }
+            
             Camera.update(deltaTime);
         },
         
@@ -103,6 +112,10 @@ function createGameScreen() {
         
         onKeyPressed: function(event) {
             var keyCode = event.keyCode ? event.keyCode : event.which;
+            
+            if(keyCode == 76) {
+                PointerLock.request();
+            }
         },
         
         onKeyReleased: function(keyCode) {
