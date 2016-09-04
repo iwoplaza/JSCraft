@@ -33,6 +33,7 @@ var TextureManager = {
 
     preload: function() {
         this.loadTexture("res/img/world/doggy.png");
+        this.loadTexture("res/textures/blocks.png");
     },
 
     loadTexture: function(filePath) {

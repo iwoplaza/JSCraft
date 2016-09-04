@@ -5,7 +5,6 @@
         
         <script type="text/javascript" src="js/lib/gl-matrix.js"></script>
         
-        
         <script type="text/javascript" src="js/util/vector2f.js"></script>
         <script type="text/javascript" src="js/util/vector3f.js"></script>
         <script type="text/javascript" src="js/util/extensions.js"></script>
@@ -29,12 +28,15 @@
         <script type="text/javascript" src="js/graphics/mesh.js"></script>
         <script type="text/javascript" src="js/graphics/animation2d.js"></script>
         <script type="text/javascript" src="js/graphics/lightmap.js"></script>
+        <script type="text/javascript" src="js/graphics/world/blockRenderer.js"></script>
+        <script type="text/javascript" src="js/graphics/world/blockRenderType.js"></script>
         <script type="text/javascript" src="js/screen/screen.js"></script>
         <script type="text/javascript" src="js/screen/screenGame.js"></script>
         <script type="text/javascript" src="js/block/block.js"></script>
         <script type="text/javascript" src="js/block/blocks.js"></script>
         <script type="text/javascript" src="js/world/chunk.js"></script>
         <script type="text/javascript" src="js/world/world.js"></script>
+        
         
         <link rel="stylesheet" href="css/stylesheet.css">
     </head>

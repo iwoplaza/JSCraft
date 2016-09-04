@@ -6,8 +6,15 @@ function Block() {
         return this;
     }
     
-    this.getTextureIndex = function(p_metadata, p_side) {
-        return this.defaultTextureIndex;
+    this.getTextureIndicies = function(p_blockData) {
+        return [
+            this.defaultTextureIndex,
+            this.defaultTextureIndex,
+            this.defaultTextureIndex,
+            this.defaultTextureIndex,
+            this.defaultTextureIndex,
+            this.defaultTextureIndex
+        ];
     },
     
     this.getRenderType = function() {
@@ -15,10 +22,9 @@ function Block() {
     }
 }
 
-Block.SIDE_NONE = 0;
-Block.SIDE_TOP = 1;
-Block.SIDE_BOTTOM = 2;
+Block.SIDE_FRONT = 0;
+Block.SIDE_BACK = 1;
+Block.SIDE_LEFT = 2;
 Block.SIDE_RIGHT = 3;
-Block.SIDE_LEFT = 4;
-Block.SIDE_FRONT = 5;
-Block.SIDE_BACK = 6;
+Block.SIDE_BOTTOM = 4;
+Block.SIDE_TOP = 5;

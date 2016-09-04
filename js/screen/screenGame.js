@@ -18,6 +18,9 @@ function createGameScreen() {
             
             this.floatingCubeRO = new Mesh();
             drawTexturedCube(this.floatingCubeRO, -2, -2, -2, 4, 4, 4, [1, 0.7, 0.5, 1]);
+            
+            World.world.blockMesh = new Mesh();
+            World.world.renderBlocks();
         },
         
         update: function(deltaTime) {
@@ -81,6 +84,9 @@ function createGameScreen() {
             
             GLHelper.translate([0, 0, -45]);
             this.floatingCubeRO.draw();
+            
+            GLHelper.resetToWorldMatrix();
+            World.world.display();
         },
         
         onKeyPressed: function(event) {
