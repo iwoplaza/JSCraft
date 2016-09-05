@@ -67,6 +67,8 @@ Blocks.registerCallback(function() {
     Blocks.registerBlock("cobblestone", new Block().setDefaultTextureIndex(12));
     Blocks.registerBlock("Log", new BlockLog().setDefaultTextureIndex(13));
     Blocks.registerBlock("Leaves", new Block().setDefaultTextureIndex(15));
+    Blocks.registerBlock("Sand", new Block().setDefaultTextureIndex(16));
+    Blocks.registerBlock("Crate", new Block().setDefaultTextureIndex(17));
     
     var some = new BlockGrass().setDefaultTextureIndex(2);
     console.dir(some);
