@@ -1,5 +1,6 @@
-function World(p_name){
+function World(p_name,p_type){
 	this.name = p_name;
+    this.type = p_type;
 	this.chunks = new Array(0);
     this.blockMesh = undefined;
     
@@ -48,7 +49,5 @@ function World(p_name){
         this.chunks[""+p_x+"x"+p_z] = p_chunk;
     }
     
-    this.setChunk(0, 0, new Chunk());
+    this.setChunk(0, 0, new Chunk(this.type));
 }
-
-World.world = new World("Overworld");
