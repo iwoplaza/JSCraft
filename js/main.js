@@ -81,6 +81,8 @@ function webGLStart() {
 	gl.enable(gl.BLEND);
     gl.bindTexture(gl.TEXTURE_2D, null);
 	gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+    gl.enable(gl.CULL_FACE);
+    gl.cullFace(gl.BACK);
     
 	ResourceManager.preloadBaseResources();
     

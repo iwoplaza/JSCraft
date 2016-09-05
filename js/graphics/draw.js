@@ -290,8 +290,8 @@ function drawRect(renderObject, offsetX, offsetY, width, height, color){
     var vertices = [offsetX, offsetY, 0,
 					offsetX+width, offsetY, 0,
 					offsetX, offsetY+height, 0,
-					offsetX+width, offsetY, 0,
 					offsetX, offsetY+height, 0,
+                    offsetX+width, offsetY, 0,
 					offsetX+width, offsetY+height, 0];
     var colors = [color[0],color[1],color[2],color[3],
 				color[0],color[1],color[2],color[3],
@@ -490,49 +490,49 @@ function drawTexturedCube(renderObject, offsetX, offsetY, offsetZ, width, height
         offsetX, offsetY, offsetZ+length,
         offsetX+width, offsetY, offsetZ+length,
         offsetX, offsetY+height, offsetZ+length,
-        offsetX+width, offsetY, offsetZ+length,
         offsetX, offsetY+height, offsetZ+length,
+        offsetX+width, offsetY, offsetZ+length,
         offsetX+width, offsetY+height, offsetZ+length,
         
         //Back
         offsetX+width, offsetY, offsetZ,
         offsetX, offsetY, offsetZ,
         offsetX+width, offsetY+height, offsetZ,
-        offsetX, offsetY, offsetZ,
         offsetX+width, offsetY+height, offsetZ,
+        offsetX, offsetY, offsetZ,
         offsetX, offsetY+height, offsetZ,
         
         //Left
         offsetX, offsetY, offsetZ,
         offsetX, offsetY, offsetZ+length,
         offsetX, offsetY+height, offsetZ,
-        offsetX, offsetY, offsetZ+length,
         offsetX, offsetY+height, offsetZ,
+        offsetX, offsetY, offsetZ+length,
         offsetX, offsetY+height, offsetZ+length,
         
         //Right
         offsetX+width, offsetY, offsetZ+length,
         offsetX+width, offsetY, offsetZ,
         offsetX+width, offsetY+height, offsetZ+length,
-        offsetX+width, offsetY, offsetZ,
         offsetX+width, offsetY+height, offsetZ+length,
+        offsetX+width, offsetY, offsetZ,
         offsetX+width, offsetY+height, offsetZ,
         
         //Down
         offsetX, offsetY, offsetZ,
         offsetX+width, offsetY, offsetZ,
         offsetX, offsetY, offsetZ+length,
-        offsetX+width, offsetY, offsetZ,
         offsetX, offsetY, offsetZ+length,
+        offsetX+width, offsetY, offsetZ,
         offsetX+width, offsetY, offsetZ+length,
         
         //Up
+        offsetX+width, offsetY+height, offsetZ,
         offsetX, offsetY+height, offsetZ,
-        offsetX+width, offsetY+height, offsetZ,
-        offsetX, offsetY+height, offsetZ+length,
-        offsetX+width, offsetY+height, offsetZ,
-        offsetX, offsetY+height, offsetZ+length,
-        offsetX+width, offsetY+height, offsetZ+length
+        offsetX+width, offsetY+height, offsetZ+length,
+        offsetX+width, offsetY+height, offsetZ+length,
+        offsetX, offsetY+height, offsetZ,
+        offsetX, offsetY+height, offsetZ+length
     ];
     var texCoords2 = new Array(0);
     
@@ -546,11 +546,11 @@ function drawTexturedCube(renderObject, offsetX, offsetY, offsetZ, width, height
         texCoords2.push(texCoords[i*4+1][0]);
         texCoords2.push(texCoords[i*4+1][1]);
         
-        texCoords2.push(texCoords[i*4+3][0]);
-        texCoords2.push(texCoords[i*4+3][1]);
-        
         texCoords2.push(texCoords[i*4+1][0]);
         texCoords2.push(texCoords[i*4+1][1]);
+        
+        texCoords2.push(texCoords[i*4+3][0]);
+        texCoords2.push(texCoords[i*4+3][1]);
         
         texCoords2.push(texCoords[i*4+2][0]);
         texCoords2.push(texCoords[i*4+2][1]);
