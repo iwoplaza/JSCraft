@@ -33,7 +33,7 @@ function World(p_name,p_type){
                     var layer = chunk.layers[y];
                     for(var x = 0; x < layer.length; x++){
                         for(var z = 0; z < layer[x].length; z++){
-                            BlockRenderer.renderBlock(blockBuffer, x, y, z, layer[x][z]);
+                            BlockRenderer.renderBlock(blockBuffer, chunk.getX()*Chunk.width+x, y, chunk.getZ()*Chunk.width+z, layer[x][z]);
                         }
                     }
                 }
@@ -52,12 +52,25 @@ function World(p_name,p_type){
         return this.chunks[""+p_x+"x"+p_z];
     }
     
+    this.getChunkForBlockCoords = function(p_x, p_z) {
+        var chunkX = Math.floor(p_x/Chunk.width);
+        var chunkY = Math.floor(p_y/Chunk.width);
+        
+        return this.getChunk(chunkX, chunkY);
+    }
+    
     this.setChunk = function(p_x, p_z, p_chunk) {
         this.chunks[""+p_x+"x"+p_z] = p_chunk;
     }
     
+    this.setBlock = function(p_x, p_y, p_z, p_blockData) {
+        if(p_blockData == undefined || p_x == undefined || p_y == undefined || p_z == undefined) return;
+        
+    }
+    
     this.generateChunk = function(p_x, p_z) {
-        var chunk = this.getChunk(p_x, p_z);
+        var chunk = new Chunk(p_x, p_z);
+        this.setChunk(p_x, p_z, chunk);
         
         chunk.layers = new Array(0);
         
@@ -97,6 +110,8 @@ function World(p_name,p_type){
                     }
                 }
             }
+        }else if (this.getType() == "DEFAULT"){
+            
         }
         /*
             
@@ -139,8 +154,11 @@ function World(p_name,p_type){
     }
     
     this.generateTerrain = function(){
-        this.setChunk(0, 0, new Chunk(0, 0));
-        this.generateChunk(0, 0);
+        for(var x = 0; x < 4; x++) {
+            for(var z = 0; z < 4; z++) {
+                this.generateChunk(x, z);
+            }
+        }
 	}
     
     this.generateTerrain();
