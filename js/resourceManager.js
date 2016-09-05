@@ -16,7 +16,7 @@ var ResourceManager = {
         
         function() {
             Blocks.registerBlocks();
-            World.world = new World("Overworld","FLAT");
+            World.world = new World("Overworld","DEFAULT");
         }
     ],
     currentPhase: 0,

@@ -31,9 +31,11 @@ function World(p_name,p_type){
                 var chunk = this.chunks[chunkKeys[i]];
                 for(var y = 0; y < chunk.layers.length; y++){
                     var layer = chunk.layers[y];
-                    for(var x = 0; x < layer.length; x++){
-                        for(var z = 0; z < layer[x].length; z++){
-                            BlockRenderer.renderBlock(blockBuffer, chunk.getX()*Chunk.width+x, y, chunk.getZ()*Chunk.width+z, layer[x][z]);
+                    if(layer != undefined){
+                        for(var x = 0; x < layer.length; x++){
+                            for(var z = 0; z < layer[x].length; z++){
+                                BlockRenderer.renderBlock(blockBuffer, chunk.getX()*Chunk.width+x, y, chunk.getZ()*Chunk.width+z, layer[x][z]);
+                            }
                         }
                     }
                 }
@@ -54,9 +56,9 @@ function World(p_name,p_type){
     
     this.getChunkForBlockCoords = function(p_x, p_z) {
         var chunkX = Math.floor(p_x/Chunk.width);
-        var chunkY = Math.floor(p_y/Chunk.width);
+        var chunkZ = Math.floor(p_z/Chunk.width);
         
-        return this.getChunk(chunkX, chunkY);
+        return this.getChunk(chunkX, chunkZ);
     }
     
     this.setChunk = function(p_x, p_z, p_chunk) {
@@ -65,7 +67,19 @@ function World(p_name,p_type){
     
     this.setBlock = function(p_x, p_y, p_z, p_blockData) {
         if(p_blockData == undefined || p_x == undefined || p_y == undefined || p_z == undefined) return;
+        var chunk = this.getChunkForBlockCoords(p_x, p_y, p_z);
+        if(chunk == undefined) return;
+        if(chunk.layers[p_y] == undefined) {
+            chunk.layers[p_y] = new Array(0);
+            for(var x = 0; x < Chunk.width; x++) {
+                chunk.layers[p_y].push(new Array(0));
+                for(var z = 0; z < Chunk.width; z++) {
+                    chunk.layers[p_y][x].push(0);
+                }
+            }
+        }
         
+        chunk.layers[p_y][p_x-chunk.getX()*Chunk.width][p_z-chunk.getZ()*Chunk.width] = p_blockData;
     }
     
     this.generateChunk = function(p_x, p_z) {
@@ -111,7 +125,17 @@ function World(p_name,p_type){
                 }
             }
         }else if (this.getType() == "DEFAULT"){
-            
+            var chunkBlockX = chunk.getX()*Chunk.width;
+            var chunkBlockZ = chunk.getZ()*Chunk.width;
+            for(var i = 0; i < Chunk.width*Chunk.width; i++){
+                var x = i%Chunk.width;
+                var z = Math.floor(i/Chunk.width);
+                var height = 6+Math.floor(Math.random()*5);
+                for(var y = 0; y < height; y++){
+                    var blockID = y == 0 ? Blocks.nameToIDMap["bedrock"] : y == height-1 ? Blocks.nameToIDMap["grass"] : Blocks.nameToIDMap["stone"];
+                    this.setBlock(chunkBlockX+x, y, chunkBlockZ+z, {id: blockID});
+                }
+            }
         }
         /*
             
