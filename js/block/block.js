@@ -20,6 +20,10 @@ function Block() {
     this.getRenderType = function() {
         return 0;
     }
+    
+    this.isOpaque = function() {
+        return true;
+    }
 }
 
 Block.SIDE_FRONT = 0;

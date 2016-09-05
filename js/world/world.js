@@ -35,7 +35,7 @@ function World(p_name,p_type){
                     if(layer != undefined){
                         for(var x = 0; x < layer.length; x++){
                             for(var z = 0; z < layer[x].length; z++){
-                                BlockRenderer.renderBlock(blockBuffer, chunk.getX()*Chunk.width+x, y, chunk.getZ()*Chunk.width+z, layer[x][z]);
+                                BlockRenderer.renderBlock(blockBuffer, chunk.getX()*Chunk.width+x, y, chunk.getZ()*Chunk.width+z, this, layer[x][z]);
                             }
                         }
                     }
@@ -81,6 +81,15 @@ function World(p_name,p_type){
         }
         
         chunk.layers[p_y][p_x-chunk.getX()*Chunk.width][p_z-chunk.getZ()*Chunk.width] = p_blockData;
+    }
+    
+    this.getBlock = function(p_x, p_y, p_z) {
+        if(p_x == undefined || p_y == undefined || p_z == undefined) return undefined;
+        var chunk = this.getChunkForBlockCoords(p_x, p_y, p_z);
+        if(chunk == undefined) return undefined;
+        if(chunk.layers[p_y] == undefined) return undefined;
+        
+        return chunk.layers[p_y][p_x-chunk.getX()*Chunk.width][p_z-chunk.getZ()*Chunk.width];
     }
     
     this.generateChunk = function(p_x, p_z) {
