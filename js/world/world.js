@@ -6,6 +6,7 @@ function World(p_name,p_type){
 	this.name = p_name;
 	this.chunks = new Array(0);
     this.blockMesh = undefined;
+    this.noiseGenerator = new NoiseGenerator(0);
     
 	this.getName = function() {
 		return this.name;
@@ -130,7 +131,7 @@ function World(p_name,p_type){
             for(var i = 0; i < Chunk.width*Chunk.width; i++){
                 var x = i%Chunk.width;
                 var z = Math.floor(i/Chunk.width);
-                var height = 6+Math.floor(Math.random()*5);
+                var height = 6+Math.floor(this.noiseGenerator.getNoise(chunkBlockX+x, chunkBlockZ+z)*5);
                 for(var y = 0; y < height; y++){
                     var blockID = y == 0 ? Blocks.nameToIDMap["bedrock"] : y == height-1 ? Blocks.nameToIDMap["grass"] : Blocks.nameToIDMap["stone"];
                     this.setBlock(chunkBlockX+x, y, chunkBlockZ+z, {id: blockID});
