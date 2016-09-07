@@ -140,7 +140,7 @@ function World(p_name,p_type){
     
     this.getBlock = function(p_x, p_y, p_z) {
         if(p_x == undefined || p_y == undefined || p_z == undefined) return undefined;
-        var chunk = this.getChunkForBlockCoords(p_x, p_y, p_z);
+        var chunk = this.getChunkForBlockCoords(p_x, p_z);
         if(chunk == undefined) return undefined;
         if(chunk.layers[p_y] == undefined) return undefined;
         
@@ -195,9 +195,9 @@ function World(p_name,p_type){
             for(var i = 0; i < Chunk.width*Chunk.width; i++){
                 var x = i%Chunk.width;
                 var z = Math.floor(i/Chunk.width);
-                var height = 6+Math.floor(this.noiseGenerator.getNoise((chunkBlockX+x)*0.02, (chunkBlockZ+z)*0.02)*5) + Math.floor(this.noiseGeneratorLarge.getNoise((chunkBlockX+x)*0.0002, (chunkBlockZ+z)*0.0002)*10);
+                var height = 6+Math.floor(this.noiseGenerator.getNoise((chunkBlockX+x)*0.02, (chunkBlockZ+z)*0.02)*5) + Math.floor(Math.pow(this.noiseGeneratorLarge.getNoise((chunkBlockX+x)*0.005, (chunkBlockZ+z)*0.005), 2)*10);
                 for(var y = 0; y < height; y++) {
-                    var blockID = y == 0 ? Blocks.nameToIDMap["bedrock"] : y == height-1 ? Blocks.nameToIDMap["grass"] : Blocks.nameToIDMap["stone"];
+                    var blockID = y == 0 ? Blocks.nameToIDMap["bedrock"] : y == height-1 ? Blocks.nameToIDMap["grass"] : y > height-5 ? Blocks.nameToIDMap["dirt"] : Blocks.nameToIDMap["stone"];
                     this.setBlock(chunkBlockX+x, y, chunkBlockZ+z, {id: blockID});
                 }
             }
@@ -256,7 +256,7 @@ function World(p_name,p_type){
         var playerChunkX = Math.floor(Camera.getX()/Chunk.width);
         var playerChunkZ = Math.floor(Camera.getZ()/Chunk.width);
         
-        var radius = 1;
+        var radius = 3;
         for(var x = -radius; x <= radius; x++) {
             for(var z = -radius; z <= radius; z++) {
                 if(this.getChunk(playerChunkX+x, playerChunkZ+z) == undefined)
