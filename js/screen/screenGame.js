@@ -22,8 +22,7 @@ function createGameScreen() {
             Camera.setTarget(0, 0, -10);
             Camera.rotation.y = 180;
             
-            World.world.blockMesh = new Mesh();
-            World.world.renderBlocks();
+            setInterval(World.updateChunks, 1000);
         },
         
         update: function(deltaTime) {

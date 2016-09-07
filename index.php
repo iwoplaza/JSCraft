@@ -5,6 +5,7 @@
         
         <script type="text/javascript" src="js/lib/gl-matrix.js"></script>
         <script type="text/javascript" src="js/lib/jquery.js"></script>
+        <script type="text/javascript" src="js/lib/perlin-noise-simplex.js"></script>
         
         <script type="text/javascript" src="js/util/vector2f.js"></script>
         <script type="text/javascript" src="js/util/vector3f.js"></script>
@@ -26,7 +27,6 @@
         <script type="text/javascript" src="js/graphics/font.js"></script>
         <script type="text/javascript" src="js/graphics/sprite.js"></script>
         <script type="text/javascript" src="js/graphics/texture.js"></script>
-        <script type="text/javascript" src="js/graphics/gui.js"></script>
         <script type="text/javascript" src="js/graphics/draw.js"></script>
         <script type="text/javascript" src="js/graphics/mesh.js"></script>
         <script type="text/javascript" src="js/graphics/animation2d.js"></script>

@@ -5,8 +5,10 @@ function World(p_name,p_type){
     //Public variables
 	this.name = p_name;
 	this.chunks = new Array(0);
-    this.blockMesh = undefined;
     this.noiseGenerator = new NoiseGenerator(0);
+    this.currentlyLoadingChunk = undefined;
+    this.chunksToLoad = new Array(0);
+    this.chunksToRender = new Array(0);
     
 	this.getName = function() {
 		return this.name;
@@ -16,9 +18,10 @@ function World(p_name,p_type){
         return type;
     }
     
-	this.renderBlocks = function() {
-        var chunkKeys = Object.keys(this.chunks);
-        console.dir(chunkKeys);
+	this.renderChunk = function(p_x, p_z) {
+        var chunk = this.getChunk(p_x, p_z);
+        
+        //console.log("Rendering a chunk at: ", [chunk.getX(), chunk.getZ()]);
         
         var blockBuffer = {
             vertices: new Array(0),
@@ -27,28 +30,78 @@ function World(p_name,p_type){
             normals: new Array(0)
         };
         
-        if(chunkKeys != undefined) {
-            for(var i = 0; i < chunkKeys.length; i++){
-                var chunk = this.chunks[chunkKeys[i]];
-                for(var y = 0; y < chunk.layers.length; y++){
-                    var layer = chunk.layers[y];
-                    if(layer != undefined){
-                        for(var x = 0; x < layer.length; x++){
-                            for(var z = 0; z < layer[x].length; z++){
-                                BlockRenderer.renderBlock(blockBuffer, chunk.getX()*Chunk.width+x, y, chunk.getZ()*Chunk.width+z, this, layer[x][z]);
-                            }
-                        }
+        chunk.rendered = true;
+        
+        for(var y = 0; y < chunk.layers.length; y++){
+            var layer = chunk.layers[y];
+            if(layer != undefined){
+                for(var x = 0; x < layer.length; x++){
+                    for(var z = 0; z < layer[x].length; z++){
+                        BlockRenderer.renderBlock(blockBuffer, p_x*Chunk.width+x, y, p_z*Chunk.width+z, this, layer[x][z]);
                     }
                 }
             }
         }
         
-        this.blockMesh.fillOut(blockBuffer.vertices, blockBuffer.colors, blockBuffer.texCoords, blockBuffer.normals);
+        if(chunk.layers.length <= 0) {
+            chunk.rendered = false;
+            console.error("The chunk has 0 layers");
+        }
+        
+        chunk.blockMesh.fillOut(blockBuffer.vertices, blockBuffer.colors, blockBuffer.texCoords, blockBuffer.normals);
 	}
     
     this.display = function() {
+        var chunkKeys = Object.keys(this.chunks);
+        
         TextureManager.bindTexture(TextureManager.database["res/textures/blocks.png"].textureId);
-        this.blockMesh.draw();
+        if(chunkKeys != undefined) {
+            for(var i = 0; i < chunkKeys.length; i++){
+                var chunk = this.chunks[chunkKeys[i]];
+                if(chunk.rendered) chunk.blockMesh.draw();
+            }
+        }
+    }
+    
+    this.updateChunksToLoad = function() {
+        var chunkKeys = Object.keys(this.chunks);
+        this.chunksToLoad = this.getChunkCoordsToLoad();
+        
+        if(chunkKeys != undefined) {
+            for(var i = 0; i < chunkKeys.length; i++){
+                var chunk = this.chunks[chunkKeys[i]];
+                if(chunk.dirty) {
+                    this.chunksToRender.push([chunk.getX(), chunk.getZ()]);
+                    chunk.dirty = false;
+                }
+            }
+        }
+    }
+    
+    this.updateChunks = function() {
+        this.updateChunksToLoad();
+        
+        var chunksToLoadKeys = Object.keys(this.chunksToLoad);
+        for(var i = 0; i < chunksToLoadKeys.length; i++) {
+            var chunk = this.chunksToLoad[chunksToLoadKeys[i]];
+            this.loadChunk(chunk[0], chunk[1]);
+        }
+        
+        //console.log("Updating chunks");
+        
+        this.renderChunks();
+    }
+    
+    this.renderChunks = function() {
+        for(var i = 0; i < this.chunksToRender.length; i++) {
+            var chunk = this.chunksToRender[i];
+            if(chunk != undefined){
+                this.renderChunk(chunk[0], chunk[1]);
+                this.chunksToRender.splice(i, 1);
+            }
+            
+            //console.log("Rendering chunk", [chunk[0], chunk[1]]);
+        }
     }
     
     this.getChunk = function(p_x, p_z) {
@@ -68,7 +121,7 @@ function World(p_name,p_type){
     
     this.setBlock = function(p_x, p_y, p_z, p_blockData) {
         if(p_blockData == undefined || p_x == undefined || p_y == undefined || p_z == undefined) return;
-        var chunk = this.getChunkForBlockCoords(p_x, p_y, p_z);
+        var chunk = this.getChunkForBlockCoords(p_x, p_z);
         if(chunk == undefined) return;
         if(chunk.layers[p_y] == undefined) {
             chunk.layers[p_y] = new Array(0);
@@ -81,6 +134,7 @@ function World(p_name,p_type){
         }
         
         chunk.layers[p_y][p_x-chunk.getX()*Chunk.width][p_z-chunk.getZ()*Chunk.width] = p_blockData;
+        chunk.dirty = true;
     }
     
     this.getBlock = function(p_x, p_y, p_z) {
@@ -187,13 +241,32 @@ function World(p_name,p_type){
         */
     }
     
-    this.generateTerrain = function(){
-        for(var x = 0; x < 4; x++) {
-            for(var z = 0; z < 4; z++) {
-                this.generateChunk(x, z);
+    this.loadChunk = function(p_x, p_z) {
+        this.generateChunk(p_x, p_z);
+    }
+    
+    this.unloadChunk = function(p_x, p_z) {
+        delete this.chunks[""+p_x+"x"+p_z];
+    }
+    
+    this.getChunkCoordsToLoad = function() {
+        var list = new Array(0);
+        
+        var playerChunkX = Math.floor(Camera.getX()/Chunk.width);
+        var playerChunkZ = Math.floor(Camera.getZ()/Chunk.width);
+        
+        var radius = 1;
+        for(var x = -radius; x <= radius; x++) {
+            for(var z = -radius; z <= radius; z++) {
+                if(this.getChunk(playerChunkX+x, playerChunkZ+z) == undefined)
+                    list.push([playerChunkX+x, playerChunkZ+z]);
             }
         }
-	}
-    
-    this.generateTerrain();
+        
+        return list;
+    }
+}
+
+World.updateChunks = function() {
+    World.world.updateChunks();
 }
