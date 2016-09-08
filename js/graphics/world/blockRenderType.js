@@ -208,3 +208,19 @@ BlockRenderType.renderBox = function(p_buffer, p_x, p_y, p_z, p_w, p_h, p_l, p_t
 BlockRenderType.register(0, function(p_buffer, p_x, p_y, p_z, p_textureIndicies, p_showFaces) {
     BlockRenderType.renderBox(p_buffer, p_x, p_y, p_z, 1, 1, 1, p_textureIndicies, p_showFaces);
 });
+
+BlockRenderType.renderCross(){
+    var offsetX = p_x+0.5;
+    var offsetY = p_y;
+    var offsetZ = p_z+0.5;
+    var width = 1/Math.sqrt(2);
+    var height = 1;
+    p_buffer.vertices.push.apply(p_buffer.vertices,{
+        offsetX-width/2,offsetY+height,offsetZ-width/2,
+        offsetX+width/2,offsetY+height,offsetZ+width/2,
+        offsetX+width/2,offsetY,offsetZ+width/2,
+        offsetX-width/2,offsetY+height,offsetZ-width/2,
+        offsetX+width/2,offsetY,offsetZ+width/2
+    })
+    
+}
