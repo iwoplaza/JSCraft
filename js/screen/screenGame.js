@@ -22,6 +22,9 @@ function createGameScreen() {
             Camera.setTarget(0, 0, -10);
             Camera.rotation.y = 180;
             
+            this.currentGui = new guiInventory();
+            this.currentGui.init();
+            
             setInterval(World.updateChunks, 1000);
         },
         
@@ -107,6 +110,8 @@ function createGameScreen() {
             
             GLHelper.resetToWorldMatrix();
             World.world.display();
+            
+            this.currentGui.playerInventory();
         },
         
         onKeyPressed: function(event) {

@@ -33,6 +33,7 @@
         <script type="text/javascript" src="js/graphics/lightmap.js"></script>
         <script type="text/javascript" src="js/graphics/world/blockRenderer.js"></script>
         <script type="text/javascript" src="js/graphics/world/blockRenderType.js"></script>
+        <script type="text/javascript" src="js/graphics/gui/guiInventory.js"></script>
         <script type="text/javascript" src="js/screen/screen.js"></script>
         <script type="text/javascript" src="js/screen/screenGame.js"></script>
         <script type="text/javascript" src="js/block/block.js"></script>
