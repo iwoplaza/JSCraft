@@ -267,6 +267,72 @@ function World(p_name,p_type){
         
         return list;
     }
+    
+    this.isBlockLoaded = function() {
+        return true;
+    }
+    
+    this.getCollisionBoxes = function(p_boundingBox)
+    {
+        var list = new Array(0);
+        var minX = Math.floor(p_boundingBox.getMinX()) - 1;
+        var maxX = Math.ceil(p_boundingBox.getMaxX()) + 1;
+        var minY = Math.floor(p_boundingBox.getMinY()) - 1;
+        var maxY = Math.ceil(p_boundingBox.getMaxY()) + 1;
+        var minZ = Math.floor(p_boundingBox.getMinZ()) - 1;
+        var maxZ = Math.ceil(p_boundingBox.getMaxZ()) + 1;
+
+        for (var currX = minX; currX < maxX; currX++) //k1
+        {
+            for (var currZ = minZ; currZ < maxZ; currZ++) //l1
+            {
+                var onSides = (currX != minX && currX != maxX - 1 ? 0 : 1) + (currZ != minZ && currZ != maxZ - 1 ? 0 : 1);
+
+                if (onSides != 2 && this.isBlockLoaded(currX, 64, currZ))
+                {
+                    for (var currY = minY; currY < maxY; currY++) //j2
+                    {
+                        if (onSides <= 0 || currY != minY && currY != maxY - 1)
+                        {
+                            var blockData = this.getBlock(currX, currY, currZ);
+                            if(blockData != undefined && Blocks.getBlock(blockData.id) != undefined){
+                                list.push(Blocks.getBlock(blockData.id).getBoundingBox(blockData).getAdded(currX, currY, currZ));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /*if (entityIn != null)
+        {
+            List<Entity> list1 = this.getEntitiesWithinAABBExcludingEntity(entityIn, aabb.expandXyz(0.25D));
+
+            for (int k2 = 0; k2 < list1.size(); ++k2)
+            {
+                Entity entity = (Entity)list1.get(k2);
+
+                if (!entityIn.isRidingSameEntity(entity))
+                {
+                    AxisAlignedBB axisalignedbb = entity.getCollisionBoundingBox();
+
+                    if (axisalignedbb != null && axisalignedbb.intersectsWith(aabb))
+                    {
+                        list.add(axisalignedbb);
+                    }
+
+                    axisalignedbb = entityIn.getCollisionBox(entity);
+
+                    if (axisalignedbb != null && axisalignedbb.intersectsWith(aabb))
+                    {
+                        list.add(axisalignedbb);
+                    }
+                }
+            }
+        }*/
+
+        return list;
+    }
 }
 
 World.updateChunks = function() {

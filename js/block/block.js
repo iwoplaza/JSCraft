@@ -1,5 +1,6 @@
 function Block() {
     this.defaultTextureIndex = 0;
+    this.boundingBox = new BoundingBox(0, 0, 0, 1, 1, 1);
     
     this.setDefaultTextureIndex = function(p_index) {
         this.defaultTextureIndex = p_index;
@@ -23,6 +24,10 @@ function Block() {
     
     this.isOpaque = function() {
         return true;
+    },
+    
+    this.getBoundingBox = function(p_blockData) {
+        return this.boundingBox;
     }
 }
 

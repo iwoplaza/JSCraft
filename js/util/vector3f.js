@@ -27,6 +27,10 @@ function Vector3f(p_x, p_y, p_z) {
         this.z += p_vec.z;
     };
     
+    this.getAdded = function(p_vec) {
+        return new Vector3f(this.x + p_vec.x, this.y + p_vec.y, this.z + p_vec.z);
+    };
+    
     this.getMultiplied = function(p_x, p_y, p_z) {
         p_y = p_y || p_x;
         p_z = p_z || p_x;

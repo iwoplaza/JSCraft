@@ -2,17 +2,21 @@ var Player;
 
 function initPlayer() {
 	Player = {
-		loc: new Vector3f(0, 0),
-		vel: new Vector3f(0, 0),
-        prevLoc: new Vector3f(0, 0),
+		loc: new Vector3f(0, 0, 0),
+		vel: new Vector3f(0, 0, 0),
+        prevLoc: new Vector3f(0, 0, 0),
         headRotation: new Vector2f(0, 0),
-		onGround: true,
+		onGround: false,
         isWalking: false,
         isSprinting: false,
 		timeInAir: 0,
 		timeOnGround: 0,
         footstepSoundCooldown: 0,
         sprintSoundCooldown: 0,
+        boundingBox: new BoundingBox(-0.4, 0, -0.4, 0.8, 1.85, 0.8),
+        eyeOffset: new Vector3f(0, 1.65, 0),
+        noClip: false,
+        worldObj: undefined,
         
 		update: function(deltaTime) {
             this.isWalking = false;
@@ -48,15 +52,15 @@ function initPlayer() {
                 this.isWalking = true;
             }
             
-            if(keyState[32]) {
-                this.vel.y = this.getWalkSpeed();
-            }else if(keyState[90]) {
-                this.vel.y = -this.getWalkSpeed();
-            }else{
-                this.vel.y = 0;
+            if(keyState[32] && this.onGround) {
+                this.vel.y = 0.017;
             }
             
-            if(this.isWalking && keyState[32] && this.canSprint()) this.isSprinting = true;
+            if(World.world.getChunkForBlockCoords(this.loc.x, this.loc.z) != undefined && World.world.getChunkForBlockCoords(this.loc.x, this.loc.z).rendered){
+                this.vel.y -= 0.0012;
+            }
+            
+            if(this.isWalking && keyState[16] && this.canSprint()) this.isSprinting = true;
             else this.isSprinting = false;
             
             if(this.footstepSoundCooldown > 0){
@@ -102,12 +106,65 @@ function initPlayer() {
             this.prevLoc.x = this.loc.x;
             this.prevLoc.y = this.loc.y;
             this.prevLoc.z = this.loc.z;
-			this.loc.x += this.vel.x*deltaTime;
-			this.loc.y += this.vel.y*deltaTime;
-            this.loc.z += this.vel.z*deltaTime;
             
-            Camera.set(this.loc);
+            this.moveByVelocity(deltaTime);
+            
+            Camera.set(this.loc.getAdded(this.getEyeOffset()));
 		},
+        
+        moveByVelocity: function(deltaTime) {
+            if(this.noClip) {
+                this.loc.add(this.vel.getMultiplied(deltaTime));
+            }else{
+                var axisalignedbb = this.getBoundingBox().getAdded(this.loc);
+                var list1 = World.world.getCollisionBoxes(axisalignedbb.getAdded(this.vel.getMultiplied(deltaTime)));
+                
+                var x = this.vel.x*deltaTime;
+                var y = this.vel.y*deltaTime;
+                var z = this.vel.z*deltaTime;
+                var xObs = false;
+                var yObs = false;
+                var zObs = false;
+                
+                for (var i = 0; i < list1.length; i++)
+                {
+                    y = list1[i].calculateYOffset(axisalignedbb, y);
+                }
+                
+                var i_ = this.onGround || this.vel.y != y && this.vel.y < 0.0;
+
+                for (var i = 0; i < list1.length; i++)
+                {
+                    x = list1[i].calculateXOffset(axisalignedbb, x);
+                }
+                
+                for (var i = 0; i < list1.length; i++)
+                {
+                    z = list1[i].calculateZOffset(axisalignedbb, z);
+                }
+                
+                if(x != this.vel.x*deltaTime) {
+                    this.loc.x += x;
+                    this.vel.x = 0;
+                }
+                
+                if(y != this.vel.y*deltaTime) {
+                    this.loc.y += y;
+                    this.vel.y = 0;
+                    
+                    if(this.vel.y*deltaTime < 0) this.onGround = true;
+                }else{
+                    this.onGround = false;
+                }
+                
+                if(z != this.vel.z*deltaTime) {
+                    this.loc.z += z;
+                    this.vel.z = 0;
+                }
+                
+                this.loc.add(this.vel.getMultiplied(deltaTime));
+            }
+        },
 
 		display: function() {
             if(this.inCloset)  return;
@@ -251,17 +308,11 @@ function initPlayer() {
 		},
         
         getWalkSpeed: function() {
-            return this.isSprinting ? 0.02 : 0.02;
+            return this.isSprinting ? 0.012 : 0.006;
         },
         
-        getBounds: function() {
-            return {
-                type: "box",
-                x: -this.getWidth()/2,
-                y: 0,
-                width: this.getWidth(),
-                height: this.getHeight()
-            };
+        getBoundingBox: function() {
+            return this.boundingBox;
         },
         
         getMovedBounds: function() {
@@ -276,6 +327,10 @@ function initPlayer() {
             bounds.x += this.loc.x+this.vel.x;
             bounds.y += this.loc.y+this.vel.y;
             return bounds;
+        },
+        
+        getEyeOffset: function() {
+            return this.eyeOffset;
         },
         
         canSprint: function() {

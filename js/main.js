@@ -70,7 +70,6 @@ function webGLStart() {
     canvas = document.getElementById("gameCanvas");
     initGL();
     initShaders();
-    initPlayer();
     PointerLock.init(canvas);
     
 	for(var i = 0; i < keyState.length; i++){

@@ -19,8 +19,10 @@ function createGameScreen() {
             this.floatingCubeRO = new Mesh();
             drawTexturedCube(this.floatingCubeRO, -2, -2, -2, 4, 4, 4, [1, 0.7, 0.5, 1]);
             
-            Camera.setTarget(0, 0, -10);
-            Camera.rotation.y = 180;
+            initPlayer();
+            Player.worldObj = World.world;
+            Player.loc.y = 35;
+            Camera.rotation.y = 180.0;
             
             this.currentGui = new guiInventory();
             this.currentGui.init();
@@ -55,7 +57,7 @@ function createGameScreen() {
             gl.clearColor(0.2, 0.7, 1, 1);
             gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
             
-            GLHelper.perspective(45, gl.viewportWidth/gl.viewportHeight, 0.1, 1000.0);
+            GLHelper.perspective(75, gl.viewportWidth/gl.viewportHeight, 0.1, 1000.0);
             GLHelper.identityModel();
 
             GLHelper.resetToWorldMatrix();
@@ -67,6 +69,19 @@ function createGameScreen() {
             
             GLHelper.resetToWorldMatrix();
             World.world.display();
+            
+            gl.depthFunc(gl.ALWAYS);
+            GLHelper.resetToWorldMatrix();
+            var list = World.world.getCollisionBoxes(Player.getBoundingBox().getAdded(Player.loc));
+            if(list != undefined)
+            for(var i = 0; i < list.length; i++) {
+                GLHelper.saveState();
+                GLHelper.translate([list[i].getMinX(), list[i].getMinY(), list[i].getMinZ()]);
+                GLHelper.scale([0.01, 0.01, 0.01]);
+                this.floatingCubeRO.draw();
+                GLHelper.loadState();
+            }
+            gl.depthFunc(gl.LEQUAL);
             
             this.currentGui.playerInventory();
         },
