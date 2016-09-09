@@ -55,6 +55,7 @@ function World(p_name,p_type){
     this.display = function() {
         var chunkKeys = Object.keys(this.chunks);
         
+        useShader("blocks");
         TextureManager.bindTexture(TextureManager.database["res/textures/blocks.png"].textureId);
         if(chunkKeys != undefined) {
             for(var i = 0; i < chunkKeys.length; i++){

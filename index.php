@@ -49,6 +49,7 @@
             require 'res/shader/default.html';
             require 'res/shader/font.html';
             require 'res/shader/sprite.html';
+            require 'res/shader/blocks.html';
         ?>
         
         <h1>JSCraft</h1>

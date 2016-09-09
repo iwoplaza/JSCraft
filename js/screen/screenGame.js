@@ -40,56 +40,13 @@ function createGameScreen() {
                 this.animationProgress-=1;
             }
             
-            if(keyState[key_Down]) {
-                var forward = Camera.getForwardVector().getMultiplied(-1);
-                forward.multiply(0.02*deltaTime);
-                Camera.moveTarget(forward);
-            }
-            
-            if(keyState[key_Up]) {
-                var forward = Camera.getForwardVector();
-                forward.multiply(0.02*deltaTime);
-                Camera.moveTarget(forward);
-            }
-            
-            if(keyState[key_Left]) {
-                var left = Camera.getRightVector().getMultiplied(-1);
-                left.multiply(0.02*deltaTime);
-                Camera.moveTarget(left);
-            }
-            
-            if(keyState[key_Right]) {
-                var right = Camera.getRightVector();
-                right.multiply(0.02*deltaTime);
-                Camera.moveTarget(right);
-            }
-            
-            if(keyState[32]) {
-                Camera.moveTarget(0, 0.02*deltaTime, 0);
-            }
-            
-            if(keyState[90]) {
-                Camera.moveTarget(0, -0.02*deltaTime, 0);
-            }
-            
-            if(keyState[69]) {
-                Camera.rotation.y += 2;
-            }
-            
-            if(keyState[81]) {
-                Camera.rotation.y -= 2;
-            }
-            
-            if(keyState[69]) {
-                Camera.rotation.y += 2;
-            }
-            
             if(PointerLock.isLocked()) {
                 var mouseSensitivity = 0.7;
                 Camera.rotation.y += Mouse.movementX*mouseSensitivity;
                 Camera.rotation.x += Mouse.movementY*mouseSensitivity;
             }
             
+            Player.update(deltaTime);
             Camera.update(deltaTime);
         },
         

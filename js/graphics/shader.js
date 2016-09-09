@@ -6,6 +6,10 @@ function initShaders() {
         gl.uniform4f(gl.getUniformLocation(program, "uGlobalColor"), 1, 1, 1, 1);
     });
     
+    createShader("blocks", function(program) {
+        gl.uniform4f(gl.getUniformLocation(program, "uGlobalColor"), 1, 1, 1, 1);
+    });
+    
     useShader("default");
 }
 

@@ -53,6 +53,12 @@ var Camera = {
     },
     
     set: function(p_x, p_y, p_z) {
+        if(p_x.x != undefined) {
+            p_y = p_x.y;
+            p_z = p_x.z;
+            p_x = p_x.x;
+        }
+        
         this.targetLocation.x = p_x;
         this.targetLocation.y = p_y;
         this.targetLocation.z = p_z;
