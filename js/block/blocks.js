@@ -50,6 +50,8 @@ var Blocks = {
 
 Blocks.addBlockTypeToLoadQueue("blockGrass");
 Blocks.addBlockTypeToLoadQueue("blockLog");
+Blocks.addBlockTypeToLoadQueue("blockCross");
+Blocks.addBlockTypeToLoadQueue("blockLeaves");
 
 Blocks.registerCallback(function() {
     Blocks.registerBlock("air", undefined);
@@ -66,12 +68,15 @@ Blocks.registerCallback(function() {
     Blocks.registerBlock("bedrock", new Block().setDefaultTextureIndex(11));
     Blocks.registerBlock("cobblestone", new Block().setDefaultTextureIndex(12));
     Blocks.registerBlock("log", new BlockLog().setDefaultTextureIndex(13));
-    Blocks.registerBlock("leaves", new Block().setDefaultTextureIndex(15));
+    Blocks.registerBlock("leaves", new BlockLeaves().setDefaultTextureIndex(15));
     Blocks.registerBlock("sand", new Block().setDefaultTextureIndex(16));
     Blocks.registerBlock("crate", new Block().setDefaultTextureIndex(17));
+    Blocks.registerBlock("mushroom", new BlockCross().setDefaultTextureIndex(18));
     Blocks.registerBlock("clay", new Block().setDefaultTextureIndex(19));
     Blocks.registerBlock("doggy", new Block().setDefaultTextureIndex(20));
     Blocks.registerBlock("monalisa", new Block().setDefaultTextureIndex(21));
+    Blocks.registerBlock("wooden_planks", new Block().setDefaultTextureIndex(22));
+    Blocks.registerBlock("tall_grass", new BlockCross().setDefaultTextureIndex(23));
     
     var some = new BlockGrass().setDefaultTextureIndex(2);
     console.dir(some);

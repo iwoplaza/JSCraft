@@ -205,11 +205,9 @@ BlockRenderType.renderBox = function(p_buffer, p_x, p_y, p_z, p_w, p_h, p_l, p_t
     ]);
 }
 
-BlockRenderType.register(0, function(p_buffer, p_x, p_y, p_z, p_textureIndicies, p_showFaces) {
-    BlockRenderType.renderBox(p_buffer, p_x, p_y, p_z, 1, 1, 1, p_textureIndicies, p_showFaces);
-});
-
-BlockRenderType.renderCross = function(){
+BlockRenderType.renderCross = function(p_buffer, p_x, p_y, p_z, p_w, p_h, p_l, p_textureIndicies, p_showFaces){
+    var texturePadding = 0.3/2048;
+    
     var offsetX = p_x+0.5;
     var offsetY = p_y;
     var offsetZ = p_z+0.5;
@@ -219,7 +217,121 @@ BlockRenderType.renderCross = function(){
         offsetX-width/2,offsetY+height,offsetZ-width/2,
         offsetX+width/2,offsetY+height,offsetZ+width/2,
         offsetX+width/2,offsetY,offsetZ+width/2,
+        offsetX-width/2,offsetY,offsetZ-width/2,
         offsetX-width/2,offsetY+height,offsetZ-width/2,
-        offsetX+width/2,offsetY,offsetZ+width/2
-    ]);  
+        offsetX+width/2,offsetY,offsetZ+width/2,
+    ]);
+    p_buffer.vertices.push.apply(p_buffer.vertices,[
+        offsetX+width/2,offsetY+height,offsetZ+width/2,
+        offsetX-width/2,offsetY+height,offsetZ-width/2,
+        offsetX+width/2,offsetY,offsetZ+width/2,
+        offsetX-width/2,offsetY+height,offsetZ-width/2,
+        offsetX-width/2,offsetY,offsetZ-width/2,
+        offsetX+width/2,offsetY,offsetZ+width/2,
+    ]);
+    
+    p_buffer.vertices.push.apply(p_buffer.vertices,[
+        offsetX-width/2,offsetY+height,offsetZ+width/2,
+        offsetX+width/2,offsetY+height,offsetZ-width/2,
+        offsetX+width/2,offsetY,offsetZ-width/2,
+        offsetX-width/2,offsetY,offsetZ+width/2,
+        offsetX-width/2,offsetY+height,offsetZ+width/2,
+        offsetX+width/2,offsetY,offsetZ-width/2,
+    ]);
+    p_buffer.vertices.push.apply(p_buffer.vertices,[
+        offsetX+width/2,offsetY+height,offsetZ-width/2,
+        offsetX-width/2,offsetY+height,offsetZ+width/2,
+        offsetX+width/2,offsetY,offsetZ-width/2,
+        offsetX-width/2,offsetY+height,offsetZ+width/2,
+        offsetX-width/2,offsetY,offsetZ+width/2,
+        offsetX+width/2,offsetY,offsetZ-width/2,
+    ]);
+    
+    var u = new Array(0);
+    var v = new Array(0);
+    
+    for(var i = 0; i < 4*6; i++) {
+        u.push(p_textureIndicies[i]%64);
+        v.push(Math.floor(p_textureIndicies[i]/64));
+    }
+    p_buffer.texCoords.push.apply(p_buffer.texCoords, [
+        (u[0]+1)/64-texturePadding, (v[0]+0)/64+texturePadding,
+        (u[0]+0)/64+texturePadding, (v[0]+0)/64+texturePadding,
+        (u[0]+0)/64+texturePadding, (v[0]+1)/64-texturePadding,
+        (u[0]+1)/64-texturePadding, (v[0]+1)/64-texturePadding,
+        (u[0]+1)/64-texturePadding, (v[0]+0)/64+texturePadding,
+        (u[0]+0)/64+texturePadding, (v[0]+1)/64-texturePadding,
+    ]);
+    p_buffer.texCoords.push.apply(p_buffer.texCoords, [
+        (u[1]+0)/64+texturePadding, (v[1]+0)/64+texturePadding,
+        (u[1]+1)/64-texturePadding, (v[1]+0)/64+texturePadding,
+        (u[1]+0)/64+texturePadding, (v[1]+1)/64-texturePadding,
+        (u[1]+1)/64-texturePadding, (v[1]+0)/64+texturePadding,
+        (u[1]+1)/64-texturePadding, (v[1]+1)/64-texturePadding,
+        (u[1]+0)/64+texturePadding, (v[1]+1)/64-texturePadding,
+    ]);
+    
+    p_buffer.texCoords.push.apply(p_buffer.texCoords, [
+        (u[0]+1)/64-texturePadding, (v[0]+0)/64+texturePadding,
+        (u[0]+0)/64+texturePadding, (v[0]+0)/64+texturePadding,
+        (u[0]+0)/64+texturePadding, (v[0]+1)/64-texturePadding,
+        (u[0]+1)/64-texturePadding, (v[0]+1)/64-texturePadding,
+        (u[0]+1)/64-texturePadding, (v[0]+0)/64+texturePadding,
+        (u[0]+0)/64+texturePadding, (v[0]+1)/64-texturePadding,
+    ]);
+    p_buffer.texCoords.push.apply(p_buffer.texCoords, [
+        (u[1]+0)/64+texturePadding, (v[1]+0)/64+texturePadding,
+        (u[1]+1)/64-texturePadding, (v[1]+0)/64+texturePadding,
+        (u[1]+0)/64+texturePadding, (v[1]+1)/64-texturePadding,
+        (u[1]+1)/64-texturePadding, (v[1]+0)/64+texturePadding,
+        (u[1]+1)/64-texturePadding, (v[1]+1)/64-texturePadding,
+        (u[1]+0)/64+texturePadding, (v[1]+1)/64-texturePadding,
+    ]);
+      
+	for(var i = 0; i < 4*6; i++) {
+		p_buffer.colors.push(1);
+		p_buffer.colors.push(1);
+        p_buffer.colors.push(1);
+        p_buffer.colors.push(1);
+	}
+    
+    p_buffer.normals.push.apply(p_buffer.normals,  [
+        0, 0, 1,
+        0, 0, 1,
+        0, 0, 1,
+        0, 0, 1,
+        0, 0, 1,
+        0, 0, 1
+    ]);
+    p_buffer.normals.push.apply(p_buffer.normals,  [
+        0, 0, 1,
+        0, 0, 1,
+        0, 0, 1,
+        0, 0, 1,
+        0, 0, 1,
+        0, 0, 1
+    ]);
+    p_buffer.normals.push.apply(p_buffer.normals,  [
+        0, 0, 1,
+        0, 0, 1,
+        0, 0, 1,
+        0, 0, 1,
+        0, 0, 1,
+        0, 0, 1
+    ]);
+    p_buffer.normals.push.apply(p_buffer.normals,  [
+        0, 0, 1,
+        0, 0, 1,
+        0, 0, 1,
+        0, 0, 1,
+        0, 0, 1,
+        0, 0, 1
+    ]);
 }
+
+BlockRenderType.register(0, function(p_buffer, p_x, p_y, p_z, p_textureIndicies, p_showFaces) {
+    BlockRenderType.renderBox(p_buffer, p_x, p_y, p_z, 1, 1, 1, p_textureIndicies, p_showFaces);
+});
+BlockRenderType.register(1, function(p_buffer, p_x, p_y, p_z, p_textureIndicies, p_showFaces) {
+    BlockRenderType.renderCross(p_buffer, p_x, p_y, p_z, 1, 1, 1, p_textureIndicies, p_showFaces);
+});

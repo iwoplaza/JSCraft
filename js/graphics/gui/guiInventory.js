@@ -1,4 +1,4 @@
-function guiInventory(){
+function GuiInventory(){
     this.init = function(){
         this.guiInventory = new Mesh();
     },
