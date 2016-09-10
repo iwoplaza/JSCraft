@@ -17,6 +17,7 @@ function initPlayer() {
         eyeOffset: new Vector3f(0, 1.65, 0),
         noClip: false,
         worldObj: undefined,
+        objectMouseOver: undefined,
         
 		update: function(deltaTime) {
             this.isWalking = false;
@@ -92,16 +93,42 @@ function initPlayer() {
 				this.timeInAir++;
 				this.timeOnGround = 0;
 			}
-            
-            //this.vel.y-=this.getMass();
-            
-			var lastOnGround = this.onGround;
-            
-            this.onGround = true;
-			
-			if(this.onGround && !lastOnGround){
-				//playSound("land");
-			}
+        
+            //Ray Tracing
+            var list1 = new Array(0);
+            var scanRange = 4;
+            var playerBlockPos = this.getBlockPos();
+            for(var x = -scanRange; x < scanRange; x++) {
+                for(var y = -scanRange; y < scanRange; y++) {
+                    for(var z = -scanRange; z < scanRange; z++) {
+                        if(World.world.getChunkForBlockCoords(playerBlockPos.x+x, playerBlockPos.y+y, playerBlockPos.z+z) != undefined) {
+                            var blockData = World.world.getBlock(playerBlockPos.x+x, playerBlockPos.y+y, playerBlockPos.z+z);
+                            if(blockData != undefined && Blocks.getBlock(blockData.id) != undefined) {
+                                var boundingBox = Blocks.getBlock(blockData.id).getBoundingBox();
+                                if(boundingBox != undefined) list1.push({
+                                    boundingBox: boundingBox.getAdded(new Vector3f(playerBlockPos.x+x, playerBlockPos.y+y, playerBlockPos.z+z)),
+                                    blockPos: new Vector3f(Math.floor(playerBlockPos.x+x), Math.floor(playerBlockPos.y+y), Math.floor(playerBlockPos.z+z)),
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            var currentResult = undefined;
+            for(var i = 0; i < list1.length; i++) {
+                var rayTraceResult = CollisionHelper.calculateIntercept(list1[i].boundingBox, this.loc.getAdded(this.getEyeOffset()), this.loc.getAdded(this.getEyeOffset()).getAdded(Camera.getLookVector().getMultiplied(20)));
+                if(rayTraceResult != undefined) {
+                    rayTraceResult.hitPoint.add(this.loc.getAdded(this.getEyeOffset()).getInverted());
+                    if(currentResult == undefined || rayTraceResult.hitPoint.getLengthSquared() < currentResult.hitPoint.getLengthSquared()){
+                        currentResult = {
+                            hitPoint: Vector3f.clone(rayTraceResult.hitPoint),
+                            blockPos: list1[i].blockPos
+                        }
+                    }
+                }
+            }
+            if(currentResult != undefined) currentResult.hitPoint.add(this.loc.getAdded(this.getEyeOffset()));
+            this.objectMouseOver = currentResult;
             
             this.prevLoc.x = this.loc.x;
             this.prevLoc.y = this.loc.y;
@@ -111,6 +138,10 @@ function initPlayer() {
             
             Camera.set(this.loc.getAdded(this.getEyeOffset()));
 		},
+        
+        resolveRayTracing: function() {
+            
+        },
         
         moveByVelocity: function(deltaTime) {
             if(this.noClip) {
@@ -150,9 +181,8 @@ function initPlayer() {
                 
                 if(y != this.vel.y*deltaTime) {
                     this.loc.y += y;
-                    this.vel.y = 0;
-                    
                     if(this.vel.y*deltaTime < 0) this.onGround = true;
+                    this.vel.y = 0;
                 }else{
                     this.onGround = false;
                 }
@@ -313,6 +343,10 @@ function initPlayer() {
         
         getBoundingBox: function() {
             return this.boundingBox;
+        },
+        
+        getBlockPos: function() {
+            return new Vector3f(Math.floor(this.loc.x), Math.floor(this.loc.y), Math.floor(this.loc.z));
         },
         
         getMovedBounds: function() {

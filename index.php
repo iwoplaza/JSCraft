@@ -14,6 +14,7 @@
         <script type="text/javascript" src="js/util/pointerLock.js"></script>
         <script type="text/javascript" src="js/util/noiseGenerator.js"></script>
         <script type="text/javascript" src="js/util/boundingBox.js"></script>
+        <script type="text/javascript" src="js/util/collisionHelper.js"></script>
         
         <script type="text/javascript" src="js/main.js"></script>
         <script type="text/javascript" src="js/math.js"></script>
@@ -21,7 +22,6 @@
         <script type="text/javascript" src="js/camera.js"></script>
         <script type="text/javascript" src="js/sound.js"></script>
         <script type="text/javascript" src="js/resourceManager.js"></script>
-        <script type="text/javascript" src="js/collisionHelper.js"></script>
         <script type="text/javascript" src="js/graphics/glhelper.js"></script>
         <script type="text/javascript" src="js/graphics/framebuffer.js"></script>
         <script type="text/javascript" src="js/graphics/shader.js"></script>

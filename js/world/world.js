@@ -122,7 +122,7 @@ function World(p_name,p_type){
     }
     
     this.setBlock = function(p_x, p_y, p_z, p_blockData) {
-        if(p_blockData == undefined || p_x == undefined || p_y == undefined || p_z == undefined) return;
+        if(p_x == undefined || p_y == undefined || p_z == undefined) return;
         var chunk = this.getChunkForBlockCoords(p_x, p_z);
         if(chunk == undefined) return;
         if(chunk.layers[p_y] == undefined) {
@@ -143,9 +143,9 @@ function World(p_name,p_type){
         if(p_x == undefined || p_y == undefined || p_z == undefined) return undefined;
         var chunk = this.getChunkForBlockCoords(p_x, p_z);
         if(chunk == undefined) return undefined;
-        if(chunk.layers[p_y] == undefined) return undefined;
+        if(chunk.layers[Math.floor(p_y)] == undefined) return undefined;
         
-        return chunk.layers[p_y][p_x-chunk.getX()*Chunk.width][p_z-chunk.getZ()*Chunk.width];
+        return chunk.layers[Math.floor(p_y)][Math.floor(p_x)-chunk.getX()*Chunk.width][Math.floor(p_z)-chunk.getZ()*Chunk.width];
     }
     
     this.generateChunk = function(p_x, p_z) {

@@ -25,6 +25,18 @@ function handleKeyPressedCurrentScreen(p_event) {
 
 function handleKeyReleasedCurrentScreen(p_event) {
     if(currentScreen != undefined && currentScreen.onKeyReleased != undefined) {
-        currentScreen.onKeyPressed(p_event);
+        currentScreen.onKeyReleased(p_event);
+    }
+}
+
+function handleMousePressedCurrentScreen(p_event) {
+    if(currentScreen != undefined && currentScreen.onMousePressed != undefined) {
+        currentScreen.onMousePressed(p_event);
+    }
+}
+
+function handleMouseReleasedCurrentScreen(p_event) {
+    if(currentScreen != undefined && currentScreen.onMouseReleased != undefined) {
+        currentScreen.onMouseReleased(p_event);
     }
 }

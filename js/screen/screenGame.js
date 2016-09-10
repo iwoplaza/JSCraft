@@ -5,6 +5,7 @@ function createGameScreen() {
         introFadeIn: 1,
         screenOverlayRO: undefined,
         closetObstructionRO: undefined,
+        blockSelectionRO: undefined,
         rotation: 0,
         animationProgress: 0,
         
@@ -17,7 +18,10 @@ function createGameScreen() {
             drawTexturedRect(this.titleRO, -10, -10, 20, 20, [1, 1, 1, 1], [[0, 1], [1, 1], [1, 0], [0, 0]]);
             
             this.floatingCubeRO = new Mesh();
-            drawTexturedCube(this.floatingCubeRO, -2, -2, -2, 4, 4, 4, [1, 0.7, 0.5, 1]);
+            drawTexturedCube(this.floatingCubeRO, -0.02, -0.02, -0.02, 0.04, 0.04, 0.04, [1, 0.7, 0.5, 1]);
+            
+            this.blockSelectionRO = new Mesh();
+            drawTexturedCube(this.blockSelectionRO, -0.01, -0.01, -0.01, 1.02, 1.02, 1.02, [1, 1, 1, 0.2]);
             
             initPlayer();
             Player.worldObj = World.world;
@@ -59,16 +63,25 @@ function createGameScreen() {
             
             GLHelper.perspective(75, gl.viewportWidth/gl.viewportHeight, 0.1, 1000.0);
             GLHelper.identityModel();
-
             GLHelper.resetToWorldMatrix();
             useShader("default");
-            TextureManager.bindTexture(TextureManager.database["res/img/world/doggy.png"].textureId);
-            
-            GLHelper.translate([0, 0, -45]);
-            this.floatingCubeRO.draw();
-            
-            GLHelper.resetToWorldMatrix();
             World.world.display();
+            
+            //RayTrace Test
+            //var boundingBox = new BoundingBox(Player.loc.x-2, Player.loc.y+4, Player.loc.z-2, 4, 4, 4);
+            //var rayTraceResult = CollisionHelper.calculateIntercept(boundingBox, Player.loc.getAdded(Player.getEyeOffset()), Player.loc.getAdded(Player.getEyeOffset()).getAdded(Camera.getLookVector().getMultiplied(20)));
+            
+            //gl.depthFunc(gl.ALWAYS);
+            if(Player.objectMouseOver != undefined) {
+                useShader("default");
+                GLHelper.resetToWorldMatrix();
+                TextureManager.disableTextures();
+                GLHelper.saveState();
+                GLHelper.translate([Player.objectMouseOver.blockPos.x, Player.objectMouseOver.blockPos.y, Player.objectMouseOver.blockPos.z]);
+                this.blockSelectionRO.draw();
+                GLHelper.loadState();
+            }
+            //gl.depthFunc(gl.LEQUAL);
             
             this.currentGui.display();
         },
@@ -81,8 +94,20 @@ function createGameScreen() {
             }
         },
         
-        onKeyReleased: function(keyCode) {
+        onKeyReleased: function(event) {
             
+        },
+        
+        onMousePressed: function(event) {
+            if(event.button == 0) {
+                if(Player.objectMouseOver != undefined) {
+                    if(World.world.getChunkForBlockCoords(Player.objectMouseOver.blockPos.x, Player.objectMouseOver.blockPos.z) != undefined) {
+                        World.world.setBlock(Player.objectMouseOver.blockPos.x, Player.objectMouseOver.blockPos.y, Player.objectMouseOver.blockPos.z, undefined);
+                        console.log("Removed block", [Player.objectMouseOver.blockPos.x, Player.objectMouseOver.blockPos.y, Player.objectMouseOver.blockPos.z]);
+                        console.log(World.world.getBlock(Player.objectMouseOver.blockPos.x, Player.objectMouseOver.blockPos.y, Player.objectMouseOver.blockPos.z));
+                    }
+                }
+            }
         },
         
         clean: function() {

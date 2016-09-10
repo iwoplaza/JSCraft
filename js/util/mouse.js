@@ -52,11 +52,13 @@ document.onmousemove = function(e) {
 
 document.onmousedown = function(e) {
 	Mouse.mouseState[e.button] = true;
+    handleMousePressedCurrentScreen(e);
     runEventCallbacks("mouseDown", e);
 }
 
 document.onmouseup = function(e) {
 	Mouse.mouseState[e.button] = false;
+    handleMouseReleasedCurrentScreen(e);
     runEventCallbacks("mouseUp", e);
 }
 

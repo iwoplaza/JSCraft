@@ -4,7 +4,11 @@ function Vector3f(p_x, p_y, p_z) {
     this.z = p_z || 0;
 
 	this.getLength = function() {
-		return Math.sqrt(this.x*this.x + this.y*this.y + this.z*this.z);
+		return Math.sqrt(this.getLengthSquared());
+    };
+    
+    this.getLengthSquared = function() {
+		return this.x*this.x + this.y*this.y + this.z*this.z;
     };
 
     this.normalize = function() {
@@ -49,4 +53,13 @@ function Vector3f(p_x, p_y, p_z) {
     this.invert = function() {
         this.set(this.getInverted());
     };
+    
+    this.getSquareDistanceTo = function(p_vec) {
+        var vec = this.getAdded(p_vec.getInverted());
+        return vec.getLengthSquared();
+    };
+}
+
+Vector3f.clone = function(p_vec) {
+    return new Vector3f(p_vec.x, p_vec.y, p_vec.z);
 }

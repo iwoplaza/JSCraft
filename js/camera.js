@@ -24,6 +24,16 @@ var Camera = {
         return this.location.z;
     },
     
+    getLookVector: function() {
+        var vec = new Vector3f();
+        
+        vec.x = Math.sin(this.rotation.y/180.0*Math.PI)*Math.cos(this.rotation.x/180.0*Math.PI);
+        vec.z = -Math.cos(this.rotation.y/180.0*Math.PI)*Math.cos(this.rotation.x/180.0*Math.PI);
+        vec.y = -Math.sin(this.rotation.x/180.0*Math.PI);
+        
+        return vec;
+    },
+    
     getForwardVector: function() {
         var vec = new Vector3f();
         
