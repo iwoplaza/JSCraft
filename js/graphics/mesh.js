@@ -20,9 +20,11 @@ function Mesh() {
         }else{
             gl.disableVertexAttribArray(getCurrentShader().program.textureCoordAttribute);
         }
-
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.normalBuffer);
-        gl.vertexAttribPointer(getCurrentShader().program.normalAttribute, this.normalBuffer.itemSize, gl.FLOAT, false, 0, 0);
+        
+        if(getCurrentShader().program.normalAttribute != undefined){
+            gl.bindBuffer(gl.ARRAY_BUFFER, this.normalBuffer);
+            gl.vertexAttribPointer(getCurrentShader().program.normalAttribute, this.normalBuffer.itemSize, gl.FLOAT, false, 0, 0);
+        }
         
         GLHelper.publishMatrixUniforms();
         if(TextureManager.areTexturesEnabled()){
