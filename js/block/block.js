@@ -28,6 +28,10 @@ function Block() {
     
     this.getBoundingBox = function(p_blockData) {
         return this.boundingBox;
+    },
+    
+    this.getCollisionBox = function(p_blockData) {
+        return this.boundingBox;
     }
 }
 

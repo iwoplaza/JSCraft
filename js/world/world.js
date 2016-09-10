@@ -295,12 +295,10 @@ function World(p_name,p_type){
                 {
                     for (var currY = minY; currY < maxY; currY++) //j2
                     {
-                        if (onSides <= 0 || currY != minY && currY != maxY - 1)
-                        {
-                            var blockData = this.getBlock(currX, currY, currZ);
-                            if(blockData != undefined && Blocks.getBlock(blockData.id) != undefined){
-                                list.push(Blocks.getBlock(blockData.id).getBoundingBox(blockData).getAdded(currX, currY, currZ));
-                            }
+                        var blockData = this.getBlock(currX, currY, currZ);
+                        if(blockData != undefined && Blocks.getBlock(blockData.id) != undefined){
+                            var blockBounds = Blocks.getBlock(blockData.id).getCollisionBox(blockData);
+                            if(blockBounds != undefined) list.push(blockBounds.getAdded(currX, currY, currZ));
                         }
                     }
                 }

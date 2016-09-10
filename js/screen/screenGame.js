@@ -70,19 +70,6 @@ function createGameScreen() {
             GLHelper.resetToWorldMatrix();
             World.world.display();
             
-            gl.depthFunc(gl.ALWAYS);
-            GLHelper.resetToWorldMatrix();
-            var list = World.world.getCollisionBoxes(Player.getBoundingBox().getAdded(Player.loc));
-            if(list != undefined)
-            for(var i = 0; i < list.length; i++) {
-                GLHelper.saveState();
-                GLHelper.translate([list[i].getMinX(), list[i].getMinY(), list[i].getMinZ()]);
-                GLHelper.scale([0.01, 0.01, 0.01]);
-                this.floatingCubeRO.draw();
-                GLHelper.loadState();
-            }
-            gl.depthFunc(gl.LEQUAL);
-            
             this.currentGui.display();
         },
         

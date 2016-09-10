@@ -295,38 +295,11 @@ BlockRenderType.renderCross = function(p_buffer, p_x, p_y, p_z, p_w, p_h, p_l, p
         p_buffer.colors.push(1);
 	}
     
-    p_buffer.normals.push.apply(p_buffer.normals,  [
-        0, 0, 1,
-        0, 0, 1,
-        0, 0, 1,
-        0, 0, 1,
-        0, 0, 1,
-        0, 0, 1
-    ]);
-    p_buffer.normals.push.apply(p_buffer.normals,  [
-        0, 0, 1,
-        0, 0, 1,
-        0, 0, 1,
-        0, 0, 1,
-        0, 0, 1,
-        0, 0, 1
-    ]);
-    p_buffer.normals.push.apply(p_buffer.normals,  [
-        0, 0, 1,
-        0, 0, 1,
-        0, 0, 1,
-        0, 0, 1,
-        0, 0, 1,
-        0, 0, 1
-    ]);
-    p_buffer.normals.push.apply(p_buffer.normals,  [
-        0, 0, 1,
-        0, 0, 1,
-        0, 0, 1,
-        0, 0, 1,
-        0, 0, 1,
-        0, 0, 1
-    ]);
+    for(var i = 0; i < 4*6; i++) {
+		p_buffer.normals.push(0);
+		p_buffer.normals.push(1);
+        p_buffer.normals.push(0);
+	}
 }
 
 BlockRenderType.register(0, function(p_buffer, p_x, p_y, p_z, p_textureIndicies, p_showFaces) {
