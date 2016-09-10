@@ -7,7 +7,7 @@ var ResourceManager = {
 
     loadPhasesBase: [
         function() {
-            initFonts();
+            Font.init();
             initSpritesheets();
             initAudio();
             TextureManager.preload();
