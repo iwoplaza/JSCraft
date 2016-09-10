@@ -201,6 +201,9 @@ function World(p_name,p_type){
                     var blockID = y == 0 ? Blocks.nameToIDMap["bedrock"] : y == height-1 ? Blocks.nameToIDMap["grass"] : y > height-5 ? Blocks.nameToIDMap["dirt"] : Blocks.nameToIDMap["stone"];
                     this.setBlock(chunkBlockX+x, y, chunkBlockZ+z, {id: blockID});
                 }
+                if (Math.floor(this.noiseGenerator.getNoise((chunkBlockX+x),(chunkBlockZ+z))*6) == 0){
+                    this.setBlock(chunkBlockX+x, height, chunkBlockZ+z, {id: 22});
+                }
             }
         }
         /*

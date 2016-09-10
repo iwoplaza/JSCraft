@@ -2,7 +2,7 @@ function GuiInventory(){
     this.init = function(){
         this.guiInventory = new Mesh();
     },
-    this.playerInventory = function(p_name){
+    this.display = function(p_name){
         useShader("default");
         drawRect(this.guiInventory, 0, gl.viewportHeight-100, 200, 100,[0,1,1,1]);
         TextureManager.disableTextures();

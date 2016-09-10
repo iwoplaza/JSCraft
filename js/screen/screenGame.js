@@ -24,7 +24,7 @@ function createGameScreen() {
             Player.loc.y = 35;
             Camera.rotation.y = 180.0;
             
-            this.currentGui = new guiInventory();
+            this.currentGui = new GuiInventory();
             this.currentGui.init();
             
             setInterval(World.updateChunks, 1000);
@@ -83,7 +83,7 @@ function createGameScreen() {
             }
             gl.depthFunc(gl.LEQUAL);
             
-            this.currentGui.playerInventory();
+            this.currentGui.display();
         },
         
         onKeyPressed: function(event) {
