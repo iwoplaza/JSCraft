@@ -3,10 +3,18 @@ var currentUsedShader = undefined;
 
 function initShaders() {
     createShader("default", function(program) {
+        program.normalAttribute = gl.getAttribLocation(program, "aNormal");
+        gl.enableVertexAttribArray(program.normalAttribute);
         gl.uniform4f(gl.getUniformLocation(program, "uGlobalColor"), 1, 1, 1, 1);
     });
     
     createShader("blocks", function(program) {
+        program.normalAttribute = gl.getAttribLocation(program, "aNormal");
+        gl.enableVertexAttribArray(program.normalAttribute);
+        gl.uniform4f(gl.getUniformLocation(program, "uGlobalColor"), 1, 1, 1, 1);
+    });
+    
+    createShader("font", function(program) {
         gl.uniform4f(gl.getUniformLocation(program, "uGlobalColor"), 1, 1, 1, 1);
     });
     
@@ -79,9 +87,6 @@ function createShader(p_name, p_callback) {
 	shaderProgram.textureCoordAttribute = gl.getAttribLocation(shaderProgram, "aTextureCoord");
 	//gl.enableVertexAttribArray(shaderProgram.textureCoordAttribute);
     
-    shaderProgram.normalAttribute = gl.getAttribLocation(shaderProgram, "aNormal");
-    gl.enableVertexAttribArray(shaderProgram.normalAttribute);
-    
 	//glDisableVertexAttribArray
     shaderProgram.pMatrixUniform = gl.getUniformLocation(shaderProgram, "uPMatrix");
     shaderProgram.mMatrixUniform = gl.getUniformLocation(shaderProgram, "uMMatrix");
@@ -91,7 +96,7 @@ function createShader(p_name, p_callback) {
 	shaderProgram.enableTexturesUniform = gl.getUniformLocation(shaderProgram, "uEnableTextures");
     
     gl.useProgram(shaderProgram);
-    p_callback(shaderProgram);
+    if(p_callback != undefined) p_callback(shaderProgram);
     
     shaders[p_name] = {
         name: p_name,
