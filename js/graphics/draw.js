@@ -327,8 +327,8 @@ function drawTexturedRect(renderObject, offsetX, offsetY, width, height, color, 
     var vertices = [offsetX, offsetY, 0,
 					offsetX+width, offsetY, 0,
 					offsetX, offsetY+height, 0,
-					offsetX+width, offsetY, 0,
 					offsetX, offsetY+height, 0,
+                    offsetX+width, offsetY, 0,
 					offsetX+width, offsetY+height, 0];
     var colors = [color[0],color[1],color[2],color[3],
 				color[0],color[1],color[2],color[3],
@@ -340,8 +340,8 @@ function drawTexturedRect(renderObject, offsetX, offsetY, width, height, color, 
         texCoords[0][0], texCoords[0][1],
         texCoords[1][0], texCoords[1][1],
         texCoords[3][0], texCoords[3][1],
-        texCoords[1][0], texCoords[1][1],
         texCoords[3][0], texCoords[3][1],
+        texCoords[1][0], texCoords[1][1],
         texCoords[2][0], texCoords[2][1]
     ];
     

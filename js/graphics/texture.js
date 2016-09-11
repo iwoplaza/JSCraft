@@ -34,7 +34,7 @@ var TextureManager = {
     preload: function() {
         this.loadTexture("res/img/world/doggy.png");
         this.loadTexture("res/textures/blocks.png");
-        //this.loadTexture("res/textures/gui/playerInventory.png");
+        this.loadTexture("res/textures/gui/playerInventory.png");
     },
 
     loadTexture: function(filePath) {
