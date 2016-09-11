@@ -35,6 +35,7 @@ var TextureManager = {
         this.loadTexture("res/img/world/doggy.png");
         this.loadTexture("res/textures/blocks.png");
         this.loadTexture("res/textures/gui/playerInventory.png");
+        this.loadTexture("res/textures/gui/playerHUD.png");
     },
 
     loadTexture: function(filePath) {

@@ -28,7 +28,7 @@ function createGameScreen() {
             Player.loc.y = 35;
             Camera.rotation.y = 180.0;
             
-            this.currentGui = new GuiInventory();
+            this.currentGui = new GuiHUD();
             this.currentGui.init();
             
             setInterval(World.updateChunks, 1000);
