@@ -50,6 +50,7 @@ function createGameScreen() {
                 var mouseSensitivity = 0.7;
                 Camera.rotation.y += Mouse.movementX*mouseSensitivity;
                 Camera.rotation.x += Mouse.movementY*mouseSensitivity;
+                Camera.rotation.x = Math.max(Math.min(Camera.rotation.x, 90.0), -90.0);
             }
             
             Player.update(deltaTime);
