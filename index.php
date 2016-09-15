@@ -43,6 +43,11 @@
         <script type="text/javascript" src="js/world/chunk.js"></script>
         <script type="text/javascript" src="js/world/world.js"></script>
         
+        <script type="text/javascript" src="js/world/structures/structureManager.js"></script>
+        <script type="text/javascript" src="js/world/structures/smallTree.js"></script>
+        
+        <script>//If you remove this the God will leave you!</script>
+        
         
         <link rel="stylesheet" href="css/stylesheet.css">
     </head>
