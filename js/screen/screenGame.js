@@ -31,6 +31,9 @@ function createGameScreen() {
             this.currentGui = new GuiHUD();
             this.currentGui.init();
             
+            this.item = new ItemRenderer();
+            this.item.init();
+            
             setInterval(World.updateChunks, 1000);
         },
         
@@ -85,6 +88,7 @@ function createGameScreen() {
             //gl.depthFunc(gl.LEQUAL);
             
             this.currentGui.display();
+            this.item.display();
         },
         
         onKeyPressed: function(event) {
