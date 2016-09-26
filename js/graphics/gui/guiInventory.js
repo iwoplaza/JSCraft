@@ -11,7 +11,7 @@ function GuiInventory(){
         
         TextureManager.bindTexture(TextureManager.database["res/textures/gui/playerInventory.png"].textureId);
         GLHelper.translate([gl.viewportWidth/2,gl.viewportHeight/2,0]);
-        GLHelper.scale([2,2,2]);
+        GLHelper.scale([currentScreen.guiScale,currentScreen.guiScale,currentScreen.guiScale]);
         this.mesh.draw();
         
         Font.drawGuiText("Some Text", "normal", [0,0,0]);

@@ -194,15 +194,13 @@ ItemModel.renderVoxel = function(p_buffer, p_voxelLoc, p_part) {
 
 ItemModel.registerModels = function() {
     var u = undefined;
-    var r = {
-        color: [0.4, 0.16, 0, 1],
-    };
-    var s = {
-        color: [0.6, 0.6, 0.6, 1],
-    };
-    var i = {
-        color: [0.65, 0.65, 0.65, 1],
-    };
+    var r = {color: [0.4, 0.16, 0, 1]};
+    var s = {color: [0.6, 0.6, 0.6, 1]};
+    var i = {color: [0.65, 0.65, 0.65, 1]};
+    
+    var b = {color: [87/255,60/255,35/255,1]};
+    var e = {color: [136/255,136/255,136/255,1]};
+    var f = {color: [120/255,120/255,120/255,1]};
     
     ItemModel.register("sword", new ItemModel().addPart({
         type: "staticVoxels",
@@ -265,7 +263,104 @@ ItemModel.registerModels = function() {
                 [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
             ]
         ],
-        
+        getVoxel: function(x, y, z) {
+            if(x < 0 || y < 0 || z < 0 || x >= this.width || y >= this.height || z >= this.length) return undefined;
+               return this.voxels[x][y][z];
+        }
+    }));
+    
+    
+    ItemModel.register("pickaxe", new ItemModel().addPart({
+        type: "staticVoxels",
+        width: 3,
+        height: 16,
+        length: 15,
+        voxels: [
+            [
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, s, s, s, u, u, u, u, u, u],
+                [u, u, u, u, i, i, i, i, i, i, i, u, u, u, u],
+                [u, u, i, i, i, u, s, s, s, u, i, i, i, u, u],
+                [u, i, i, u, u, u, u, u, u, u, u, u, i, i, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u]
+            ],
+            [
+                [u, u, u, u, u, u, u, b, u, u, u, u, u, u, u],
+                [u, u, u, u, s, s, s, b, s, s, s, u, u, u, u],
+                [u, u, s, s, u, u, u, b, u, u, u, s, s, u, u],
+                [u, s, u, u, u, s, s, b, s, s, u, u, u, s, u],
+                [s, u, u, s, s, u, u, b, u, u, s, s, u, u, s],
+                [s, s, s, u, u, u, u, b, u, u, u, u, s, s, s],
+                [u, u, u, u, u, u, u, b, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, b, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, b, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, b, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, b, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, b, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, b, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, b, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, b, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, b, u, u, u, u, u, u, u]
+            ],
+            [
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, s, s, s, u, u, u, u, u, u],
+                [u, u, u, u, i, i, i, i, i, i, i, u, u, u, u],
+                [u, u, i, i, i, u, s, s, s, u, i, i, i, u, u],
+                [u, i, i, u, u, u, u, u, u, u, u, u, i, i, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u]
+            ]
+        ],
+        getVoxel: function(x, y, z) {
+            if(x < 0 || y < 0 || z < 0 || x >= this.width || y >= this.height || z >= this.length) return undefined;
+               return this.voxels[x][y][z];
+        }
+    }));
+    ItemModel.register("shovel", new ItemModel().addPart({
+        type: "staticVoxels",
+        width: 1,
+        height: 16,
+        length: 15,
+        voxels: [
+            [
+                [u, u, u, u, u, u, f, f, f, u, u, u, u, u, u],
+                [u, u, u, u, u, f, e, e, e, f, u, u, u, u, u],
+                [u, u, u, u, u, f, e, e, e, f, u, u, u, u, u],
+                [u, u, u, u, u, f, e, e, e, f, u, u, u, u, u],
+                [u, u, u, u, u, f, e, f, e, f, u, u, u, u, u],
+                [u, u, u, u, u, f, f, f, f, f, u, u, u, u, u],
+                [u, u, u, u, u, u, u, f, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, b, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, b, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, b, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, b, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, b, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, b, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, b, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, b, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, b, b, b, u, u, u, u, u, u]
+            ]
+        ],
         getVoxel: function(x, y, z) {
             if(x < 0 || y < 0 || z < 0 || x >= this.width || y >= this.height || z >= this.length) return undefined;
                return this.voxels[x][y][z];

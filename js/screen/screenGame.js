@@ -9,6 +9,8 @@ function createGameScreen() {
         rotation: 0,
         animationProgress: 0,
         smoothMouseVel: new Vector2f(0, 0),
+        currentGui: undefined,
+        guiScale: 3,
         
         framebuffer: new Framebuffer(gl.viewportWidth, gl.viewportWidth),
         
@@ -29,8 +31,8 @@ function createGameScreen() {
             Player.loc.y = 35;
             Camera.rotation.y = 180.0;
             
-            this.currentGui = new GuiHUD();
-            this.currentGui.init();
+            this.playerHUD = new GuiHUD();
+            this.playerHUD.init();
             
             this.ticks = 0;
             setInterval(World.updateChunks, 1000);
@@ -60,7 +62,9 @@ function createGameScreen() {
             }
             
             Player.update(deltaTime);
-            Camera.update(deltaTime);
+            Camera.update(deltaTime); 
+            
+            this.playerHUD.update();
         },
         
         display: function() {
@@ -90,7 +94,7 @@ function createGameScreen() {
             }
             //gl.depthFunc(gl.LEQUAL);
             
-            if(Player.getItemInHand() != undefined){
+            if(Items.getItem(Player.getItemInHand()) != undefined){
                 GLHelper.resetToWorldMatrix();
                 GLHelper.translate([Camera.getX(), Camera.getY(), Camera.getZ()]);
                 GLHelper.rotate(-Camera.rotation.y/180.0*Math.PI+this.smoothMouseVel.x*0.01, [0, 1, 0]);
@@ -100,10 +104,11 @@ function createGameScreen() {
                 GLHelper.rotate(-0.5, [1, 0, 0]);
                 GLHelper.scale([0.45, 0.45, 0.45]);
                 //GLHelper.translate([0, 13, 3]);
-                ItemRenderer.renderWorldItem(Items.getItemByName("sword"));
+                ItemRenderer.renderWorldItem(Items.getItem(Player.getItemInHand()));
             }
             
-            this.currentGui.display();
+            if (this.currentGui != undefined) this.currentGui.display();
+            this.playerHUD.display();
         },
         
         onKeyPressed: function(event) {

@@ -50,4 +50,6 @@ var Items = {
 
 Items.registerCallback(function() {
     Items.registerItem("sword", new Item().setDefaultName("sword").setDefaultModel("sword"));
+    Items.registerItem("pickaxe", new Item().setDefaultName("pickaxe").setDefaultModel("pickaxe"));
+    Items.registerItem("shovel", new Item().setDefaultName("pickaxe").setDefaultModel("shovel"));
 });

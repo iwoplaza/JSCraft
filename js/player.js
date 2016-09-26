@@ -18,6 +18,11 @@ function initPlayer() {
         noClip: false,
         worldObj: undefined,
         objectMouseOver: undefined,
+        itemInHand: 0,
+        health: 1,
+        hunger: 1,
+        thirst: 1,
+        mana: 1,
         
 		update: function(deltaTime) {
             this.isWalking = false;
@@ -383,7 +388,7 @@ function initPlayer() {
         },
         
         getItemInHand: function() {
-            return Items.getItemByName("sword");
+            return this.itemInHand;
         }
 	};
 }

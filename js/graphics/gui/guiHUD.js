@@ -1,7 +1,12 @@
 function GuiHUD(){
     this.init = function(){
-        this.scale = 3;
+        this.scale = 2;
         this.selected = 0;
+        
+        this.health = Player.health,
+        this.hunger = Player.hunger,
+        this.thirst = Player.thirst,
+        this.mana = Player.mana,
         
         this.crosshairMesh = new Mesh();
         this.toolBarMesh = new Mesh();
@@ -24,10 +29,10 @@ function GuiHUD(){
         drawTexturedRect(this.thirstBarMesh, 0, 0, 37, 8,[1,1,1,1],[[115/512,34/512],[152/512,34/512],[152/512,27/512],[115/512,27/512]]);
         drawTexturedRect(this.manaBarMesh, 0, 0, 152, 6,[1,1,1,1],[[0,22/512],[152/512,22/512],[152/512,16/512],[0,16/512]]);
         
-        drawTexturedRect(this.healthBarFillMesh, 0, 0, 75, 6,[1,1,1,1],[[0,40/512],[76/512,40/512],[76/512,35/512],[0,35/512]]);
-        drawTexturedRect(this.hungerBarFillMesh, 0, 0, 37, 6,[1,1,1,1],[[76/512,40/512],[114/512,40/512],[114/512,35/512],[76/512,35/512]]);
-        drawTexturedRect(this.thirstBarFillMesh, 0, 0, 37, 6,[1,1,1,1],[[115/512,40/512],[152/512,40/512],[152/512,35/512],[115/512,35/512]]);
-        drawTexturedRect(this.manaBarFillMesh, 0, 0, 152, 3,[1,1,1,1],[[0,26/512],[152/512,26/512],[152/512,23/512],[0,23/512]]);
+        drawTexturedRect(this.hungerBarFillMesh, 0, 0, 37*this.hunger, 6,[1,1,1,1],[[76/512,40/512],[(76+38*this.hunger)/512,40/512],[(76+38*this.hunger)/512,35/512],[76/512,35/512]]);
+        drawTexturedRect(this.thirstBarFillMesh, 0, 0, 37*this.thirst, 6,[1,1,1,1],[[115/512,40/512],[(115+37*this.thirst)/512,40/512],[(115+37*this.thirst)/512,35/512],[115/512,35/512]]);
+        drawTexturedRect(this.manaBarFillMesh, 0, 0, 152*this.mana, 3,[1,1,1,1],[[0,26/512],[152*this.mana/512,26/512],[152*this.mana/512,23/512],[0,23/512]]);
+        drawTexturedRect(this.healthBarFillMesh, 0, 0, 75*this.health, 6,[1,1,1,1],[[0,40/512],[76*this.health/512,40/512],[76*this.health/512,35/512],[0,35/512]]);
         
         drawTexturedRect(this.itemSelectorMesh, 0, 0, 16, 16,[1,1,1,1],[[167/512,16/512],[183/512,16/512],[183/512,0],[167/512,0]]);
     };
@@ -92,20 +97,18 @@ function GuiHUD(){
         GLHelper.scale([this.scale,this.scale,this.scale]);
         this.manaBarMesh.draw();
     }
-    this.changeFillState = function(index,fill_percent){
-        switch(index){
-            case 1:
-                drawTexturedRect(this.hungerBarFillMesh, 0, 0, 37*fill_percent, 6,[1,1,1,1],[[76/512,40/512],[(76+38*fill_percent)/512,40/512],[(76+38*fill_percent)/512,35/512],[76/512,35/512]]);
-                break;
-            case 2:
-                drawTexturedRect(this.thirstBarFillMesh, 0, 0, 37*fill_percent, 6,[1,1,1,1],[[115/512,40/512],[(115+37*fill_percent)/512,40/512],[(115+37*fill_percent)/512,35/512],[115/512,35/512]]);
-                break;
-            case 3:
-                drawTexturedRect(this.manaBarFillMesh, 0, 0, 152*fill_percent, 3,[1,1,1,1],[[0,26/512],[152*fill_percent/512,26/512],[152*fill_percent/512,23/512],[0,23/512]]);
-                break;
-            default:
-                drawTexturedRect(this.healthBarFillMesh, 0, 0, 75*fill_percent, 6,[1,1,1,1],[[0,40/512],[76*fill_percent/512,40/512],[76*fill_percent/512,35/512],[0,35/512]]);
-                break;
-        }
+    this.update = function(){
+        if (this.health != Player.health || this.hunger != Player.hunger || this.thirst != Player.thirst || this.mana != Player.mana) this.updateFillState();
+        if (this.scale != currentScreen.guiScale) this.scale = currentScreen.guiScale;
+    }
+    this.updateFillState = function(){
+        this.health = Player.health;
+        this.hunger = Player.hunger;
+        this.thirst = Player.thirst;
+        this.mana = Player.mana;
+        drawTexturedRect(this.hungerBarFillMesh, 0, 0, 37*this.hunger, 6,[1,1,1,1],[[76/512,40/512],[(76+38*this.hunger)/512,40/512],[(76+38*this.hunger)/512,35/512],[76/512,35/512]]);
+        drawTexturedRect(this.thirstBarFillMesh, 0, 0, 37*this.thirst, 6,[1,1,1,1],[[115/512,40/512],[(115+37*this.thirst)/512,40/512],[(115+37*this.thirst)/512,35/512],[115/512,35/512]]);
+        drawTexturedRect(this.manaBarFillMesh, 0, 0, 152*this.mana, 3,[1,1,1,1],[[0,26/512],[152*this.mana/512,26/512],[152*this.mana/512,23/512],[0,23/512]]);
+        drawTexturedRect(this.healthBarFillMesh, 0, 0, 75*this.health, 6,[1,1,1,1],[[0,40/512],[76*this.health/512,40/512],[76*this.health/512,35/512],[0,35/512]]);
     }
 }
