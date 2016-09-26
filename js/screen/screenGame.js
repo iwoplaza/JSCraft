@@ -8,6 +8,7 @@ function createGameScreen() {
         blockSelectionRO: undefined,
         rotation: 0,
         animationProgress: 0,
+        smoothMouseVel: new Vector2f(0, 0),
         
         framebuffer: new Framebuffer(gl.viewportWidth, gl.viewportWidth),
         
@@ -31,10 +32,12 @@ function createGameScreen() {
             this.currentGui = new GuiHUD();
             this.currentGui.init();
             
+            this.ticks = 0;
             setInterval(World.updateChunks, 1000);
         },
         
         update: function(deltaTime) {
+            this.ticks++;
             if(this.introFadeIn > 0){
                 this.introFadeIn = Math.max(0, this.introFadeIn-0.01*deltaTime);
             }
@@ -51,6 +54,9 @@ function createGameScreen() {
                 Camera.rotation.y += Mouse.movementX*mouseSensitivity;
                 Camera.rotation.x += Mouse.movementY*mouseSensitivity;
                 Camera.rotation.x = Math.max(Math.min(Camera.rotation.x, 90.0), -90.0);
+                
+                this.smoothMouseVel.x += (Mouse.movementX-this.smoothMouseVel.x)*0.5;
+                this.smoothMouseVel.y += (Mouse.movementY-this.smoothMouseVel.y)*0.5;
             }
             
             Player.update(deltaTime);
@@ -83,6 +89,19 @@ function createGameScreen() {
                 GLHelper.loadState();
             }
             //gl.depthFunc(gl.LEQUAL);
+            
+            if(Player.getItemInHand() != undefined){
+                GLHelper.resetToWorldMatrix();
+                GLHelper.translate([Camera.getX(), Camera.getY(), Camera.getZ()]);
+                GLHelper.rotate(-Camera.rotation.y/180.0*Math.PI+this.smoothMouseVel.x*0.01, [0, 1, 0]);
+                GLHelper.rotate(-Camera.rotation.x/180.0*Math.PI+this.smoothMouseVel.y*0.01, [1, 0, 0]);
+                GLHelper.translate([0.2, -0.1, -0.75]);
+                GLHelper.rotate(0.4, [0, 1, 0]);
+                GLHelper.rotate(-0.5, [1, 0, 0]);
+                GLHelper.scale([0.45, 0.45, 0.45]);
+                //GLHelper.translate([0, 13, 3]);
+                ItemRenderer.renderWorldItem(Items.getItemByName("sword"));
+            }
             
             this.currentGui.display();
         },

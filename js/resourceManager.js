@@ -12,10 +12,14 @@ var ResourceManager = {
             initAudio();
             TextureManager.preload();
             Blocks.preloadBlockTypes();
+            Items.preloadItemTypes();
+            StructureManager.preloadStructureTemplates();
+            ItemModel.registerModels();
         },
         
         function() {
             Blocks.registerBlocks();
+            Items.registerItems();
             World.world = new World("Overworld","DEFAULT");
         }
     ],

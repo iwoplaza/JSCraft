@@ -380,6 +380,10 @@ function initPlayer() {
         playSprintSound: function() {
             var i = Math.floor(Math.random()*(3.99));
             playSound("sprint-"+i);
+        },
+        
+        getItemInHand: function() {
+            return Items.getItemByName("sword");
         }
 	};
 }
