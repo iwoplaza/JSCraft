@@ -12,6 +12,7 @@ var ResourceManager = {
             initAudio();
             TextureManager.preload();
             Blocks.preloadBlockTypes();
+            
             Items.preloadItemTypes();
             StructureManager.preloadStructureTemplates();
             ItemModel.registerModels();
