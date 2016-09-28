@@ -94,7 +94,7 @@ function createGameScreen() {
             }
             //gl.depthFunc(gl.LEQUAL);
             
-            if(Items.getItem(Player.getItemInHand()) != undefined){
+            if(Player.inventory.slots[0][Player.selected] != undefined){
                 GLHelper.resetToWorldMatrix();
                 GLHelper.translate([Camera.getX(), Camera.getY(), Camera.getZ()]);
                 GLHelper.rotate(-Camera.rotation.y/180.0*Math.PI+this.smoothMouseVel.x*0.01, [0, 1, 0]);
@@ -105,7 +105,7 @@ function createGameScreen() {
                 GLHelper.scale([0.45, 0.45, 0.45]);
                 //GLHelper.translate([0, 13, 3]);
                 GLHelper.translate([0, -0.2*Math.sin(Player.punchAnimation*Math.PI*2), -0.2*Math.sin(Player.punchAnimation*Math.PI)]);
-                ItemRenderer.renderWorldItem(Items.getItem(Player.getItemInHand()));
+                ItemRenderer.renderWorldItem(Player.inventory.slots[0][Player.selected]);
             }
             
             if (this.currentGui != undefined) this.currentGui.display();

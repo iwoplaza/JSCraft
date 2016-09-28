@@ -18,12 +18,13 @@ function initPlayer() {
         noClip: false,
         worldObj: undefined,
         objectMouseOver: undefined,
-        itemInHand: 0,
         punchAnimation: 0,
         health: 1,
         hunger: 1,
         thirst: 1,
         mana: 1,
+        inventory: new Inventory(9,5),
+        selected: 0,
         
 		update: function(deltaTime) {
             this.isWalking = false;

@@ -60,8 +60,14 @@ function tick() {
 }
 
 function singleActivation(code){
-    if (code==107) Player.itemInHand++;
-    if (code==109) Player.itemInHand--;
+    if (code==107){
+        Player.selected++;
+        Player.selected = Player.selected>8 ? Player.selected-9 : Player.selected;
+    }
+    if (code==109){
+        Player.selected--;
+        Player.selected = Player.selected<0 ? Player.selected+9 : Player.selected;
+    }
     if (code==69){
         if (currentScreen.currentGui == undefined){
             currentScreen.currentGui = new GuiInventory();

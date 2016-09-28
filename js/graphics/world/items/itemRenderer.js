@@ -13,7 +13,7 @@ var ItemRenderer = {
     renderGuiItem: function(p_item, p_x, p_y) {
         if (p_item == undefined) return 1;
         var model = ItemModel.get(p_item.getItemModel());
-        var scale = currentScreen.guiScale - 1;
+        var scale = currentScreen.guiScale*0.6;
         var x = p_x || 60;
         var y = p_y || 60;
         
@@ -23,7 +23,7 @@ var ItemRenderer = {
             TextureManager.disableTextures();
             //gl.depthFunc(gl.ALWAYS);
             GLHelper.resetToGuiMatrix();
-            GLHelper.translate([x, y, 0]);
+            GLHelper.translate([x, y, 5]);
             GLHelper.rotate(0.5*Math.PI, [0, 1, 0]);
             GLHelper.scale([scale, scale, scale]);
             model.display();
