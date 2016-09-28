@@ -101,9 +101,10 @@ function createGameScreen() {
                 GLHelper.rotate(-Camera.rotation.x/180.0*Math.PI+this.smoothMouseVel.y*0.01, [1, 0, 0]);
                 GLHelper.translate([0.2, -0.1, -0.75]);
                 GLHelper.rotate(0.4, [0, 1, 0]);
-                GLHelper.rotate(-0.5, [1, 0, 0]);
+                GLHelper.rotate(-0.5-0.2*Math.sin(Player.punchAnimation*Math.PI), [1, 0, 0]);
                 GLHelper.scale([0.45, 0.45, 0.45]);
                 //GLHelper.translate([0, 13, 3]);
+                GLHelper.translate([0, -0.2*Math.sin(Player.punchAnimation*Math.PI*2), -0.2*Math.sin(Player.punchAnimation*Math.PI)]);
                 ItemRenderer.renderWorldItem(Items.getItem(Player.getItemInHand()));
             }
             
@@ -132,6 +133,8 @@ function createGameScreen() {
                         console.log(World.world.getBlock(Player.objectMouseOver.blockPos.x, Player.objectMouseOver.blockPos.y, Player.objectMouseOver.blockPos.z));
                     }
                 }
+                
+                Player.onPunch();
             }
         },
         

@@ -338,17 +338,17 @@ ItemModel.registerModels = function() {
     }));
     ItemModel.register("shovel", new ItemModel().addPart({
         type: "staticVoxels",
-        width: 1,
+        width: 2,
         height: 16,
         length: 15,
         voxels: [
             [
-                [u, u, u, u, u, u, f, f, f, u, u, u, u, u, u],
-                [u, u, u, u, u, f, e, e, e, f, u, u, u, u, u],
-                [u, u, u, u, u, f, e, e, e, f, u, u, u, u, u],
-                [u, u, u, u, u, f, e, e, e, f, u, u, u, u, u],
-                [u, u, u, u, u, f, e, f, e, f, u, u, u, u, u],
-                [u, u, u, u, u, f, f, f, f, f, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
                 [u, u, u, u, u, u, u, f, u, u, u, u, u, u, u],
                 [u, u, u, u, u, u, u, b, u, u, u, u, u, u, u],
                 [u, u, u, u, u, u, u, b, u, u, u, u, u, u, u],
@@ -359,6 +359,24 @@ ItemModel.registerModels = function() {
                 [u, u, u, u, u, u, u, b, u, u, u, u, u, u, u],
                 [u, u, u, u, u, u, u, b, u, u, u, u, u, u, u],
                 [u, u, u, u, u, u, b, b, b, u, u, u, u, u, u]
+            ],
+            [
+                [u, u, u, u, u, u, f, f, f, u, u, u, u, u, u],
+                [u, u, u, u, u, f, e, e, e, f, u, u, u, u, u],
+                [u, u, u, u, u, f, e, e, e, f, u, u, u, u, u],
+                [u, u, u, u, u, f, e, e, e, f, u, u, u, u, u],
+                [u, u, u, u, u, f, e, e, e, f, u, u, u, u, u],
+                [u, u, u, u, u, f, e, f, e, f, u, u, u, u, u],
+                [u, u, u, u, u, f, f, f, f, f, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, b, u, b, u, u, u, u, u, u]
             ]
         ],
         getVoxel: function(x, y, z) {

@@ -96,6 +96,8 @@ function GuiHUD(){
         GLHelper.translate([gl.viewportWidth/2-76*this.scale,18*this.scale,0]);
         GLHelper.scale([this.scale,this.scale,this.scale]);
         this.manaBarMesh.draw();
+        
+        ItemRenderer.renderGuiItem(Items.getItemByName("pickaxe"));
     }
     this.update = function(){
         if (this.health != Player.health || this.hunger != Player.hunger || this.thirst != Player.thirst || this.mana != Player.mana) this.updateFillState();

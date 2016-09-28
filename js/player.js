@@ -19,6 +19,7 @@ function initPlayer() {
         worldObj: undefined,
         objectMouseOver: undefined,
         itemInHand: 0,
+        punchAnimation: 0,
         health: 1,
         hunger: 1,
         thirst: 1,
@@ -89,6 +90,10 @@ function initPlayer() {
                 }
             }else{
                 this.footstepSoundCooldown = 0;
+            }
+            
+            if(this.punchAnimation > 0) {
+                this.punchAnimation = Math.max(0, this.punchAnimation-deltaTime*0.003);
             }
             
 			if(this.onGround){
@@ -389,6 +394,10 @@ function initPlayer() {
         
         getItemInHand: function() {
             return this.itemInHand;
+        },
+        
+        onPunch: function() {
+            this.punchAnimation = 1;
         }
 	};
 }
