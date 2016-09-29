@@ -29,6 +29,8 @@ function createGameScreen() {
             initPlayer();
             Player.worldObj = World.world;
             Player.loc.y = 35;
+            Player.inventory.slots[0][0] = Items.getItemByName("sword");
+            Player.inventory.slots[0][1] = Items.getItemByName("pickaxe");
             Camera.rotation.y = 180.0;
             
             this.playerHUD = new GuiHUD();
