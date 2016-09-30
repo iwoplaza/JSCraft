@@ -54,13 +54,17 @@ function createGameScreen() {
             }
             
             if(PointerLock.isLocked()) {
-                var mouseSensitivity = 0.7;
-                Camera.rotation.y += Mouse.movementX*mouseSensitivity;
-                Camera.rotation.x += Mouse.movementY*mouseSensitivity;
-                Camera.rotation.x = Math.max(Math.min(Camera.rotation.x, 90.0), -90.0);
-                
-                this.smoothMouseVel.x += (Mouse.movementX-this.smoothMouseVel.x)*0.5;
-                this.smoothMouseVel.y += (Mouse.movementY-this.smoothMouseVel.y)*0.5;
+                if(this.isMousePointerLocked()) {
+                    var mouseSensitivity = 0.7;
+                    Camera.rotation.y += Mouse.movementX*mouseSensitivity;
+                    Camera.rotation.x += Mouse.movementY*mouseSensitivity;
+                    Camera.rotation.x = Math.max(Math.min(Camera.rotation.x, 90.0), -90.0);
+
+                    this.smoothMouseVel.x += (Mouse.movementX-this.smoothMouseVel.x)*0.5;
+                    this.smoothMouseVel.y += (Mouse.movementY-this.smoothMouseVel.y)*0.5;
+                }else{
+                    VirtualCursor.moveBy(Mouse.movementX, -Mouse.movementY);
+                }
             }
             
             Player.update(deltaTime);
@@ -112,6 +116,10 @@ function createGameScreen() {
             
             if (this.currentGui != undefined) this.currentGui.display();
             this.playerHUD.display();
+            
+            if(!this.isMousePointerLocked()) {
+                VirtualCursor.display();
+            }
         },
         
         onKeyPressed: function(event) {
@@ -138,6 +146,10 @@ function createGameScreen() {
                 
                 Player.onPunch();
             }
+        },
+        
+        isMousePointerLocked: function() {
+            return this.currentGui == undefined;
         },
         
         clean: function() {

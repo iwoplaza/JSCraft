@@ -93,6 +93,8 @@ function webGLStart() {
     initGL();
     initShaders();
     PointerLock.init(canvas);
+    VirtualCursor.init();
+    VirtualCursor.setLocation(canvas.width/2, canvas.height/2);
     
 	for(var i = 0; i < keyState.length; i++){
 		keyState[i] = false;

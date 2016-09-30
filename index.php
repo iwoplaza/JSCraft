@@ -15,6 +15,7 @@
         <script type="text/javascript" src="js/util/noiseGenerator.js"></script>
         <script type="text/javascript" src="js/util/boundingBox.js"></script>
         <script type="text/javascript" src="js/util/collisionHelper.js"></script>
+        <script type="text/javascript" src="js/util/virtualCursor.js"></script>
         
         <script type="text/javascript" src="js/main.js"></script>
         <script type="text/javascript" src="js/math.js"></script>
