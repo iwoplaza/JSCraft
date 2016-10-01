@@ -9,5 +9,8 @@ function Inventory(p_w, p_h){
     this.getItemInInventory = function(p_x, p_y){
         return this.slots[p_y][p_x];
     }
+    this.setItemInInventory = function(p_x, p_y, p_itemStack){
+        this.slots[p_y][p_x] = p_itemStack;
+    }
     this.init(p_w, p_h);
 }

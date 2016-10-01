@@ -146,6 +146,9 @@ function createGameScreen() {
                 
                 Player.onPunch();
             }
+            if(event.button == 0 && this.currentGui){
+                this.currentGui.handleInventory();
+            }
         },
         
         isMousePointerLocked: function() {

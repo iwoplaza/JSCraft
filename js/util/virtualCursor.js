@@ -9,6 +9,8 @@ var VirtualCursor = {
     },
     
     display: function() {
+        ItemRenderer.renderGuiItem(Player.itemInHand, this.x-4*currentScreen.guiScale, this.y+8*currentScreen.guiScale);
+        
         gl.depthFunc(gl.ALWAYS);
         
         useShader("default");

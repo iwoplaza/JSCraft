@@ -15,12 +15,24 @@ function GuiInventory(){
                 ItemRenderer.renderGuiItem(Player.inventory.slots[y][x],gl.viewportWidth/2-72.5*this.scale+(x*17*this.scale),gl.viewportHeight/2-this.scale*(y-1)*17);
             }
         }
-        var x = Math.floor((VirtualCursor.x-(gl.viewportWidth/2-75*this.scale))/(17*this.scale)) 
-        var y = Math.floor(((gl.viewportHeight/2-3*this.scale)-VirtualCursor.y)/(17*this.scale)+1)
+        
+        for (var x=0;x<Player.inventory.slots[0].length;x++){
+            ItemRenderer.renderGuiItem(Player.inventory.slots[0][x],gl.viewportWidth/2-72.5*this.scale+(x*17*this.scale),gl.viewportHeight/2-74*this.scale);
+        }
+        
+        var x = Math.floor((VirtualCursor.x-(gl.viewportWidth/2-75*this.scale))/(17*this.scale));
+        var y = Math.floor(((gl.viewportHeight/2-3*this.scale)-VirtualCursor.y)/(17*this.scale)+1);
         
         if (Player.inventory.slots[y] != undefined && y > 0 && x >= 0 && x < Player.inventory.slots[y].length){
             slot.display(gl.viewportWidth/2-75*this.scale+(x*17*this.scale), gl.viewportHeight/2+3*this.scale-(y-1)*17*this.scale, currentScreen.guiScale);
         }
+        
+        var y = Math.floor(((gl.viewportHeight/2-77*this.scale)-VirtualCursor.y)/(14*this.scale));
+        
+        if (Player.inventory.slots[y] != undefined && y == 0 && x >= 0 && x < Player.inventory.slots[y].length){
+            slot.display(gl.viewportWidth/2-75*this.scale+(x*17*this.scale), gl.viewportHeight/2-71*this.scale, currentScreen.guiScale);
+        }
+        
         TextureManager.enableTextures();
         useShader("default");
         GLHelper.resetToGuiMatrix();
@@ -31,5 +43,20 @@ function GuiInventory(){
         this.mesh.draw();
         
         Font.drawGuiText("Some Text", "normal", [0,0,0]);
+    },
+    this.handleInventory = function(){
+        var x = Math.floor((VirtualCursor.x-(gl.viewportWidth/2-75*this.scale))/(17*this.scale));
+        var y = Math.floor(((gl.viewportHeight/2-3*this.scale)-VirtualCursor.y)/(17*this.scale)+1);
+        if (Player.inventory.slots[y] != undefined && y > 0 && x >= 0 && x < Player.inventory.slots[y].length){
+            var item = Player.itemInHand;
+            Player.itemInHand = Player.inventory.getItemInInventory(x,y);
+            Player.inventory.setItemInInventory(x, y, item);
+        }
+        var y = Math.floor(((gl.viewportHeight/2-77*this.scale)-VirtualCursor.y)/(14*this.scale));
+        if (Player.inventory.slots[y] != undefined && y == 0 && x >= 0 && x < Player.inventory.slots[y].length){
+            var item = Player.itemInHand;
+            Player.itemInHand = Player.inventory.getItemInInventory(x,y);
+            Player.inventory.setItemInInventory(x, y, item);
+        }
     }
 }

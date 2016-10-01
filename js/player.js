@@ -25,6 +25,7 @@ function initPlayer() {
         mana: 1,
         inventory: new Inventory(9,5),
         selected: 0,
+        itemInHand: undefined,
         
 		update: function(deltaTime) {
             this.isWalking = false;
