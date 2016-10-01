@@ -39,6 +39,7 @@
         <script type="text/javascript" src="js/graphics/world/items/itemModel.js"></script>
         <script type="text/javascript" src="js/graphics/gui/guiInventory.js"></script>
         <script type="text/javascript" src="js/graphics/gui/guiHUD.js"></script>
+        <script type="text/javascript" src="js/graphics/gui/slot.js"></script>
         <script type="text/javascript" src="js/screen/screen.js"></script>
         <script type="text/javascript" src="js/screen/screenGame.js"></script>
         <script type="text/javascript" src="js/inventory/inventory.js"></script>
