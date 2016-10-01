@@ -25,7 +25,5 @@ function GuiInventory(){
         this.mesh.draw();
         
         Font.drawGuiText("Some Text", "normal", [0,0,0]);
-        //190/2 181/2
-        //7 87
     }
 }

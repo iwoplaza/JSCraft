@@ -135,7 +135,7 @@ function createGameScreen() {
         },
         
         onMousePressed: function(event) {
-            if(event.button == 0) {
+            if(event.button == 0 && !this.currentGui) {
                 if(Player.objectMouseOver != undefined) {
                     if(World.world.getChunkForBlockCoords(Player.objectMouseOver.blockPos.x, Player.objectMouseOver.blockPos.z) != undefined) {
                         World.world.setBlock(Player.objectMouseOver.blockPos.x, Player.objectMouseOver.blockPos.y, Player.objectMouseOver.blockPos.z, undefined);
