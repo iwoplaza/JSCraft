@@ -5,11 +5,11 @@ var VirtualCursor = {
     
     init: function() {
         this.mesh = new Mesh();
-        drawTexturedRect(this.mesh, 0, 0, 12, 19, [1,1,1,1], [[0,19/32],[12/32,19/32],[12/32,0],[0,0]]);
+        drawTexturedRect(this.mesh, 0, -19, 12, 19, [1,1,1,1], [[0,19/32],[12/32,19/32],[12/32,0],[0,0]]);
     },
     
     display: function() {
-        ItemRenderer.renderGuiItem(Player.itemInHand, this.x-4*currentScreen.guiScale, this.y+8*currentScreen.guiScale);
+        ItemRenderer.renderGuiItem(Player.itemInHand, this.x-4*currentScreen.guiScale, this.y+4*currentScreen.guiScale);
         
         gl.depthFunc(gl.ALWAYS);
         
@@ -29,7 +29,7 @@ var VirtualCursor = {
     },
     
     moveBy: function(p_x, p_y) {
-        this.x = Math.min(gl.viewportWidth-1, Math.max(0, this.x+p_x));
-        this.y = Math.min(gl.viewportHeight-19, Math.max(-18, this.y+p_y));
+        this.x = Math.min(gl.viewportWidth, Math.max(0, this.x+p_x));
+        this.y = Math.min(gl.viewportHeight, Math.max(0, this.y+p_y));
     }
 };

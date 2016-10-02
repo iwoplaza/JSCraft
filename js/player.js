@@ -24,6 +24,7 @@ function initPlayer() {
         thirst: 1,
         mana: 1,
         inventory: new Inventory(9,5),
+        equiped: new Inventory(3,4),
         selected: 0,
         itemInHand: undefined,
         
