@@ -140,7 +140,6 @@ var Font = {
         GLHelper.translate([_loc[0], _loc[1], 0]);
 
         this.drawText(_text, _name, _loc, _scale, _alignment, _charSeperation);
-        gl.depthFunc(gl.LESS)
     },
 
     drawText: function(_text, _name, _loc, _scale, _alignment /*0 - left, 1 - center, 2 - right*/, _charSeperation) {

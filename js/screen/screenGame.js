@@ -82,6 +82,7 @@ function createGameScreen() {
             GLHelper.identityModel();
             GLHelper.resetToWorldMatrix();
             useShader("default");
+            gl.depthFunc(gl.LEQUAL);
             World.world.display();
             
             //RayTrace Test
@@ -114,8 +115,9 @@ function createGameScreen() {
                 ItemRenderer.renderWorldItem(Player.inventory.slots[0][Player.selected]);
             }
             
-            if (this.currentGui != undefined) this.currentGui.display();
+            gl.depthFunc(gl.ALWAYS);
             this.playerHUD.display();
+            if (this.currentGui != undefined) this.currentGui.display();
             
             if(!this.isMousePointerLocked()) {
                 VirtualCursor.display();

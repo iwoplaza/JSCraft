@@ -1,6 +1,7 @@
 var VirtualCursor = {
     x: 0,
     y: 0,
+    sensitivity: 2,
     mesh: undefined,
     
     init: function() {
@@ -20,7 +21,7 @@ var VirtualCursor = {
         GLHelper.translate([this.x, this.y, 0]);
         this.mesh.draw();
         
-        gl.depthFunc(gl.LESS);
+        gl.depthFunc(gl.LEQUAL);
     },
     
     setLocation: function(p_x, p_y) {
@@ -29,7 +30,7 @@ var VirtualCursor = {
     },
     
     moveBy: function(p_x, p_y) {
-        this.x = Math.min(gl.viewportWidth, Math.max(0, this.x+p_x));
-        this.y = Math.min(gl.viewportHeight, Math.max(0, this.y+p_y));
+        this.x = Math.min(gl.viewportWidth, Math.max(0, this.x+p_x*this.sensitivity));
+        this.y = Math.min(gl.viewportHeight, Math.max(0, this.y+p_y*this.sensitivity));
     }
 };

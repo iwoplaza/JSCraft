@@ -33,7 +33,6 @@ function GuiHUD(){
         
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
         GLHelper.ortho(0,gl.viewportWidth,0,gl.viewportHeight,-100,100);
-        for (var x=0;x<Player.inventory.slots[0].length;x++) ItemRenderer.renderGuiItem(Player.inventory.slots[0][x],gl.viewportWidth/2-72.5*this.scale+(x*17*this.scale),13*this.scale);
         TextureManager.enableTextures();
         useShader("default");
         TextureManager.bindTexture(TextureManager.database["res/textures/gui/playerHUD.png"].textureId);
@@ -41,13 +40,7 @@ function GuiHUD(){
         GLHelper.resetToGuiMatrix();
         GLHelper.translate([gl.viewportWidth/2,gl.viewportHeight/2,0]);
         GLHelper.scale([this.scale,this.scale,this.scale]);
-        this.crosshairMesh.draw();
-        
-        GLHelper.resetToGuiMatrix();
-        GLHelper.translate([gl.viewportWidth/2-76*this.scale+17*Player.selected*this.scale,this.scale,0]);
-        GLHelper.scale([this.scale,this.scale,this.scale]);
-        this.itemSelectorMesh.draw();
-        
+        this.crosshairMesh.draw();        
         
         GLHelper.resetToGuiMatrix();
         GLHelper.translate([gl.viewportWidth/2-76*this.scale,this.scale,0]);
@@ -55,19 +48,14 @@ function GuiHUD(){
         this.toolBarMesh.draw();
         
         GLHelper.resetToGuiMatrix();
-        GLHelper.translate([gl.viewportWidth/2-76*this.scale,25*this.scale,0]);
-        GLHelper.scale([this.scale,this.scale,this.scale]);
-        this.healthBarFillMesh.draw();
-        
-        GLHelper.resetToGuiMatrix();
         GLHelper.translate([gl.viewportWidth/2-76*this.scale,24*this.scale,0]);
         GLHelper.scale([this.scale,this.scale,this.scale]);
         this.healthBarMesh.draw();
         
         GLHelper.resetToGuiMatrix();
-        GLHelper.translate([gl.viewportWidth/2+this.scale,25*this.scale,0]);
+        GLHelper.translate([gl.viewportWidth/2-76*this.scale,25*this.scale,0]);
         GLHelper.scale([this.scale,this.scale,this.scale]);
-        this.hungerBarFillMesh.draw();
+        this.healthBarFillMesh.draw();
         
         GLHelper.resetToGuiMatrix();
         GLHelper.translate([gl.viewportWidth/2+this.scale,24*this.scale,0]);
@@ -75,9 +63,9 @@ function GuiHUD(){
         this.hungerBarMesh.draw();
         
         GLHelper.resetToGuiMatrix();
-        GLHelper.translate([gl.viewportWidth/2+39*this.scale,25*this.scale,0]);
+        GLHelper.translate([gl.viewportWidth/2+this.scale,25*this.scale,0]);
         GLHelper.scale([this.scale,this.scale,this.scale]);
-        this.thirstBarFillMesh.draw();
+        this.hungerBarFillMesh.draw();
         
         GLHelper.resetToGuiMatrix();
         GLHelper.translate([gl.viewportWidth/2+39*this.scale,24*this.scale,0]);
@@ -85,16 +73,31 @@ function GuiHUD(){
         this.thirstBarMesh.draw();
         
         GLHelper.resetToGuiMatrix();
-        GLHelper.translate([gl.viewportWidth/2-76*this.scale,19*this.scale,0]);
+        GLHelper.translate([gl.viewportWidth/2+39*this.scale,25*this.scale,0]);
         GLHelper.scale([this.scale,this.scale,this.scale]);
-        this.manaBarFillMesh.draw();
+        this.thirstBarFillMesh.draw();
         
         GLHelper.resetToGuiMatrix();
         GLHelper.translate([gl.viewportWidth/2-76*this.scale,18*this.scale,0]);
         GLHelper.scale([this.scale,this.scale,this.scale]);
         this.manaBarMesh.draw();
         
-        ItemRenderer.renderGuiItem(Items.getItem(Player.itemInHand));
+        GLHelper.resetToGuiMatrix();
+        GLHelper.translate([gl.viewportWidth/2-76*this.scale,19*this.scale,0]);
+        GLHelper.scale([this.scale,this.scale,this.scale]);
+        this.manaBarFillMesh.draw();
+        
+        gl.depthFunc(gl.LEQUAL);
+        for (var x=0;x<Player.inventory.slots[0].length;x++) ItemRenderer.renderGuiItem(Player.inventory.slots[0][x],gl.viewportWidth/2-72.5*this.scale+(x*17*this.scale),13*this.scale, 5);
+        TextureManager.enableTextures();
+        useShader("default");
+        TextureManager.bindTexture(TextureManager.database["res/textures/gui/playerHUD.png"].textureId);
+        gl.depthFunc(gl.ALWAYS);
+        
+        GLHelper.resetToGuiMatrix();
+        GLHelper.translate([gl.viewportWidth/2-76*this.scale+17*Player.selected*this.scale,this.scale,0]);
+        GLHelper.scale([this.scale,this.scale,this.scale]);
+        this.itemSelectorMesh.draw();
     }
     this.update = function(){
         if (this.health != Player.health || this.hunger != Player.hunger || this.thirst != Player.thirst || this.mana != Player.mana) this.updateFillState();
