@@ -384,4 +384,71 @@ ItemModel.registerModels = function() {
                return this.voxels[x][y][z];
         }
     }));
+    
+    ItemModel.register("axe", new ItemModel().addPart({
+        type: "staticVoxels",
+        width: 3,
+        height: 16,
+        length: 15,
+        voxels: [
+            [
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, i, i, i, u, u, i, u, u, u, u, u, u],
+                [u, u, i, i, i, i, i, u, i, i, u, u, u, u, u],
+                [u, u, i, i, i, i, i, u, i, u, u, u, u, u, u],
+                [u, u, i, i, i, i, i, u, u, u, u, u, u, u, u],
+                [u, u, u, i, i, i, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, i, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u]
+            ],
+            [
+                [u, u, s, s, s, s, u, b, u, u, u, u, u, u, u],
+                [u, s, s, i, i, i, s, b, s, u, u, u, u, u, u],
+                [u, s, i, i, i, i, i, b, i, s, u, u, u, u, u],
+                [u, s, i, i, i, i, i, b, i, i, s, u, u, u, u],
+                [u, s, i, i, i, i, i, b, i, s, u, u, u, u, u],
+                [u, s, s, i, i, i, s, b, s, u, u, u, u, u, u],
+                [u, u, s, s, i, s, s, b, s, u, u, u, u, u, u],
+                [u, u, u, s, s, s, u, b, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, b, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, b, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, b, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, b, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, b, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, b, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, b, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, b, u, u, u, u, u, u, u]
+            ],
+            [
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, i, i, i, u, u, i, u, u, u, u, u, u],
+                [u, u, i, i, i, i, i, u, i, i, u, u, u, u, u],
+                [u, u, i, i, i, i, i, u, i, u, u, u, u, u, u],
+                [u, u, i, i, i, i, i, u, u, u, u, u, u, u, u],
+                [u, u, u, i, i, i, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, i, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u],
+                [u, u, u, u, u, u, u, u, u, u, u, u, u, u, u]
+            ]
+        ],
+        getVoxel: function(x, y, z) {
+            if(x < 0 || y < 0 || z < 0 || x >= this.width || y >= this.height || z >= this.length) return undefined;
+               return this.voxels[x][y][z];
+        }
+    }));
 }
