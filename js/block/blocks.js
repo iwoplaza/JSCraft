@@ -52,6 +52,7 @@ Blocks.addBlockTypeToLoadQueue("blockGrass");
 Blocks.addBlockTypeToLoadQueue("blockLog");
 Blocks.addBlockTypeToLoadQueue("blockTallGrass");
 Blocks.addBlockTypeToLoadQueue("blockLeaves");
+Blocks.addBlockTypeToLoadQueue("blockHalf");
 
 Blocks.registerCallback(function() {
     Blocks.registerBlock("air", undefined);
@@ -77,4 +78,5 @@ Blocks.registerCallback(function() {
     Blocks.registerBlock("monalisa", new Block().setDefaultTextureIndex(21));
     Blocks.registerBlock("wooden_planks", new Block().setDefaultTextureIndex(22));
     Blocks.registerBlock("tall_grass", new BlockTallGrass().setDefaultTextureIndex(23));
+    Blocks.registerBlock("wooden_slab", new BlockHalf().setDefaultTextureIndex(22));
 });
