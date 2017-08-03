@@ -33,6 +33,11 @@ function initPlayer() {
             
             this.vel.x = 0;
             this.vel.z = 0;
+            if (scroll != 0){
+                this.selected += scroll;
+                scroll = 0;
+                Player.selected = Player.selected<0?Player.selected+9:Player.selected>8?Player.selected-9:Player.selected;
+            }
             
             if(keyState[key_Down]) {
                 var forward = Camera.getForwardVector().getMultiplied(-1);

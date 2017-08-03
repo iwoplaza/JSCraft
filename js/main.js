@@ -11,6 +11,8 @@ var key_Flashlight = 70;
 var key_Interact = 69;
 var key_Restart = 82;
 
+var scroll = 0;
+
 var lastTime = Date.now();
 
 function initGL() {
@@ -48,6 +50,10 @@ window.onkeyup = function(e) {
     if(e.shiftKey) isShiftDown = false;
 }
 
+window.onwheel = function(e) {
+    scroll = e.deltaY>0?1:-1;
+}
+
 function tick() {
     var now = Date.now();
     var deltaTime = now - lastTime;
@@ -60,14 +66,6 @@ function tick() {
 }
 
 function singleActivation(code){
-    if (code==107){
-        Player.selected++;
-        Player.selected = Player.selected>8 ? Player.selected-9 : Player.selected;
-    }
-    if (code==109){
-        Player.selected--;
-        Player.selected = Player.selected<0 ? Player.selected+9 : Player.selected;
-    }
     if (code==69){
         if (currentScreen.currentGui == undefined){
             currentScreen.currentGui = new GuiInventory();

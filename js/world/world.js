@@ -204,6 +204,9 @@ function World(p_name,p_type){
                 if (Math.floor(this.noiseGenerator.getNoise((chunkBlockX+x),(chunkBlockZ+z))*6) == 0){
                     this.setBlock(chunkBlockX+x, height, chunkBlockZ+z, {id: 22});
                 }
+                if (Math.floor(this.noiseGenerator.getNoise((chunkBlockX+x),(chunkBlockZ+z))*30) == 0){
+                    this.setBlock(chunkBlockX+x, height, chunkBlockZ+z, {id: 17});
+                }
                 if (Math.floor(this.noiseGenerator.getNoise((chunkBlockX+x),(chunkBlockZ+z))*40) == 0){
                     StructureManager.deployStructure(chunkBlockX+x, height, chunkBlockZ+z, StructureManager.getStructure(1));
                 }

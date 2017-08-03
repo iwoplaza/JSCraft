@@ -59,8 +59,10 @@ var StructureManager = {
     }
 };
 StructureManager.addStructureTemplateToLoadQueue("smallTree");
+StructureManager.addStructureTemplateToLoadQueue("smallHouse");
 
 Blocks.registerCallback(function() {
     StructureManager.registerStructure(undefined,"null");
     StructureManager.registerStructure(smallTree,"smallTree");
+    StructureManager.registerStructure(smallHouse,"smallHouse");
 });
