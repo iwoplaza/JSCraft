@@ -67,6 +67,16 @@ function createGameScreen() {
                 }
             }
             
+            if (keyState[69]){
+                if (currentScreen.currentGui == undefined){
+                    currentScreen.currentGui = new GuiInventory();
+                    currentScreen.currentGui.init();
+                }else{
+                    currentScreen.currentGui = undefined;
+                }
+                keyState[69] = false;
+            }
+            
             Player.update(deltaTime);
             Camera.update(deltaTime); 
             

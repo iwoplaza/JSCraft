@@ -31,9 +31,6 @@ function initGL() {
 
 window.onkeydown = function (e) {
 	var code = e.keyCode ? e.keyCode : e.which;
-    
-    if (!keyState[code]) singleActivation(code);
-    
 	keyState[code] = true;
     
     if(e.shiftKey) isShiftDown = true;
@@ -63,17 +60,6 @@ function tick() {
 		update(deltaTime);
 		drawScene();
 	}
-}
-
-function singleActivation(code){
-    if (code==69){
-        if (currentScreen.currentGui == undefined){
-            currentScreen.currentGui = new GuiInventory();
-            currentScreen.currentGui.init();
-        }else{
-            currentScreen.currentGui = undefined;
-        }
-    }
 }
 
 function update(deltaTime) {
