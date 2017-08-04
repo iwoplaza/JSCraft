@@ -139,6 +139,8 @@ function createGameScreen() {
             
             if(keyCode == 76) {
                 PointerLock.request();
+                Mouse.movementX = 0;
+                Mouse.movementY = 0;
             }
         },
         
