@@ -55,16 +55,15 @@ function createGameScreen() {
             
             if(PointerLock.isLocked()) {
                 if(this.isMousePointerLocked()) {
-                    var mouseSensitivity = 0.7;
+                    var mouseSensitivity = 0.6;
                     Camera.rotation.y += Mouse.movementX*mouseSensitivity;
                     Camera.rotation.x += Mouse.movementY*mouseSensitivity;
                     Camera.rotation.x = Math.max(Math.min(Camera.rotation.x, 90.0), -90.0);
-
-                    this.smoothMouseVel.x += (Mouse.movementX-this.smoothMouseVel.x)*0.5;
-                    this.smoothMouseVel.y += (Mouse.movementY-this.smoothMouseVel.y)*0.5;
                 }else{
                     VirtualCursor.moveBy(Mouse.movementX, -Mouse.movementY);
                 }
+                Mouse.movementX = 0;
+                Mouse.movementY = 0;
             }
             
             if (keyState[69]){
@@ -165,7 +164,7 @@ function createGameScreen() {
         },
         
         isMousePointerLocked: function() {
-            return this.currentGui == undefined;
+            return (this.currentGui == undefined);
         },
         
         clean: function() {

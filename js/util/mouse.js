@@ -27,27 +27,10 @@ var Mouse = {
 }
 
 document.onmousemove = function(e) {
-	e = e || window.event;
-    
-    Mouse.lastX = Mouse.x+0;
-    Mouse.lastY = Mouse.y+0;
-
-	Mouse.x = e.pageX - canvas.getBoundingClientRect().left;
-	Mouse.y = e.pageY - canvas.getBoundingClientRect().top;
-    
-    Mouse.movementX = (e.movementX ||
-      e.mozMovementX          ||
-      e.webkitMovementX       ||
-      0)+0;
-    Mouse.movementY = (e.movementY ||
-      e.mozMovementY      ||
-      e.webkitMovementY   ||
-      0)+0;
-    
-    clearTimeout(Mouse.timeout);
-    Mouse.timeout = setTimeout(Mouse.onMouseStop, 10);
-    
-    runEventCallbacks("mouseMove");
+    Mouse.x += e.movementX;
+    Mouse.y += e.movementY;
+    Mouse.movementX += e.movementX;
+    Mouse.movementY += e.movementY;
 }
 
 document.onmousedown = function(e) {
