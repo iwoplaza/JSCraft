@@ -663,18 +663,18 @@ BlockRenderType.renderStair_N = function(p_buffer, p_x, p_y, p_z, p_w, p_h, p_l,
     ]);
     if(p_showFaces[5]) p_buffer.texCoords.push.apply(p_buffer.texCoords, [
         //Up
-        (u[5]+1)/64-texturePadding, (v[5]+0.5)/64+texturePadding,
-        (u[5]+0)/64+texturePadding, (v[5]+0.5)/64+texturePadding,
-        (u[5]+0)/64+texturePadding, (v[5]+1)/64-texturePadding,
-        (u[5]+1)/64-texturePadding, (v[5]+0.5)/64+texturePadding,
-        (u[5]+0)/64+texturePadding, (v[5]+1)/64-texturePadding,
-        (u[5]+1)/64-texturePadding, (v[5]+1)/64-texturePadding,
         (u[5]+1)/64-texturePadding, (v[5]+0)/64+texturePadding,
         (u[5]+0)/64+texturePadding, (v[5]+0)/64+texturePadding,
         (u[5]+0)/64+texturePadding, (v[5]+0.5)/64-texturePadding,
         (u[5]+1)/64-texturePadding, (v[5]+0)/64+texturePadding,
         (u[5]+0)/64+texturePadding, (v[5]+0.5)/64-texturePadding,
-        (u[5]+1)/64-texturePadding, (v[5]+0.5)/64-texturePadding
+        (u[5]+1)/64-texturePadding, (v[5]+0.5)/64-texturePadding,
+        (u[5]+1)/64-texturePadding, (v[5]+0.5)/64+texturePadding,
+        (u[5]+0)/64+texturePadding, (v[5]+0.5)/64+texturePadding,
+        (u[5]+0)/64+texturePadding, (v[5]+1)/64-texturePadding,
+        (u[5]+1)/64-texturePadding, (v[5]+0.5)/64+texturePadding,
+        (u[5]+0)/64+texturePadding, (v[5]+1)/64-texturePadding,
+        (u[5]+1)/64-texturePadding, (v[5]+1)/64-texturePadding
     ]);
 	for(var i = 0; i < (visibleFaces+4)*6; i++) {
 		p_buffer.colors.push(1);
@@ -925,18 +925,18 @@ BlockRenderType.renderStair_S = function(p_buffer, p_x, p_y, p_z, p_w, p_h, p_l,
     ]);
     if(p_showFaces[5]) p_buffer.texCoords.push.apply(p_buffer.texCoords, [
         //Up
-        (u[5]+1)/64-texturePadding, (v[5]+0.5)/64+texturePadding,
-        (u[5]+0)/64+texturePadding, (v[5]+0.5)/64+texturePadding,
-        (u[5]+0)/64+texturePadding, (v[5]+1)/64-texturePadding,
-        (u[5]+1)/64-texturePadding, (v[5]+0.5)/64+texturePadding,
-        (u[5]+0)/64+texturePadding, (v[5]+1)/64-texturePadding,
-        (u[5]+1)/64-texturePadding, (v[5]+1)/64-texturePadding,
         (u[5]+1)/64-texturePadding, (v[5]+0)/64+texturePadding,
         (u[5]+0)/64+texturePadding, (v[5]+0)/64+texturePadding,
         (u[5]+0)/64+texturePadding, (v[5]+0.5)/64-texturePadding,
         (u[5]+1)/64-texturePadding, (v[5]+0)/64+texturePadding,
         (u[5]+0)/64+texturePadding, (v[5]+0.5)/64-texturePadding,
-        (u[5]+1)/64-texturePadding, (v[5]+0.5)/64-texturePadding
+        (u[5]+1)/64-texturePadding, (v[5]+0.5)/64-texturePadding,
+        (u[5]+1)/64-texturePadding, (v[5]+0.5)/64+texturePadding,
+        (u[5]+0)/64+texturePadding, (v[5]+0.5)/64+texturePadding,
+        (u[5]+0)/64+texturePadding, (v[5]+1)/64-texturePadding,
+        (u[5]+1)/64-texturePadding, (v[5]+0.5)/64+texturePadding,
+        (u[5]+0)/64+texturePadding, (v[5]+1)/64-texturePadding,
+        (u[5]+1)/64-texturePadding, (v[5]+1)/64-texturePadding
     ]);
 	for(var i = 0; i < (visibleFaces+4)*6; i++) {
 		p_buffer.colors.push(1);

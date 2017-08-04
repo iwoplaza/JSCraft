@@ -83,4 +83,5 @@ Blocks.registerCallback(function() {
     Blocks.registerBlock("cobblestone_slab", new BlockHalf().setDefaultTextureIndex(12));
     Blocks.registerBlock("wooden_stair", new BlockStair().setDefaultTextureIndex(22));
     Blocks.registerBlock("cobblestone_stair", new BlockStair().setDefaultTextureIndex(12));
+    Blocks.registerBlock("crate_stair", new BlockStair().setDefaultTextureIndex(17));
 });
