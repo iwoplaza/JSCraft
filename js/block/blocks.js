@@ -54,6 +54,7 @@ Blocks.addBlockTypeToLoadQueue("blockTallGrass");
 Blocks.addBlockTypeToLoadQueue("blockLeaves");
 Blocks.addBlockTypeToLoadQueue("blockHalf");
 Blocks.addBlockTypeToLoadQueue("blockStair");
+Blocks.addBlockTypeToLoadQueue("blockFurnace");
 
 Blocks.registerCallback(function() {
     Blocks.registerBlock("air", undefined);
@@ -84,4 +85,7 @@ Blocks.registerCallback(function() {
     Blocks.registerBlock("wooden_stair", new BlockStair().setDefaultTextureIndex(22));
     Blocks.registerBlock("cobblestone_stair", new BlockStair().setDefaultTextureIndex(12));
     Blocks.registerBlock("crate_stair", new BlockStair().setDefaultTextureIndex(17));
+    Blocks.registerBlock("polished_stone", new Block().setDefaultTextureIndex(24));
+    Blocks.registerBlock("furnace_inactive", new BlockFurnace().setDefaultTextureIndex(25));
+    Blocks.registerBlock("furnace_active", new BlockFurnace().setDefaultTextureIndex(26));
 });
