@@ -7,9 +7,6 @@ function World(p_name,p_type){
 	this.chunks = new Array(0);
     this.noiseGenerator = new NoiseGenerator(0);
     this.noiseGeneratorLarge = new NoiseGenerator(1);
-    this.currentlyLoadingChunk = undefined;
-    this.chunksToLoad = new Array(0);
-    this.chunksToRender = new Array(0);
     
 	this.getName = function() {
 		return this.name;
@@ -65,44 +62,11 @@ function World(p_name,p_type){
         }
     }
     
-    this.updateChunksToLoad = function() {
-        var chunkKeys = Object.keys(this.chunks);
-        this.chunksToLoad = this.getChunkCoordsToLoad();
-        
-        if(chunkKeys != undefined) {
-            for(var i = 0; i < chunkKeys.length; i++){
-                var chunk = this.chunks[chunkKeys[i]];
-                if(chunk.dirty) {
-                    this.chunksToRender.push([chunk.getX(), chunk.getZ()]);
-                    chunk.dirty = false;
-                }
+    this.loadChunks = function() {
+        for(let x = -1; x <= 1; x++) {
+            for(let z = -1; z <= 1; z++) {
+                this.loadChunk(x, z);
             }
-        }
-    }
-    
-    this.updateChunks = function() {
-        this.updateChunksToLoad();
-        
-        var chunksToLoadKeys = Object.keys(this.chunksToLoad);
-        for(var i = 0; i < chunksToLoadKeys.length; i++) {
-            var chunk = this.chunksToLoad[chunksToLoadKeys[i]];
-            this.loadChunk(chunk[0], chunk[1]);
-        }
-        
-        //console.log("Updating chunks");
-        
-        this.renderChunks();
-    }
-    
-    this.renderChunks = function() {
-        for(var i = 0; i < this.chunksToRender.length; i++) {
-            var chunk = this.chunksToRender[i];
-            if(chunk != undefined){
-                this.renderChunk(chunk[0], chunk[1]);
-                this.chunksToRender.splice(i, 1);
-            }
-            
-            //console.log("Rendering chunk", [chunk[0], chunk[1]]);
         }
     }
     
@@ -136,7 +100,14 @@ function World(p_name,p_type){
         }
         
         chunk.layers[p_y][p_x-chunk.getX()*Chunk.width][p_z-chunk.getZ()*Chunk.width] = p_blockData;
-        chunk.dirty = true;
+    }
+    
+    this.setBlockAndNotify = function(p_x, p_y, p_z, p_blockData) {
+        this.setBlock(p_x, p_y, p_z, p_blockData);
+        if(p_x == undefined || p_y == undefined || p_z == undefined) return;
+        var chunk = this.getChunkForBlockCoords(p_x, p_z);
+        if(chunk == undefined) return;
+        this.renderChunk(chunk.getX(), chunk.getZ());
     }
     
     this.getBlock = function(p_x, p_y, p_z) {
@@ -212,48 +183,11 @@ function World(p_name,p_type){
                 }
             }
         }
-        /*
-            
-        //Tree code (Needs rework)
-            
-            this.layers[12][4][4] = {id:14};
-            this.layers[12][3][4] = {id:14};
-            this.layers[12][4][3] = {id:14};
-            this.layers[12][5][4] = {id:14};
-            this.layers[12][4][5] = {id:14};
-            for (var x=0;x<3;x++){
-                for (var z=0;z<3;z++){
-                    this.layers[11][3+x][3+z] = {id:14};
-                }
-            }
-            for (var x=0;x<5;x++){
-                for (var z=0;z<5;z++){
-                    this.layers[10][2+x][2+z] = {id:14};
-                }
-            }
-            for (var x=0;x<3;x++){
-                for (var z=0;z<3;z++){
-                    this.layers[9][3+x][3+z] = {id:14};
-                }
-            }
-            this.layers[9][3][2] = {id:14};
-            this.layers[9][4][2] = {id:14};
-            this.layers[9][5][2] = {id:14};
-            this.layers[9][2][3] = {id:14};
-            this.layers[9][2][4] = {id:14};
-            this.layers[9][2][5] = {id:14};
-            this.layers[9][6][5] = {id:14};
-            this.layers[9][6][4] = {id:14};
-            this.layers[9][6][3] = {id:14};
-            this.layers[9][5][6] = {id:14};
-            this.layers[9][4][6] = {id:14};
-            this.layers[9][3][6] = {id:14};
-            for (var i=0;i<6;i++) this.layers[6+i][4][4] = {id:13};
-        */
     }
     
     this.loadChunk = function(p_x, p_z) {
         this.generateChunk(p_x, p_z);
+        this.renderChunk(p_x, p_z);
     }
     
     this.unloadChunk = function(p_x, p_z) {
@@ -313,8 +247,4 @@ function World(p_name,p_type){
 
         return list;
     }
-}
-
-World.updateChunks = function() {
-    World.world.updateChunks();
 }

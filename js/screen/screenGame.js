@@ -26,6 +26,7 @@ function ScreenGame() {
         drawTexturedCube(this.blockSelectionRO, -0.01, -0.01, -0.01, 1.02, 1.02, 1.02, [1, 1, 1, 0.2]);
 
         initPlayer();
+        World.world.loadChunks();
         Player.worldObj = World.world;
         Player.loc.y = 35;
         Player.inventory.slots[0][0] = Items.getItemByName("sword");
@@ -136,7 +137,7 @@ function ScreenGame() {
         if(event.button == 0 && !this.currentGui) {
             if(Player.objectMouseOver != undefined) {
                 if(World.world.getChunkForBlockCoords(Player.objectMouseOver.blockPos.x, Player.objectMouseOver.blockPos.z) != undefined) {
-                    World.world.setBlock(Player.objectMouseOver.blockPos.x, Player.objectMouseOver.blockPos.y, Player.objectMouseOver.blockPos.z, undefined);
+                    World.world.setBlockAndNotify(Player.objectMouseOver.blockPos.x, Player.objectMouseOver.blockPos.y, Player.objectMouseOver.blockPos.z, undefined);
                     console.log("Removed block", [Player.objectMouseOver.blockPos.x, Player.objectMouseOver.blockPos.y, Player.objectMouseOver.blockPos.z]);
                     console.log(World.world.getBlock(Player.objectMouseOver.blockPos.x, Player.objectMouseOver.blockPos.y, Player.objectMouseOver.blockPos.z));
                 }
