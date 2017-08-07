@@ -7,15 +7,16 @@
         <script type="text/javascript" src="js/lib/jquery.js"></script>
         <script type="text/javascript" src="js/lib/perlin-noise-simplex.js"></script>
         
-        <script type="text/javascript" src="js/util/vector2f.js"></script>
-        <script type="text/javascript" src="js/util/vector3f.js"></script>
-        <script type="text/javascript" src="js/util/extensions.js"></script>
-        <script type="text/javascript" src="js/util/mouse.js"></script>
-        <script type="text/javascript" src="js/util/pointerLock.js"></script>
-        <script type="text/javascript" src="js/util/noiseGenerator.js"></script>
-        <script type="text/javascript" src="js/util/boundingBox.js"></script>
-        <script type="text/javascript" src="js/util/collisionHelper.js"></script>
-        <script type="text/javascript" src="js/util/virtualCursor.js"></script>
+        <script src="js/util/vector2f.js"></script>
+        <script src="js/util/vector3f.js"></script>
+        <script src="js/util/extensions.js"></script>
+        <script src="js/util/mouse.js"></script>
+        <script src="js/util/pointerLock.js"></script>
+        <script src="js/util/noiseGenerator.js"></script>
+        <script src="js/util/boundingBox.js"></script>
+        <script src="js/util/collisionHelper.js"></script>
+        <script src="js/util/virtualCursor.js"></script>
+        <script src="js/util/time.js"></script>
         
         <script type="text/javascript" src="js/main.js"></script>
         <script type="text/javascript" src="js/math.js"></script>
@@ -54,7 +55,6 @@
         <script type="text/javascript" src="js/world/structures/smallTree.js"></script>
         
         <script>//If you remove this the God will leave you!</script>
-        
         
         <link rel="stylesheet" href="css/stylesheet.css">
     </head>

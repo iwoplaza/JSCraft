@@ -35,7 +35,7 @@ window.onkeydown = function (e) {
     
     if(e.shiftKey) isShiftDown = true;
     
-    handleKeyPressedCurrentScreen(e);
+    ScreenHandler.handleKeyPressed(e);
     
     if(code == 32) e.preventDefault();
 }
@@ -52,22 +52,23 @@ window.onwheel = function(e) {
 }
 
 function tick() {
-    var now = Date.now();
-    var deltaTime = now - lastTime;
-    lastTime = now;
+    Time.tick();
     
 	if(ResourceManager.drawLoadingScreen()){
-		update(deltaTime);
+		update();
 		drawScene();
 	}
+    
+    requestAnimationFrame(tick);
 }
 
-function update(deltaTime) {
-    updateCurrentScreen(deltaTime);
+function update() {
+    //updateCurrentScreen(deltaTime);
+    ScreenHandler.update(Time.delta);
 }
 
 function drawScene() {
-    displayCurrentScreen();
+    ScreenHandler.draw();
     
     GLHelper.handleStateErrors();
 }
@@ -94,7 +95,7 @@ function webGLStart() {
     
 	ResourceManager.preloadBaseResources();
     
-    setInterval(tick, 1000/60);
+    tick();
 }
 
 function onFinishedLoading(){
@@ -104,5 +105,6 @@ function onFinishedLoading(){
 }
 
 function gameStart() {
-    openGameScreen();
+    //openGameScreen();
+    ScreenHandler.open(new ScreenGame());
 }

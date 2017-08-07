@@ -13,7 +13,7 @@ var ItemRenderer = {
     renderGuiItem: function(p_item, p_x, p_y, p_z) {
         if (p_item == undefined) return;
         var model = ItemModel.get(p_item.getItemModel());
-        var scale = currentScreen.guiScale*0.6;
+        var scale = ScreenHandler.guiScale*0.6;
         var x = p_x || 60;
         var y = p_y || 60;
         var z = p_z || 0;

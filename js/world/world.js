@@ -311,33 +311,6 @@ function World(p_name,p_type){
             }
         }
 
-        /*if (entityIn != null)
-        {
-            List<Entity> list1 = this.getEntitiesWithinAABBExcludingEntity(entityIn, aabb.expandXyz(0.25D));
-
-            for (int k2 = 0; k2 < list1.size(); ++k2)
-            {
-                Entity entity = (Entity)list1.get(k2);
-
-                if (!entityIn.isRidingSameEntity(entity))
-                {
-                    AxisAlignedBB axisalignedbb = entity.getCollisionBoundingBox();
-
-                    if (axisalignedbb != null && axisalignedbb.intersectsWith(aabb))
-                    {
-                        list.add(axisalignedbb);
-                    }
-
-                    axisalignedbb = entityIn.getCollisionBox(entity);
-
-                    if (axisalignedbb != null && axisalignedbb.intersectsWith(aabb))
-                    {
-                        list.add(axisalignedbb);
-                    }
-                }
-            }
-        }*/
-
         return list;
     }
 }

@@ -1,42 +1,46 @@
 var currentScreen;
 
-function openScreen(screen) {
-    screen.init();
-    this.currentScreen = screen;
-}
-
-function updateCurrentScreen(deltaTime) {
-    if(currentScreen != undefined && currentScreen.update != undefined) {
-        currentScreen.update(deltaTime);
+var ScreenHandler = {
+    currentScreen: undefined,
+    guiScale: 2,
+    
+    open: function(screen) {
+        this.currentScreen = screen;
+        this.currentScreen.init();
+    },
+    
+    update: function(deltaTime) {
+        if(this.currentScreen && this.currentScreen.update)
+            this.currentScreen.update(deltaTime);
+    },
+    
+    draw: function() {
+        if(this.currentScreen && this.currentScreen.display)
+            this.currentScreen.display();
+    },
+    
+    handleKeyPressed: function(e) {
+        if(this.currentScreen && this.currentScreen.handleKeyPressed)
+            this.currentScreen.handleKeyPressed(e);
+    },
+    
+    handleKeyReleased: function(e) {
+        if(this.currentScreen && this.currentScreen.handleKeyReleased)
+            this.currentScreen.handleKeyReleased(e);
+    },
+    
+    handleMousePressed: function(e) {
+        if(this.currentScreen && this.currentScreen.handleMousePressed)
+            this.currentScreen.handleMousePressed(e);
+    },
+    
+    handleMouseReleased: function(e) {
+        if(this.currentScreen && this.currentScreen.handleMouseReleased)
+            this.currentScreen.handleMouseReleased(e);
+    },
+    
+    handleMouseMove: function(e) {
+        if(this.currentScreen && this.currentScreen.handleMouseMove)
+            this.currentScreen.handleMouseMove(e);
     }
-}
-
-function displayCurrentScreen() {
-    if(currentScreen != undefined && currentScreen.display != undefined) {
-        currentScreen.display();
-    }
-}
-
-function handleKeyPressedCurrentScreen(p_event) {
-    if(currentScreen != undefined && currentScreen.onKeyPressed != undefined) {
-        currentScreen.onKeyPressed(p_event);
-    }
-}
-
-function handleKeyReleasedCurrentScreen(p_event) {
-    if(currentScreen != undefined && currentScreen.onKeyReleased != undefined) {
-        currentScreen.onKeyReleased(p_event);
-    }
-}
-
-function handleMousePressedCurrentScreen(p_event) {
-    if(currentScreen != undefined && currentScreen.onMousePressed != undefined) {
-        currentScreen.onMousePressed(p_event);
-    }
-}
-
-function handleMouseReleasedCurrentScreen(p_event) {
-    if(currentScreen != undefined && currentScreen.onMouseReleased != undefined) {
-        currentScreen.onMouseReleased(p_event);
-    }
-}
+};

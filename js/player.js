@@ -68,11 +68,11 @@ function initPlayer() {
             }
             
             if(keyState[32] && this.onGround) {
-                this.vel.y = 0.017;
+                this.vel.y = 10;
             }
             
             if(World.world.getChunkForBlockCoords(this.loc.x, this.loc.z) != undefined && World.world.getChunkForBlockCoords(this.loc.x, this.loc.z).rendered){
-                this.vel.y -= 0.0012;
+                this.vel.y -= 25*Time.delta;
             }
             
             if(this.isWalking && keyState[16] && this.canSprint()) this.isSprinting = true;
@@ -356,7 +356,7 @@ function initPlayer() {
 		},
         
         getWalkSpeed: function() {
-            return this.isSprinting ? 0.012 : 0.006;
+            return this.isSprinting ? 12 : 7;
         },
         
         getBoundingBox: function() {

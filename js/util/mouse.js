@@ -29,19 +29,21 @@ var Mouse = {
 document.onmousemove = function(e) {
     Mouse.x += e.movementX;
     Mouse.y += e.movementY;
-    Mouse.movementX += e.movementX;
-    Mouse.movementY += e.movementY;
+    Mouse.movementX = e.movementX;
+    Mouse.movementY = e.movementY;
+    ScreenHandler.handleMouseMove(e);
+    runEventCallbacks("mouseMove", e);
 }
 
 document.onmousedown = function(e) {
 	Mouse.mouseState[e.button] = true;
-    handleMousePressedCurrentScreen(e);
+    ScreenHandler.handleMousePressed(e);
     runEventCallbacks("mouseDown", e);
 }
 
 document.onmouseup = function(e) {
 	Mouse.mouseState[e.button] = false;
-    handleMouseReleasedCurrentScreen(e);
+    ScreenHandler.handleMouseReleased(e);
     runEventCallbacks("mouseUp", e);
 }
 

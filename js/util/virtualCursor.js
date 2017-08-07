@@ -1,7 +1,7 @@
 var VirtualCursor = {
     x: 0,
     y: 0,
-    sensitivity: 2,
+    sensitivity: 1,
     mesh: undefined,
     
     init: function() {
@@ -12,7 +12,7 @@ var VirtualCursor = {
     display: function() {
         gl.depthFunc(gl.ALWAYS);
         
-        ItemRenderer.renderGuiItem(Player.itemInHand, this.x-4*currentScreen.guiScale, this.y+4*currentScreen.guiScale,1);
+        ItemRenderer.renderGuiItem(Player.itemInHand, this.x-4*ScreenHandler.guiScale, this.y+4*ScreenHandler.guiScale,1);
         
         useShader("default");
         GLHelper.resetToGuiMatrix();

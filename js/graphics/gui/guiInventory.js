@@ -5,7 +5,7 @@ function GuiInventory(){
         drawTexturedRect(this.mesh, -83, -90.5, 190, 181,[1,1,1,1],[[0,181/512],[190/512,181/512],[190/512,0],[0,0]]);
     },
     this.display = function(){
-        this.scale = currentScreen.guiScale;
+        this.scale = ScreenHandler.guiScale;
         
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
         GLHelper.ortho(0,gl.viewportWidth,0,gl.viewportHeight,-100,100);
@@ -32,12 +32,12 @@ function GuiInventory(){
         var y = Math.floor(((gl.viewportHeight/2+3.5*this.scale)-VirtualCursor.y)/(17*this.scale)+1);
         
         if (Player.inventory.slots[y] != undefined && y > 0 && x >= 0 && x < Player.inventory.slots[y].length){
-            slot.display(gl.viewportWidth/2-75*this.scale+(x*17*this.scale), (gl.viewportHeight/2-11.5*this.scale)-(17*this.scale)*(y-1), currentScreen.guiScale);
+            slot.display(gl.viewportWidth/2-75*this.scale+(x*17*this.scale), (gl.viewportHeight/2-11.5*this.scale)-(17*this.scale)*(y-1), ScreenHandler.guiScale);
         }
         var y = Math.floor(((gl.viewportHeight/2-70.5*this.scale)-VirtualCursor.y)/(16*this.scale));
         
         if (Player.inventory.slots[y] != undefined && y == 0 && x >= 0 && x < Player.inventory.slots[y].length){
-            slot.display(gl.viewportWidth/2-75*this.scale+(x*17*this.scale), gl.viewportHeight/2-85.5*this.scale, currentScreen.guiScale);
+            slot.display(gl.viewportWidth/2-75*this.scale+(x*17*this.scale), gl.viewportHeight/2-85.5*this.scale, ScreenHandler.guiScale);
         }
         
         Font.drawGuiText("Some Text", "normal", [0,0,0]);

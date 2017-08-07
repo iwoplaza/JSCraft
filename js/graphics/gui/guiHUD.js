@@ -29,7 +29,7 @@ function GuiHUD(){
         drawTexturedRect(this.itemSelectorMesh, 0, 0, 16, 16,[1,1,1,1],[[167/512,16/512],[183/512,16/512],[183/512,0],[167/512,0]]);
     };
     this.display = function(){
-        this.scale = currentScreen.guiScale;
+        let scale = ScreenHandler.guiScale;
         
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
         GLHelper.ortho(0,gl.viewportWidth,0,gl.viewportHeight,-100,100);
@@ -37,71 +37,82 @@ function GuiHUD(){
         useShader("default");
         TextureManager.bindTexture(TextureManager.database["res/textures/gui/playerHUD.png"].textureId);
         
-        GLHelper.resetToGuiMatrix();
-        GLHelper.translate([gl.viewportWidth/2,gl.viewportHeight/2,0]);
-        GLHelper.scale([this.scale,this.scale,this.scale]);
-        this.crosshairMesh.draw();        
+        GLHelper.saveState();
+            GLHelper.resetToGuiMatrix();
+            GLHelper.translate([gl.viewportWidth/2,gl.viewportHeight/2,0]);
+            GLHelper.scale([scale, scale, scale]);
+            this.crosshairMesh.draw();
+        GLHelper.loadState();
         
-        GLHelper.resetToGuiMatrix();
-        GLHelper.translate([gl.viewportWidth/2-76*this.scale,this.scale,0]);
-        GLHelper.scale([this.scale,this.scale,10]);
-        this.toolBarMesh.draw();
+        GLHelper.saveState();
+            GLHelper.resetToGuiMatrix();
+            GLHelper.translate([gl.viewportWidth/2,0,0]);
+            GLHelper.scale([scale, scale, scale]);
+            
+            GLHelper.saveState();
+                GLHelper.translate([-76,1,0]);
+                this.toolBarMesh.draw();
+            GLHelper.loadState();
         
-        GLHelper.resetToGuiMatrix();
-        GLHelper.translate([gl.viewportWidth/2-76*this.scale,24*this.scale,0]);
-        GLHelper.scale([this.scale,this.scale,this.scale]);
-        this.healthBarMesh.draw();
+            GLHelper.saveState();
+                GLHelper.translate([-76,24,0]);
+                this.healthBarMesh.draw();
+            GLHelper.loadState();
+
+            GLHelper.saveState();
+                GLHelper.translate([-76,25,0]);
+                this.healthBarFillMesh.draw();
+            GLHelper.loadState();    
         
-        GLHelper.resetToGuiMatrix();
-        GLHelper.translate([gl.viewportWidth/2-76*this.scale,25*this.scale,0]);
-        GLHelper.scale([this.scale,this.scale,this.scale]);
-        this.healthBarFillMesh.draw();
+            GLHelper.saveState();
+                GLHelper.translate([1,24,0]);
+                this.hungerBarMesh.draw();
+            GLHelper.loadState();
         
-        GLHelper.resetToGuiMatrix();
-        GLHelper.translate([gl.viewportWidth/2+this.scale,24*this.scale,0]);
-        GLHelper.scale([this.scale,this.scale,this.scale]);
-        this.hungerBarMesh.draw();
+            GLHelper.saveState();
+                GLHelper.translate([1,25,0]);
+                this.hungerBarFillMesh.draw();
+            GLHelper.loadState();
         
-        GLHelper.resetToGuiMatrix();
-        GLHelper.translate([gl.viewportWidth/2+this.scale,25*this.scale,0]);
-        GLHelper.scale([this.scale,this.scale,this.scale]);
-        this.hungerBarFillMesh.draw();
+            GLHelper.saveState();
+                GLHelper.translate([39,24,0]);
+                this.thirstBarMesh.draw();
+            GLHelper.loadState();
         
-        GLHelper.resetToGuiMatrix();
-        GLHelper.translate([gl.viewportWidth/2+39*this.scale,24*this.scale,0]);
-        GLHelper.scale([this.scale,this.scale,this.scale]);
-        this.thirstBarMesh.draw();
+            GLHelper.saveState();
+                GLHelper.translate([39,25,0]);
+                this.thirstBarFillMesh.draw();
+            GLHelper.loadState();
         
-        GLHelper.resetToGuiMatrix();
-        GLHelper.translate([gl.viewportWidth/2+39*this.scale,25*this.scale,0]);
-        GLHelper.scale([this.scale,this.scale,this.scale]);
-        this.thirstBarFillMesh.draw();
-        
-        GLHelper.resetToGuiMatrix();
-        GLHelper.translate([gl.viewportWidth/2-76*this.scale,18*this.scale,0]);
-        GLHelper.scale([this.scale,this.scale,this.scale]);
-        this.manaBarMesh.draw();
-        
-        GLHelper.resetToGuiMatrix();
-        GLHelper.translate([gl.viewportWidth/2-76*this.scale,19*this.scale,0]);
-        GLHelper.scale([this.scale,this.scale,this.scale]);
-        this.manaBarFillMesh.draw();
-        
-        gl.depthFunc(gl.LEQUAL);
-        for (var x=0;x<Player.inventory.slots[0].length;x++) ItemRenderer.renderGuiItem(Player.inventory.slots[0][x],gl.viewportWidth/2-72.5*this.scale+(x*17*this.scale),13*this.scale, 5);
-        TextureManager.enableTextures();
-        useShader("default");
-        TextureManager.bindTexture(TextureManager.database["res/textures/gui/playerHUD.png"].textureId);
-        gl.depthFunc(gl.ALWAYS);
-        
-        GLHelper.resetToGuiMatrix();
-        GLHelper.translate([gl.viewportWidth/2-76*this.scale+17*Player.selected*this.scale,this.scale,0]);
-        GLHelper.scale([this.scale,this.scale,this.scale]);
-        this.itemSelectorMesh.draw();
+            GLHelper.saveState();
+                GLHelper.translate([-76,18,0]);
+                this.manaBarMesh.draw();
+            GLHelper.loadState();
+
+            GLHelper.saveState();
+                GLHelper.translate([-76,19,0]);
+                this.manaBarFillMesh.draw();
+            GLHelper.loadState();
+            
+            GLHelper.saveState();
+                gl.depthFunc(gl.LEQUAL);
+                for(var x = 0; x < Player.inventory.slots[0].length; x++)
+                    ItemRenderer.renderGuiItem(Player.inventory.slots[0][x], gl.viewportWidth/2-72.5*scale+(x*17*scale), 13*scale, 5);
+                TextureManager.enableTextures();
+                useShader("default");
+                TextureManager.bindTexture(TextureManager.database["res/textures/gui/playerHUD.png"].textureId);
+                gl.depthFunc(gl.ALWAYS);
+
+                GLHelper.resetToGuiMatrix();
+                GLHelper.translate([gl.viewportWidth/2-76*scale+17*Player.selected*scale, scale, 0]);
+                GLHelper.scale([scale, scale, scale]);
+                this.itemSelectorMesh.draw();
+            GLHelper.loadState();
+        GLHelper.loadState();
     }
     this.update = function(){
         if (this.health != Player.health || this.hunger != Player.hunger || this.thirst != Player.thirst || this.mana != Player.mana) this.updateFillState();
-        if (this.scale != currentScreen.guiScale) this.scale = currentScreen.guiScale;
+        if (this.scale != ScreenHandler.currentScreen.guiScale) this.scale = ScreenHandler.currentScreen.guiScale;
     }
     this.updateFillState = function(){
         drawTexturedRect(this.hungerBarFillMesh, 0, 0, 37*Player.hunger, 6,[1,1,1,1],[[76/512,40/512],[(76+38*Player.hunger)/512,40/512],[(76+38*Player.hunger)/512,35/512],[76/512,35/512]]);
