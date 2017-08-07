@@ -20,6 +20,10 @@ function ItemModel() {
                         }
                     }
                 }
+            }else
+            if(part.type == "block"){
+                console.log(part.block.getTextureIndicies());
+                ItemModel.renderBlock(bufferData, part.block.getTextureIndicies());
             }
         }
         
@@ -45,6 +49,191 @@ ItemModel.register = function(p_name, p_model) {
 }
 ItemModel.get = function(p_name) {
     return ItemModel.registry[p_name];
+}
+
+ItemModel.renderBlock = function(p_buffer, p_textureIndicies) {
+    var visibleFaces = 6;
+    var texturePadding = 0.3/2048;
+    
+    var offsetX = 0;
+    var offsetY = -16;
+    var offsetZ = 0;
+    var width = 16;
+    var height = 16;
+    var length = 16;
+    
+    p_buffer.vertices.push.apply(p_buffer.vertices, [
+        //Front
+        offsetX, offsetY, offsetZ+length,
+        offsetX+width, offsetY, offsetZ+length,
+        offsetX, offsetY+height, offsetZ+length,
+        offsetX, offsetY+height, offsetZ+length,
+        offsetX+width, offsetY, offsetZ+length,
+        offsetX+width, offsetY+height, offsetZ+length
+    ]);
+    p_buffer.vertices.push.apply(p_buffer.vertices, [
+        //Back
+        offsetX+width, offsetY, offsetZ,
+        offsetX, offsetY, offsetZ,
+        offsetX+width, offsetY+height, offsetZ,
+        offsetX+width, offsetY+height, offsetZ,
+        offsetX, offsetY, offsetZ,
+        offsetX, offsetY+height, offsetZ
+    ]);
+    p_buffer.vertices.push.apply(p_buffer.vertices, [
+        //Left
+        offsetX, offsetY, offsetZ,
+        offsetX, offsetY, offsetZ+length,
+        offsetX, offsetY+height, offsetZ,
+        offsetX, offsetY+height, offsetZ,
+        offsetX, offsetY, offsetZ+length,
+        offsetX, offsetY+height, offsetZ+length
+    ]);
+    p_buffer.vertices.push.apply(p_buffer.vertices, [
+        //Right
+        offsetX+width, offsetY, offsetZ+length,
+        offsetX+width, offsetY, offsetZ,
+        offsetX+width, offsetY+height, offsetZ+length,
+        offsetX+width, offsetY+height, offsetZ+length,
+        offsetX+width, offsetY, offsetZ,
+        offsetX+width, offsetY+height, offsetZ
+    ]);
+    p_buffer.vertices.push.apply(p_buffer.vertices, [
+        //Down
+        offsetX, offsetY, offsetZ,
+        offsetX+width, offsetY, offsetZ,
+        offsetX, offsetY, offsetZ+length,
+        offsetX, offsetY, offsetZ+length,
+        offsetX+width, offsetY, offsetZ,
+        offsetX+width, offsetY, offsetZ+length
+    ]);
+    p_buffer.vertices.push.apply(p_buffer.vertices, [
+        //Up
+        offsetX+width, offsetY+height, offsetZ,
+        offsetX, offsetY+height, offsetZ,
+        offsetX, offsetY+height, offsetZ+length,
+        offsetX+width, offsetY+height, offsetZ,
+        offsetX, offsetY+height, offsetZ+length,
+        offsetX+width, offsetY+height, offsetZ+length
+    ]);
+    
+    var u = new Array(0);
+    var v = new Array(0);
+    
+    for(var i = 0; i < 6; i++) {
+        u.push(p_textureIndicies[i]%64);
+        v.push(Math.floor(p_textureIndicies[i]/64));
+    }
+    p_buffer.texCoords.push.apply(p_buffer.texCoords, [
+        //Front
+        (u[0]+0)/64+texturePadding, (v[0]+1)/64-texturePadding,
+        (u[0]+1)/64-texturePadding, (v[0]+1)/64-texturePadding,
+        (u[0]+0)/64+texturePadding, (v[0]+0)/64+texturePadding,
+        (u[0]+0)/64+texturePadding, (v[0]+0)/64+texturePadding,
+        (u[0]+1)/64-texturePadding, (v[0]+1)/64-texturePadding,
+        (u[0]+1)/64-texturePadding, (v[0]+0)/64+texturePadding
+    ]);
+    p_buffer.texCoords.push.apply(p_buffer.texCoords, [
+        //Back
+        (u[1]+0)/64+texturePadding, (v[1]+1)/64-texturePadding,
+        (u[1]+1)/64-texturePadding, (v[1]+1)/64-texturePadding,
+        (u[1]+0)/64+texturePadding, (v[1]+0)/64+texturePadding,
+        (u[1]+0)/64+texturePadding, (v[1]+0)/64+texturePadding,
+        (u[1]+1)/64-texturePadding, (v[1]+1)/64-texturePadding,
+        (u[1]+1)/64-texturePadding, (v[1]+0)/64+texturePadding
+    ]);
+    p_buffer.texCoords.push.apply(p_buffer.texCoords, [
+        //Left
+        (u[2]+0)/64+texturePadding, (v[2]+1)/64-texturePadding,
+        (u[2]+1)/64-texturePadding, (v[2]+1)/64-texturePadding,
+        (u[2]+0)/64+texturePadding, (v[2]+0)/64+texturePadding,
+        (u[2]+0)/64+texturePadding, (v[2]+0)/64+texturePadding,
+        (u[2]+1)/64-texturePadding, (v[2]+1)/64-texturePadding,
+        (u[2]+1)/64-texturePadding, (v[2]+0)/64+texturePadding
+    ]);
+    p_buffer.texCoords.push.apply(p_buffer.texCoords, [
+        //Right
+        (u[3]+0)/64+texturePadding, (v[3]+1)/64-texturePadding,
+        (u[3]+1)/64-texturePadding, (v[3]+1)/64-texturePadding,
+        (u[3]+0)/64+texturePadding, (v[3]+0)/64+texturePadding,
+        (u[3]+0)/64+texturePadding, (v[3]+0)/64+texturePadding,
+        (u[3]+1)/64-texturePadding, (v[3]+1)/64-texturePadding,
+        (u[3]+1)/64-texturePadding, (v[3]+0)/64+texturePadding
+    ]);
+    p_buffer.texCoords.push.apply(p_buffer.texCoords, [
+        //Down
+        (u[4]+0)/64+texturePadding, (v[4]+1)/64-texturePadding,
+        (u[4]+1)/64-texturePadding, (v[4]+1)/64-texturePadding,
+        (u[4]+0)/64+texturePadding, (v[4]+0)/64+texturePadding,
+        (u[4]+0)/64+texturePadding, (v[4]+0)/64+texturePadding,
+        (u[4]+1)/64-texturePadding, (v[4]+1)/64-texturePadding,
+        (u[4]+1)/64-texturePadding, (v[4]+0)/64+texturePadding
+    ]);
+    p_buffer.texCoords.push.apply(p_buffer.texCoords, [
+        //Up
+        (u[5]+1)/64-texturePadding, (v[5]+0)/64+texturePadding,
+        (u[5]+0)/64+texturePadding, (v[5]+0)/64+texturePadding,
+        (u[5]+0)/64+texturePadding, (v[5]+1)/64-texturePadding,
+        (u[5]+1)/64-texturePadding, (v[5]+0)/64+texturePadding,
+        (u[5]+0)/64+texturePadding, (v[5]+1)/64-texturePadding,
+        (u[5]+1)/64-texturePadding, (v[5]+1)/64-texturePadding
+    ]);
+    
+	for(var i = 0; i < visibleFaces*6; i++) {
+		p_buffer.colors.push(1);
+		p_buffer.colors.push(1);
+        p_buffer.colors.push(1);
+        p_buffer.colors.push(1);
+	}
+    
+    p_buffer.normals.push.apply(p_buffer.normals,  [
+        0, 0, 1,
+        0, 0, 1,
+        0, 0, 1,
+        0, 0, 1,
+        0, 0, 1,
+        0, 0, 1
+    ]);
+    p_buffer.normals.push.apply(p_buffer.normals,  [
+        0, 0, -1,
+        0, 0, -1,
+        0, 0, -1,
+        0, 0, -1,
+        0, 0, -1,
+        0, 0, -1
+    ]);
+    p_buffer.normals.push.apply(p_buffer.normals,  [
+        -1, 0, 0,
+        -1, 0, 0,
+        -1, 0, 0,
+        -1, 0, 0,
+        -1, 0, 0,
+        -1, 0, 0
+    ]);
+    p_buffer.normals.push.apply(p_buffer.normals,  [
+        1, 0, 0,
+        1, 0, 0,
+        1, 0, 0,
+        1, 0, 0,
+        1, 0, 0,
+        1, 0, 0
+    ]);
+    p_buffer.normals.push.apply(p_buffer.normals,  [
+        0, -1, 0,
+        0, -1, 0,
+        0, -1, 0,
+        0, -1, 0,
+        0, -1, 0,
+        0, -1, 0
+    ]);
+    p_buffer.normals.push.apply(p_buffer.normals,  [
+        0, 1, 0,
+        0, 1, 0,
+        0, 1, 0,
+        0, 1, 0,
+        0, 1, 0,
+        0, 1, 0
+    ]);
 }
 
 ItemModel.renderVoxel = function(p_buffer, p_voxelLoc, p_part) {
@@ -191,7 +380,14 @@ ItemModel.renderVoxel = function(p_buffer, p_voxelLoc, p_part) {
         0, 1, 0
     ]);
 }
-
+ItemModel.registerBlocks = function() {
+    for (var i=1;i<Blocks.blocks.length;i++) {
+        ItemModel.register(Blocks.blocks[i].unlocalizedName, new ItemModel().addPart({
+            type: "block",
+            block: Blocks.blocks[i]
+        }));
+    }
+}
 ItemModel.registerModels = function() {
     var u = undefined;
     var r = {color: [0.4, 0.16, 0, 1]};
