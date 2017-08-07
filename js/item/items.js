@@ -53,5 +53,7 @@ Items.registerCallback(function() {
     Items.registerItem("pickaxe", new Item().setDefaultName("pickaxe").setDefaultModel("pickaxe"));
     Items.registerItem("shovel", new Item().setDefaultName("pickaxe").setDefaultModel("shovel"));
     Items.registerItem("axe", new Item().setDefaultName("axe").setDefaultModel("axe"));
-    Items.registerItem("block", new Item().setDefaultName("block").setDefaultModel("block"));
+    for (var i=1;i<Blocks.blocks.length;i++){
+        Items.registerItem(Blocks.blocks[i].unlocalizedName, new Item().setDefaultName(Blocks.blocks[i].unlocalizedName).setDefaultModel(Blocks.blocks[i].unlocalizedName));   
+    }
 });

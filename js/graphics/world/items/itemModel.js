@@ -381,10 +381,12 @@ ItemModel.renderVoxel = function(p_buffer, p_voxelLoc, p_part) {
     ]);
 }
 ItemModel.registerBlocks = function() {
-    ItemModel.register("block", new ItemModel().addPart({
-        type: "block",
-        block: Blocks.blocks[1]
-    }));
+    for (var i=1;i<Blocks.blocks.length;i++) {
+        ItemModel.register(Blocks.blocks[i].unlocalizedName, new ItemModel().addPart({
+            type: "block",
+            block: Blocks.blocks[i]
+        }));
+    }
 }
 ItemModel.registerModels = function() {
     var u = undefined;
