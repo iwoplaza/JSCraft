@@ -53,4 +53,5 @@ Items.registerCallback(function() {
     Items.registerItem("pickaxe", new Item().setDefaultName("pickaxe").setDefaultModel("pickaxe"));
     Items.registerItem("shovel", new Item().setDefaultName("pickaxe").setDefaultModel("shovel"));
     Items.registerItem("axe", new Item().setDefaultName("axe").setDefaultModel("axe"));
+    Items.registerItem("block", new Item().setDefaultName("block").setDefaultModel("block"));
 });
