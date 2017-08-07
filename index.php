@@ -44,6 +44,7 @@
         <script type="text/javascript" src="js/screen/screen.js"></script>
         <script type="text/javascript" src="js/screen/screenGame.js"></script>
         <script type="text/javascript" src="js/inventory/inventory.js"></script>
+        <script type="text/javascript" src="js/inventory/itemStack.js"></script>
         <script type="text/javascript" src="js/item/item.js"></script>
         <script type="text/javascript" src="js/item/items.js"></script>
         <script type="text/javascript" src="js/block/block.js"></script>

@@ -96,8 +96,9 @@ function GuiHUD(){
             
             GLHelper.saveState();
                 gl.depthFunc(gl.LEQUAL);
-                for(var x = 0; x < Player.inventory.slots[0].length; x++)
-                    ItemRenderer.renderGuiItem(Player.inventory.slots[0][x], gl.viewportWidth/2-72.5*scale+(x*17*scale), 13*scale, 5);
+                for(var x = 0; x < Player.inventory.slots[0].length; x++) {
+                    if (Player.inventory.slots[0][x] != undefined) ItemRenderer.renderGuiItem(Player.inventory.slots[0][x].getItem(), gl.viewportWidth/2-72.5*scale+(x*17*scale), 13*scale, 5);
+                }
                 TextureManager.enableTextures();
                 useShader("default");
                 TextureManager.bindTexture(TextureManager.database["res/textures/gui/playerHUD.png"].textureId);

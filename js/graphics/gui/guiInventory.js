@@ -21,12 +21,12 @@ function GuiInventory(){
         
         for (var y=1;y<Player.inventory.slots.length;y++){
             for (var x=0;x<Player.inventory.slots[y].length;x++){
-                ItemRenderer.renderGuiItem(Player.inventory.slots[y][x],gl.viewportWidth/2-72.5*this.scale+(x*17*this.scale),gl.viewportHeight/2-this.scale*(y-1)*17, 5);
+                if (Player.inventory.slots[y][x] != undefined) ItemRenderer.renderGuiItem(Player.inventory.slots[y][x].getItem(),gl.viewportWidth/2-72.5*this.scale+(x*17*this.scale),gl.viewportHeight/2-this.scale*(y-1)*17, 5);
             }
         }
         
         for (var x=0;x<Player.inventory.slots[0].length;x++){
-            ItemRenderer.renderGuiItem(Player.inventory.slots[0][x],gl.viewportWidth/2-72.5*this.scale+(x*17*this.scale),gl.viewportHeight/2-74*this.scale, 5);
+            if (Player.inventory.slots[0][x] != undefined) ItemRenderer.renderGuiItem(Player.inventory.slots[0][x].getItem(),gl.viewportWidth/2-72.5*this.scale+(x*17*this.scale),gl.viewportHeight/2-74*this.scale, 5);
         }
         var x = Math.floor((VirtualCursor.x-(gl.viewportWidth/2-76*this.scale))/(17*this.scale));
         var y = Math.floor(((gl.viewportHeight/2+3.5*this.scale)-VirtualCursor.y)/(17*this.scale)+1);

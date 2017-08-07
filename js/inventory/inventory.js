@@ -12,5 +12,20 @@ function Inventory(p_w, p_h){
     this.setItemInInventory = function(p_x, p_y, p_itemStack){
         this.slots[p_y][p_x] = p_itemStack;
     }
+    this.addItemtoInventory = function(p_itemStack){
+        for (var y=0;y<this.slots.length;y++){
+            if (p_itemStack.count <= 0) break;
+            for (var x=0;x<this.slots[y].length;x++){
+                if (p_itemStack.count <= 0) break;
+                if (this.slots[y][x] == undefined){
+                    this.slots[y][x] = p_itemStack;
+                    p_itemStack.count = 0;
+                }else
+                if (this.slots[y][x].itemID == p_itemStack.itemID){
+                    p_itemStack.count = this.slots[y][x].add(p_itemStack.count);
+                }
+            }
+        }
+    }
     this.init(p_w, p_h);
 }
