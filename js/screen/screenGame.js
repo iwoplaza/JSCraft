@@ -29,8 +29,8 @@ function ScreenGame() {
         World.world.loadChunks();
         Player.worldObj = World.world;
         Player.loc.y = 35;
-        Player.inventory.slots[0][0] = new ItemStack(0);
-        Player.inventory.slots[0][1] = new ItemStack(1);
+        Player.toolbar.slots[0][0] = new ItemStack(0);
+        Player.toolbar.slots[0][1] = new ItemStack(1);
         Camera.rotation.y = 180.0;
 
         this.playerHUD = new GuiHUD();
@@ -106,7 +106,7 @@ function ScreenGame() {
             GLHelper.scale([0.45, 0.45, 0.45]);
             //GLHelper.translate([0, 13, 3]);
             GLHelper.translate([0, -0.2*Math.sin(Player.punchAnimation*Math.PI*2), -0.2*Math.sin(Player.punchAnimation*Math.PI)]);
-            ItemRenderer.renderWorldItem(Player.inventory.slots[0][Player.selected].getItem());
+            ItemRenderer.renderWorldItem(Player.toolbar.slots[0][Player.selected].getItem());
         }
 
         gl.depthFunc(gl.ALWAYS);
@@ -145,6 +145,7 @@ function ScreenGame() {
 
             Player.onPunch();
         }
+        if(event.button == 0 && this.currentGui) this.currentGui.handleInventory();
     }
 
     this.handleMouseMove = function(e) {
