@@ -95,7 +95,7 @@ function ScreenGame() {
         }
         //gl.depthFunc(gl.LEQUAL);
 
-        if(Player.inventory.slots[0][Player.selected] != undefined){
+        if(Player.toolbar.slots[0][Player.selected] != undefined){
             GLHelper.resetToWorldMatrix();
             GLHelper.translate([Camera.getX(), Camera.getY(), Camera.getZ()]);
             GLHelper.rotate(-Camera.rotation.y/180.0*Math.PI+this.smoothMouseVel.x*0.01, [0, 1, 0]);
@@ -144,9 +144,6 @@ function ScreenGame() {
             }
 
             Player.onPunch();
-        }
-        if(event.button == 0 && this.currentGui){
-            this.currentGui.handleInventory();
         }
     }
 
