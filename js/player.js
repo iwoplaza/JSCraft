@@ -166,6 +166,10 @@ function initPlayer() {
             return p_itemStack;
         },
         
+        dropItems: function(p_itemStack){
+            
+        },
+        
         resolveRayTracing: function() {
             
         },
