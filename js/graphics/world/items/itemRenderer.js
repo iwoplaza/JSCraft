@@ -29,9 +29,9 @@ var ItemRenderer = {
             if (ItemModel.registry[p_item.defaultItemModel].parts[0].type == "staticVoxels") GLHelper.rotate(0.5*Math.PI, [0, 1, 0]);
             else{
                 GLHelper.scale([0.8, 0.8, 0.8]);
-                GLHelper.translate([-2, -2, 0]);
+                GLHelper.translate([12, 4, 0]);
                 GLHelper.rotate(0.15*Math.PI, [1, 0, 0]);
-                GLHelper.rotate(0.25*Math.PI, [0, 1, 0]);
+                GLHelper.rotate(-0.25*Math.PI, [0, 1, 0]);
             }
             GLHelper.scale([scale, scale, scale]);
             model.display();

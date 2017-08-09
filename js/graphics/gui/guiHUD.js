@@ -93,12 +93,9 @@ function GuiHUD(){
                 GLHelper.translate([-76,19,0]);
                 this.manaBarFillMesh.draw();
             GLHelper.loadState();
-            
+        
             GLHelper.saveState();
                 gl.depthFunc(gl.LEQUAL);
-                for(var x = 0; x < Player.toolbar.slots[0].length; x++) {
-                    if (Player.toolbar.slots[0][x] != undefined) ItemRenderer.renderGuiItem(Player.toolbar.slots[0][x].getItem(), gl.viewportWidth/2-72.5*scale+(x*17*scale), 13*scale, 5);
-                }
                 TextureManager.enableTextures();
                 useShader("default");
                 TextureManager.bindTexture(TextureManager.database["res/textures/gui/playerHUD.png"].textureId);
@@ -108,6 +105,7 @@ function GuiHUD(){
                 GLHelper.scale([scale, scale, scale]);
                 this.itemSelectorMesh.draw();
             GLHelper.loadState();
+            Player.toolbar.display(gl.viewportWidth/2-72.5*scale, 13*scale, true);
         GLHelper.loadState();
     }
     this.update = function(){

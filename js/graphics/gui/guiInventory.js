@@ -25,8 +25,8 @@ function GuiInventory(){
                 
         Font.drawGuiText("Some Text", "normal", [0,0,0]);
     }
-    this.handleInventory = function(){
-        Player.inventory.handleInventory(gl.viewportWidth/2-72.5*this.scale,gl.viewportHeight/2+0*this.scale);
-        Player.toolbar.handleInventory(gl.viewportWidth/2-72.5*this.scale,gl.viewportHeight/2-74*this.scale);
+    this.handleInventory = function(p_button){
+        Player.inventory.handleInventory(gl.viewportWidth/2-72.5*this.scale,gl.viewportHeight/2+0*this.scale,p_button);
+        Player.toolbar.handleInventory(gl.viewportWidth/2-72.5*this.scale,gl.viewportHeight/2-74*this.scale,p_button);
     }
 }

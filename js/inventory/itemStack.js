@@ -17,4 +17,8 @@ function ItemStack(p_itemId, p_count) {
     this.getItem = function(){
         return Items.getItem(this.itemID);
     }
+    this.display = function(p_x, p_y){
+        ItemRenderer.renderGuiItem(this.getItem(), p_x, p_y, 5);
+        Font.drawGuiText(this.count+"", "normal", [p_x+(10*ScreenHandler.guiScale), p_y-(10*ScreenHandler.guiScale), 6], ScreenHandler.guiScale/2, 2);
+    }
 }

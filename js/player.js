@@ -23,9 +23,9 @@ function initPlayer() {
         hunger: 1,
         thirst: 1,
         mana: 1,
-        inventory: new Inventory(9,4,3),
-        toolbar: new Inventory(9,1,3),
-        equipped: new Inventory(3,4,3),
+        inventory: new Inventory(9,4),
+        toolbar: new Inventory(9,1),
+        equipped: new Inventory(3,4),
         selected: 0,
         itemInHand: undefined,
         
@@ -157,6 +157,14 @@ function initPlayer() {
             
             Camera.set(this.loc.getAdded(this.getEyeOffset()));
 		},
+        
+        insertItems: function(p_itemStack){
+            p_itemStack = this.toolbar.stackItemToInventory(p_itemStack);
+            p_itemStack = this.inventory.stackItemToInventory(p_itemStack);
+            p_itemStack = this.toolbar.addItemToInventory(p_itemStack);
+            p_itemStack = this.inventory.addItemToInventory(p_itemStack);
+            return p_itemStack;
+        },
         
         resolveRayTracing: function() {
             

@@ -6,12 +6,15 @@ function Slot(){
         drawTexturedRect(this.mesh, 0, 0, this.height, this.width, [1,1,1,0.5]);
     }
     this.display = function(p_x, p_y, p_scale){
+        GLHelper.saveState();
+        gl.depthFunc(gl.ALWAYS);
         useShader("default");
         GLHelper.resetToGuiMatrix();
         TextureManager.disableTextures();
         GLHelper.translate([p_x, p_y, 0]);
         GLHelper.scale([p_scale, p_scale, p_scale]);
         this.mesh.draw();
+        GLHelper.loadState();
     }
     this.init();
 }

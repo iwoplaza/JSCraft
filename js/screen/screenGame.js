@@ -145,7 +145,7 @@ function ScreenGame() {
 
             Player.onPunch();
         }
-        if(event.button == 0 && this.currentGui) this.currentGui.handleInventory();
+        if(this.currentGui) this.currentGui.handleInventory(event.button);
     }
 
     this.handleMouseMove = function(e) {
