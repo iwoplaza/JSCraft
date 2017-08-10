@@ -15,7 +15,9 @@ var BlockRenderer = {
                 showFaces.push(neighbours[i] == undefined || Blocks.getBlock(neighbours[i].id) == undefined || !Blocks.getBlock(neighbours[i].id).isOpaque());
             }
             if (block != undefined){
-                BlockRenderType.renderType(p_buffer, block.getRenderType(), p_x, p_y, p_z, block.getTextureIndicies(p_blockData), showFaces);
+                if (p_blockData.metadata.modelId!=undefined) console.log(p_blockData);
+                if (p_blockData.metadata.modelId!=undefined) BlockRenderType.renderType(p_buffer, block.getRenderType(p_blockData.metadata.modelId), p_x, p_y, p_z,block.getTextureIndicies(p_blockData), showFaces);
+                else BlockRenderType.renderType(p_buffer, block.getRenderType(), p_x, p_y, p_z,block.getTextureIndicies(p_blockData), showFaces)
             }
         }
     }

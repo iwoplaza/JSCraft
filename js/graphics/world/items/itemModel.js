@@ -22,7 +22,6 @@ function ItemModel() {
                 }
             }else
             if(part.type == "block"){
-                console.log(part.block.getTextureIndicies());
                 ItemModel.renderBlock(bufferData, part.block.getTextureIndicies());
             }
         }

@@ -118,4 +118,5 @@ function GuiHUD(){
         drawTexturedRect(this.manaBarFillMesh, 0, 0, 152*Player.mana, 3,[1,1,1,1],[[0,26/512],[152*Player.mana/512,26/512],[152*Player.mana/512,23/512],[0,23/512]]);
         drawTexturedRect(this.healthBarFillMesh, 0, 0, 75*Player.health, 6,[1,1,1,1],[[0,40/512],[76*Player.health/512,40/512],[76*Player.health/512,35/512],[0,35/512]]);
     }
+    this.init();
 }

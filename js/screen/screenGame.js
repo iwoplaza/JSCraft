@@ -54,7 +54,6 @@ function ScreenGame() {
         if (keyState[69]){
             if (this.currentGui == undefined){
                 this.currentGui = new GuiInventory();
-                this.currentGui.init();
             }else{
                 this.currentGui = undefined;
             }
@@ -134,16 +133,43 @@ function ScreenGame() {
     }
 
     this.handleMousePressed = function(event) {
-        if(event.button == 0 && !this.currentGui) {
-            if(Player.objectMouseOver != undefined) {
-                if(World.world.getChunkForBlockCoords(Player.objectMouseOver.blockPos.x, Player.objectMouseOver.blockPos.z) != undefined) {
-                    World.world.setBlockAndNotify(Player.objectMouseOver.blockPos.x, Player.objectMouseOver.blockPos.y, Player.objectMouseOver.blockPos.z, undefined);
-                    console.log("Removed block", [Player.objectMouseOver.blockPos.x, Player.objectMouseOver.blockPos.y, Player.objectMouseOver.blockPos.z]);
-                    console.log(World.world.getBlock(Player.objectMouseOver.blockPos.x, Player.objectMouseOver.blockPos.y, Player.objectMouseOver.blockPos.z));
+        if(!this.currentGui) {
+            if (event.button == 0){
+                if(Player.objectMouseOver != undefined) {
+                    if(World.world.getChunkForBlockCoords(Player.objectMouseOver.blockPos.x, Player.objectMouseOver.blockPos.z) != undefined) {
+                        World.world.setBlockAndNotify(Player.objectMouseOver.blockPos.x, Player.objectMouseOver.blockPos.y, Player.objectMouseOver.blockPos.z, undefined);
+                        console.log("Removed block", [Player.objectMouseOver.blockPos.x, Player.objectMouseOver.blockPos.y, Player.objectMouseOver.blockPos.z]);
+                        console.log(World.world.getBlock(Player.objectMouseOver.blockPos.x, Player.objectMouseOver.blockPos.y, Player.objectMouseOver.blockPos.z));
+                    }
+                }
+                Player.onPunch();
+            }else
+            if (event.button == 2){
+                if(Player.objectMouseOver != undefined){
+                    if(World.world.getChunkForBlockCoords(Player.objectMouseOver.blockPos.x, Player.objectMouseOver.blockPos.z) != undefined) {
+                        if (World.world.getBlock(Player.objectMouseOver.blockPos.x, Player.objectMouseOver.blockPos.y, Player.objectMouseOver.blockPos.z).metadata.gui != undefined && !isShiftDown){
+                            this.currentGui = World.world.getBlock(Player.objectMouseOver.blockPos.x, Player.objectMouseOver.blockPos.y, Player.objectMouseOver.blockPos.z).metadata.gui;
+                        }else{
+                            /*let x = Player.objectMouseOver.blockPos.x+0.5+(Player.objectMouseOver.hitPoint.x-Player.objectMouseOver.blockPos.x-0.5)*1.2;
+                            let y = Player.objectMouseOver.blockPos.y+0.5+(Player.objectMouseOver.hitPoint.y-Player.objectMouseOver.blockPos.y-0.5)*1.2;
+                            let z = Player.objectMouseOver.blockPos.z+0.5+(Player.objectMouseOver.hitPoint.z-Player.objectMouseOver.blockPos.z-0.5)*1.2;
+                            console.log(Math.floor(x),Math.floor(y),Math.floor(z));
+                            console.log(Player.objectMouseOver.hitPoint.x,Player.objectMouseOver.hitPoint.y,Player.objectMouseOver.hitPoint.z);
+                            
+                            World.world.setBlockAndNotify(Math.floor(x),Math.floor(y),Math.floor(z),new WorldBlock(1));*/
+                            
+                            let x = Player.objectMouseOver.hitPoint.x;
+                            let y = Player.objectMouseOver.hitPoint.y;
+                            let z = Player.objectMouseOver.hitPoint.z;
+                            
+                            console.log(Math.floor(x),Math.floor(y),Math.floor(z));
+                            
+                            World.world.setBlockAndNotify(Math.floor(isRound(x)?(Camera.rotation.y>180?x:x-1):x),Math.floor(isRound(y)?y:y),Math.floor(isRound(z)?(Camera.rotation.y>90&&Camera.rotation.y<270?z-1:z):z),new WorldBlock(Player.toolbar.getItemInInventory(Player.selected,0).itemID));
+                            
+                        }
+                    }
                 }
             }
-
-            Player.onPunch();
         }
         if(this.currentGui) this.currentGui.handleInventory(event.button);
     }
@@ -155,6 +181,13 @@ function ScreenGame() {
                 Camera.rotation.y += e.movementX*mouseSensitivity;
                 Camera.rotation.x += e.movementY*mouseSensitivity;
                 Camera.rotation.x = Math.max(Math.min(Camera.rotation.x, 90.0), -90.0);
+                
+                while (Camera.rotation.y > 359){
+                    Camera.rotation.y -= 360;
+                }
+                while (Camera.rotation.y<0){
+                    Camera.rotation.y += 360;
+                }
             }else{
                 VirtualCursor.moveBy(e.movementX, -e.movementY);
             }

@@ -52,7 +52,7 @@ var StructureManager = {
         for (var y=0;y<p_struct.struct.length;y++){
             for (var x=0;x<p_struct.struct[y].length;x++){
                 for (var z=0;z<p_struct.struct[y][x].length;z++){
-                    if (p_struct.struct[y][x][z]) World.world.setBlock(p_x+x+p_struct.xStart, p_y+y+p_struct.yStart, p_z+z+p_struct.zStart, {id: p_struct.struct[y][x][z]});
+                    if (p_struct.struct[y][x][z]) World.world.setBlock(p_x+x+p_struct.xStart, p_y+y+p_struct.yStart, p_z+z+p_struct.zStart, new WorldBlock(p_struct.struct[y][x][z]));
                 }
             }
         }

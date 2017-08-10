@@ -17,6 +17,7 @@
         <script src="js/util/collisionHelper.js"></script>
         <script src="js/util/virtualCursor.js"></script>
         <script src="js/util/time.js"></script>
+        <script src="js/util/isRound.js"></script>
         
         <script type="text/javascript" src="js/main.js"></script>
         <script type="text/javascript" src="js/math.js"></script>
@@ -49,6 +50,7 @@
         <script type="text/javascript" src="js/item/items.js"></script>
         <script type="text/javascript" src="js/block/block.js"></script>
         <script type="text/javascript" src="js/block/blocks.js"></script>
+        <script type="text/javascript" src="js/block/worldBlock.js"></script>
         <script type="text/javascript" src="js/world/chunk.js"></script>
         <script type="text/javascript" src="js/world/world.js"></script>
         

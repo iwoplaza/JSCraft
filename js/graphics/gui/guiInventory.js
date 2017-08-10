@@ -23,15 +23,20 @@ function GuiInventory(){
         Player.inventory.display(gl.viewportWidth/2-72.5*this.scale,gl.viewportHeight/2+0*this.scale);
         Player.toolbar.display(gl.viewportWidth/2-72.5*this.scale,gl.viewportHeight/2-74*this.scale);
                 
-        Font.drawGuiText("Some Text", "normal", [0,0,0]);
+        Font.drawGuiText("Inventory", "normal", [0,0,0]);
     }
     this.handleInventory = function(p_button){
         var drop = false;
         drop|=Player.inventory.handleInventory(gl.viewportWidth/2-72.5*this.scale,gl.viewportHeight/2+0*this.scale,p_button);
         drop|=Player.toolbar.handleInventory(gl.viewportWidth/2-72.5*this.scale,gl.viewportHeight/2-74*this.scale,p_button);
-        if (!drop){
+        if (!drop && p_button==0 && Player.itemInHand != undefined){
             Player.dropItems(Player.itemInHand);
             Player.itemInHand = undefined;
+        }else
+        if (!drop && p_button==2 && Player.itemInHand != undefined){
+            Player.dropItems(new ItemStack(Player.itemInHand.itemID,Player.itemInHand.sub(1)));
+            if (Player.itemInHand.count==0) Player.itemInHand = undefined;
         }
     }
+    this.init();
 }

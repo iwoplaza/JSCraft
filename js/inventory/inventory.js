@@ -97,11 +97,9 @@ Inventory.prototype.handleInventory = function(p_x, p_y, p_button){
                 }
             }
         }
+        return true;
     }else
-    if (button == 0){
-        return false;
-    }
-    return true;
+    return false;
 }
 Inventory.prototype.handleHover = function(p_x, p_y){
     var scale = ScreenHandler.guiScale;

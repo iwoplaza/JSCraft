@@ -130,7 +130,7 @@ function World(p_name,p_type){
             for (var x = 0; x < Chunk.width; x++){
                 chunk.layers[0][x] = new Array(Chunk.width);
                 for (var z = 0; z < Chunk.width; z++){
-                    chunk.layers[0][x][z] = {id:11};
+                    chunk.layers[0][x][z] = new WorldBlock(11);
                 }
             }
             for (var y = 1; y < 5; y++){
@@ -138,7 +138,7 @@ function World(p_name,p_type){
                 for (var x = 0; x < Chunk.width; x++){
                     chunk.layers[y][x] = new Array(Chunk.width);
                     for (var z = 0; z < Chunk.width; z++){
-                        chunk.layers[y][x][z] = {id:2};
+                        chunk.layers[y][x][z] = new WorldBlock(2);
                     }
                 }
             }
@@ -146,7 +146,7 @@ function World(p_name,p_type){
             for (var x = 0; x < Chunk.width; x++){
                 chunk.layers[5][x] = new Array(Chunk.width);
                 for (var z = 0; z < Chunk.width; z++){
-                    chunk.layers[5][x][z] = {id:3};
+                    chunk.layers[5][x][z] = new WorldBlock(3);
                 }
             }
         }else if (this.getType() == "DEBUG"){
@@ -155,9 +155,9 @@ function World(p_name,p_type){
                 chunk.layers[0][x] = new Array(Chunk.width);
                 for (var z = 0; z < Chunk.width; z++){
                     if (1+z+(x*8)<Blocks.blocks.length){
-                        chunk.layers[0][x][z] = {id: (1+z+(x*8))};
+                        chunk.layers[0][x][z] = new WorldBlock(1+z+(x*8));
                     }else{
-                        chunk.layers[0][x][z] = {id:0};
+                        chunk.layers[0][x][z] = new WorldBlock(0);
                     }
                 }
             }
@@ -170,13 +170,13 @@ function World(p_name,p_type){
                 var height = 6+Math.floor(this.noiseGenerator.getNoise((chunkBlockX+x)*0.02, (chunkBlockZ+z)*0.02)*5) + Math.floor(Math.pow(this.noiseGeneratorLarge.getNoise((chunkBlockX+x)*0.005, (chunkBlockZ+z)*0.005), 2)*10);
                 for(var y = 0; y < height; y++) {
                     var blockID = y == 0 ? Blocks.nameToIDMap["bedrock"] : y == height-1 ? Blocks.nameToIDMap["grass"] : y > height-5 ? Blocks.nameToIDMap["dirt"] : Blocks.nameToIDMap["stone"];
-                    this.setBlock(chunkBlockX+x, y, chunkBlockZ+z, {id: blockID});
+                    this.setBlock(chunkBlockX+x, y, chunkBlockZ+z, new WorldBlock(blockID));
                 }
                 if (Math.floor(this.noiseGenerator.getNoise((chunkBlockX+x),(chunkBlockZ+z))*6) == 0){
-                    this.setBlock(chunkBlockX+x, height, chunkBlockZ+z, {id: 22});
+                    this.setBlock(chunkBlockX+x, height, chunkBlockZ+z, new WorldBlock(22));
                 }
                 if (Math.floor(this.noiseGenerator.getNoise((chunkBlockX+x),(chunkBlockZ+z))*30) == 0){
-                    this.setBlock(chunkBlockX+x, height, chunkBlockZ+z, {id: 17});
+                    this.setBlock(chunkBlockX+x, height, chunkBlockZ+z, new WorldBlock(17));
                 }
                 if (Math.floor(this.noiseGenerator.getNoise((chunkBlockX+x),(chunkBlockZ+z))*40) == 0){
                     StructureManager.deployStructure(chunkBlockX+x, height, chunkBlockZ+z, StructureManager.getStructure(1));
