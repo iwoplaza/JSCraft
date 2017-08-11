@@ -29,8 +29,8 @@ function ScreenGame() {
         World.world.loadChunks();
         Player.worldObj = World.world;
         Player.loc.y = 35;
-        Player.toolbar.slots[0][0] = new ItemStack(0);
-        Player.toolbar.slots[0][1] = new ItemStack(1);
+        Player.toolbar.slots[0][0] = new ItemStack(Items.getItemByName("sword").id);
+        Player.toolbar.slots[0][1] = new ItemStack(Items.getItemByName("pickaxe").id);
         Camera.rotation.y = 180.0;
 
         this.playerHUD = new GuiHUD();
@@ -137,6 +137,9 @@ function ScreenGame() {
             if (event.button == 0){
                 if(Player.objectMouseOver != undefined) {
                     if(World.world.getChunkForBlockCoords(Player.objectMouseOver.blockPos.x, Player.objectMouseOver.blockPos.z) != undefined) {
+                        
+                        Player.insertItems(new ItemStack(World.world.getBlock(Player.objectMouseOver.blockPos.x, Player.objectMouseOver.blockPos.y, Player.objectMouseOver.blockPos.z).id,1))
+                        
                         World.world.setBlockAndNotify(Player.objectMouseOver.blockPos.x, Player.objectMouseOver.blockPos.y, Player.objectMouseOver.blockPos.z, undefined);
                         console.log("Removed block", [Player.objectMouseOver.blockPos.x, Player.objectMouseOver.blockPos.y, Player.objectMouseOver.blockPos.z]);
                         console.log(World.world.getBlock(Player.objectMouseOver.blockPos.x, Player.objectMouseOver.blockPos.y, Player.objectMouseOver.blockPos.z));
@@ -149,7 +152,8 @@ function ScreenGame() {
                     if(World.world.getChunkForBlockCoords(Player.objectMouseOver.blockPos.x, Player.objectMouseOver.blockPos.z) != undefined) {
                         if (World.world.getBlock(Player.objectMouseOver.blockPos.x, Player.objectMouseOver.blockPos.y, Player.objectMouseOver.blockPos.z).metadata.gui != undefined && !isShiftDown){
                             this.currentGui = World.world.getBlock(Player.objectMouseOver.blockPos.x, Player.objectMouseOver.blockPos.y, Player.objectMouseOver.blockPos.z).metadata.gui;
-                        }else{
+                        }else
+                        if (Player.toolbar.getItemInInventory(Player.selected,0).itemID<=Blocks.blocks.length-1 && Player.toolbar.getItemInInventory(Player.selected,0).sub(1)){
                             /*let x = Player.objectMouseOver.blockPos.x+0.5+(Player.objectMouseOver.hitPoint.x-Player.objectMouseOver.blockPos.x-0.5)*1.2;
                             let y = Player.objectMouseOver.blockPos.y+0.5+(Player.objectMouseOver.hitPoint.y-Player.objectMouseOver.blockPos.y-0.5)*1.2;
                             let z = Player.objectMouseOver.blockPos.z+0.5+(Player.objectMouseOver.hitPoint.z-Player.objectMouseOver.blockPos.z-0.5)*1.2;
@@ -164,8 +168,8 @@ function ScreenGame() {
                             
                             console.log(Math.floor(x),Math.floor(y),Math.floor(z));
                             
-                            World.world.setBlockAndNotify(Math.floor(isRound(x)?(Camera.rotation.y>180?x:x-1):x),Math.floor(isRound(y)?y:y),Math.floor(isRound(z)?(Camera.rotation.y>90&&Camera.rotation.y<270?z-1:z):z),new WorldBlock(Player.toolbar.getItemInInventory(Player.selected,0).itemID));
-                            
+                            World.world.setBlockAndNotify(Math.floor(isRound(x)?(Camera.rotation.y>180?x:x-1):x),Math.floor(isRound(y)?(Camera.rotation.x<0?y-1:y):y),Math.floor(isRound(z)?(Camera.rotation.y>90&&Camera.rotation.y<270?z-1:z):z),new WorldBlock(Player.toolbar.getItemInInventory(Player.selected,0).itemID));
+                            if (Player.toolbar.getItemInInventory(Player.selected,0).count <= 0) Player.toolbar.setItemInInventory(Player.selected,0,undefined);
                         }
                     }
                 }

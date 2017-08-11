@@ -30,6 +30,9 @@ function initPlayer() {
         itemInHand: undefined,
         
 		update: function(deltaTime) {
+            
+            if (this.loc.y < -10) this.health -= 0.001;
+            
             this.isWalking = false;
             
             this.vel.x = 0;
