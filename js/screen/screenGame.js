@@ -33,8 +33,7 @@ function ScreenGame() {
         Player.toolbar.slots[0][1] = new ItemStack(Items.getItemByName("pickaxe").id);
         Camera.rotation.y = 180.0;
 
-        this.playerHUD = new GuiHUD();
-        this.playerHUD.init();
+        this.playerHUD = Gui.getGuiByName("guihud");
 
         this.ticks = 0;
     }
@@ -53,7 +52,7 @@ function ScreenGame() {
         }
         if (keyState[69]){
             if (this.currentGui == undefined){
-                this.currentGui = new GuiInventory();
+                this.currentGui = Gui.getGuiByName("inventory");
             }else{
                 this.currentGui = undefined;
             }

@@ -1,38 +1,57 @@
-function Gui() {
-    this.defaultGuiTextures = ["UNDEFINED"];
-    this.defaultGuiName = "UNDEFINED";
-    this.defaultGuiPos = [[0,0,0]];
+var Gui = {
+    gui: new Array(0),
+    nameToIDMap: new Array(0),
+    registryCallbacks: new Array(0),
+    guiLoadQueue: new Array(0),
     
-    this.init();
-}
-
-Gui.prototype.init = function(){
+    registerCallback: function(p_callback) {
+        this.registryCallbacks.push(p_callback);
+    },
     
-}
+    registerGui: function(p_name, p_gui) {
+        var id = this.gui.length;
+        if(p_gui != undefined){
+            p_gui.unlocalizedName = p_name;
+            p_gui.id = id;
+        }
+        this.gui.push(p_gui);
+        this.nameToIDMap[p_name] = id;
+        
+        console.log("Registering gui: [" + id + " | " + p_name + "]");
+    },
+    
+    addGuiToLoadQueue: function(p_itemType) {
+        this.guiLoadQueue.push(p_itemType);
+    },
+    
+    preloadGuis: function() {
+        for(var i = 0; i < this.guiLoadQueue.length; i++) {
+            ResourceManager.registerResourceToLoad();
+            $.getScript( "js/graphics/gui/"+this.guiLoadQueue[i]+".js", function( data, textStatus, jqxhr ) {
+                ResourceManager.checkOutResourceLoaded();
+            });
+        }
+    },
+    
+    registerGuis: function() {
+        for(var i = 0; i < this.registryCallbacks.length; i++) {
+            this.registryCallbacks[i]();
+        }
+    },
+    
+    getGui: function(p_id) {
+        return this.gui[p_id];
+    },
+    
+    getGuiByName: function(p_name) {
+        return this.gui[this.nameToIDMap[p_name]];
+    }
+};
 
-Gui.prototype.getPos = function(p_data){
-    return this.defaultGuiPos;
-}
+Gui.addGuiToLoadQueue("guiHUD");
+Gui.addGuiToLoadQueue("guiInventory");
 
-Gui.prototype.getTexture = function(p_data) {
-    return this.defaultGuiTexture;
-}
-
-Gui.prototype.getName = function(p_data) {
-    return this.defaultGuiName;
-}
-
-Gui.prototype.setTexture = function(p_texture) {
-    this.defaultGuiTexture = p_texture;
-    return this;
-}
-
-Gui.prototype.setName = function(p_name) {
-    this.defaultGuiName = p_name;
-    return this;
-}
-
-Gui.prototype.setPos = function(p_pos){
-    this.defaultGuiPos = p_pos;
-    return this;
-}
+Gui.registerCallback(function() {
+    Gui.registerGui("guihud", new GuiHUD());
+    Gui.registerGui("inventory", new GuiInventory());
+});

@@ -13,6 +13,7 @@ var ResourceManager = {
             TextureManager.preload();
             Blocks.preloadBlockTypes();
             Items.preloadItemTypes();
+            Gui.preloadGuis();
             StructureManager.preloadStructureTemplates();
             ItemModel.registerModels();
         },
@@ -21,6 +22,7 @@ var ResourceManager = {
             Blocks.registerBlocks();
             ItemModel.registerBlocks();
             Items.registerItems();
+            Gui.registerGuis();
             World.world = new World("Overworld","DEFAULT");
         }
     ],

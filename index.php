@@ -39,8 +39,6 @@
         <script type="text/javascript" src="js/graphics/world/blockRenderType.js"></script>
         <script type="text/javascript" src="js/graphics/world/items/itemRenderer.js"></script>
         <script type="text/javascript" src="js/graphics/world/items/itemModel.js"></script>
-        <script type="text/javascript" src="js/graphics/gui/guiInventory.js"></script>
-        <script type="text/javascript" src="js/graphics/gui/guiHUD.js"></script>
         <script type="text/javascript" src="js/graphics/gui/slot.js"></script>
         <script type="text/javascript" src="js/screen/screen.js"></script>
         <script type="text/javascript" src="js/screen/screenGame.js"></script>
@@ -55,6 +53,8 @@
         <script type="text/javascript" src="js/world/world.js"></script>
         <script type="text/javascript" src="js/gui/hBar.js"></script>
         <script type="text/javascript" src="js/gui/plane.js"></script>
+        <script type="text/javascript" src="js/gui/gui.js"></script>
+        <script type="text/javascript" src="js/gui/vBar.js"></script>
         
         <script type="text/javascript" src="js/world/structures/structureManager.js"></script>
         <script type="text/javascript" src="js/world/structures/smallTree.js"></script>

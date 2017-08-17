@@ -9,14 +9,14 @@ function GuiHUD(){
         //----bars----
         this.healthBarFill = new HBar(512, 73, 5, [1,40], this.health);
         this.healthBar = new Plane(512, 75, 7, [0,34]);
-        this.hungerBarFill = new HBar(512, 37, 5, [76,40], this.hunger);
-        this.hungerBar = new Plane(512, 38, 7, [76,34]);
-        this.thirstBarFill = new HBar(512, 37, 5, [115,40], this.thirst);
+        this.hungerBarFill = new HBar(512, 35, 5, [78,40], this.hunger);
+        this.hungerBar = new Plane(512, 37, 7, [77,34]);
+        this.thirstBarFill = new HBar(512, 35, 5, [116,40], this.thirst);
         this.thirstBar = new Plane(512, 37, 7, [115,34]);
         this.manaBarFill = new HBar(512, 150, 3, [1,26], this.mana);
         this.manaBar = new Plane(512, 152, 5, [0,22]);
         //------------
-
+        
         //----toolbar----
         this.toolBar = new Plane(512, 152, 16, [0,16]);
         this.toolSelector = new Plane(512, 16, 16, [167,16]);
@@ -25,14 +25,14 @@ function GuiHUD(){
         //----renderlist----
         this.elements.push(
             [[-76,24,0], this.healthBar],
-            [[0,24,0], this.hungerBar],
+            [[1,24,0], this.hungerBar],
             [[39,24,0], this.thirstBar],
             [[-76,18,0], this.manaBar],
             [[-75,25,0], this.healthBarFill],
-            [[0,25,0], this.hungerBarFill],
-            [[39,25,0], this.thirstBarFill],
+            [[2,25,0], this.hungerBarFill],
+            [[40,25,0], this.thirstBarFill],
             [[-75,19,0], this.manaBarFill],
-            [[-76,1,0],this.toolBar]
+            [[-76,1,0],this.toolBar],
         );
         //------------------
     };
