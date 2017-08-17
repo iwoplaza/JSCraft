@@ -1,7 +1,7 @@
-function GuiInventory(){
+function GuiFurnace(){
     this.init = function(){
         this.mesh = new Mesh();
-        drawTexturedRect(this.mesh, -83, -90.5, 190, 181,[1,1,1,1],[[0,181/512],[190/512,181/512],[190/512,0],[0,0]]);
+        drawTexturedRect(this.mesh, -83, -90.5, 166, 181,[1,1,1,1],[[0,181/512],[166/512,181/512],[166/512,0],[0,0]]);
     },
     this.display = function(){
         this.scale = ScreenHandler.guiScale;
@@ -14,7 +14,7 @@ function GuiInventory(){
         GLHelper.resetToGuiMatrix();
         
         GLHelper.saveState();
-        TextureManager.bindTexture(TextureManager.database["res/textures/gui/playerInventory.png"].textureId);
+        TextureManager.bindTexture(TextureManager.database["res/textures/gui/furnaceInventory.png"].textureId);
         GLHelper.translate([gl.viewportWidth/2,gl.viewportHeight/2,0]);
         GLHelper.scale([this.scale,this.scale,this.scale]);
         this.mesh.draw();
@@ -22,7 +22,6 @@ function GuiInventory(){
         
         Player.inventory.display(gl.viewportWidth/2-72.5*this.scale,gl.viewportHeight/2+0*this.scale);
         Player.toolbar.display(gl.viewportWidth/2-72.5*this.scale,gl.viewportHeight/2-74*this.scale);
-        Player.equipped.display(gl.viewportWidth/2-72.5*this.scale,gl.viewportHeight/2+80*this.scale);
                 
         Font.drawGuiText("Inventory", "normal", [0,0,0]);
     }
@@ -30,7 +29,6 @@ function GuiInventory(){
         var drop = false;
         drop|=Player.inventory.handleInventory(gl.viewportWidth/2-72.5*this.scale,gl.viewportHeight/2+0*this.scale,p_button);
         drop|=Player.toolbar.handleInventory(gl.viewportWidth/2-72.5*this.scale,gl.viewportHeight/2-74*this.scale,p_button);
-        drop|=Player.equipped.handleInventory(gl.viewportWidth/2-72.5*this.scale,gl.viewportHeight/2+80*this.scale,p_button);
         if (!drop && p_button==0 && Player.itemInHand != undefined){
             Player.dropItems(Player.itemInHand);
             Player.itemInHand = undefined;

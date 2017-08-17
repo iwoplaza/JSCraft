@@ -119,16 +119,19 @@ function ScreenGame() {
 
     this.handleKeyPressed = function(event) {
         var keyCode = event.keyCode ? event.keyCode : event.which;
-
+        
         if(keyCode == 76) {
             PointerLock.request();
             Mouse.movementX = 0;
             Mouse.movementY = 0;
         }
+        if(keyCode == 190) {
+            console.log(Math.round((VirtualCursor.x-gl.viewportWidth/2)/ScreenHandler.guiScale)+3.5,Math.round((VirtualCursor.y-gl.viewportHeight/2)/ScreenHandler.guiScale)-3);
+        }
     }
 
     this.handleKeyReleased = function(event) {
-
+        
     }
 
     this.handleMousePressed = function(event) {

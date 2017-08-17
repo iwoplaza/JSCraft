@@ -38,6 +38,7 @@ var TextureManager = {
         this.loadTexture("res/textures/gui/playerHUD.png");
         this.loadTexture("res/textures/gui/cursor.png");
         this.loadTexture("res/textures/gui/testBar.png");
+        this.loadTexture("res/textures/gui/furnaceInventory.png");
     },
 
     loadTexture: function(filePath) {
