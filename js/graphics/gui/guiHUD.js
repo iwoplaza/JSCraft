@@ -22,21 +22,19 @@ function GuiHUD(){
         this.toolSelector = new Plane(512, 16, 16, [167,16]);
         //---------------
 
+        //----renderlist----
         this.elements.push(
-            [[-76,24,0], this.healthBar, [-75,25,0], this.healthBarFill],
-            [[0,24,0], this.hungerBar, [0,25,0], this.hungerBarFill],
-            [[39,24,0], this.thirstBar, [39,25,0], this.thirstBarFill],
-            [[-76,18,0], this.manaBar, [-75,19,0], this.manaBarFill]
+            [[-76,24,0], this.healthBar],
+            [[0,24,0], this.hungerBar],
+            [[39,24,0], this.thirstBar],
+            [[-76,18,0], this.manaBar],
+            [[-75,25,0], this.healthBarFill],
+            [[0,25,0], this.hungerBarFill],
+            [[39,25,0], this.thirstBarFill],
+            [[-75,19,0], this.manaBarFill],
+            [[-76,1,0],this.toolBar]
         );
-        
-        /*
-        drawTexturedRect(this.toolBarMesh, 0, 0, 152, 16,[1,1,1,1],[[0,16/512],[152/512,16/512],[152/512,0],[0,0]]);
-        drawTexturedRect(this.healthBarMesh, 0, 0, 75, 7,[1,1,1,1],[[0,34/512],[75/512,34/512],[75/512,27/512],[0,27/512]]);
-        drawTexturedRect(this.hungerBarMesh, 0, 0, 38, 7,[1,1,1,1],[[76/512,34/512],[114/512,34/512],[114/512,27/512],[76/512,27/512]]);
-        drawTexturedRect(this.thirstBarMesh, 0, 0, 37, 7,[1,1,1,1],[[115/512,34/512],[152/512,34/512],[152/512,27/512],[115/512,27/512]]);
-        drawTexturedRect(this.manaBarMesh, 0, 0, 152,6,[1,1,1,1],[[0,22/512],[152/512,22/512],[152/512,16/512],[0,16/512]]);       
-        drawTexturedRect(this.itemSelectorMesh, 0, 0, 16, 16,[1,1,1,1],[[167/512,16/512],[183/512,16/512],[183/512,0],[167/512,0]]);
-        */
+        //------------------
     };
     this.display = function(){
         let scale = ScreenHandler.guiScale;
@@ -64,17 +62,7 @@ function GuiHUD(){
                     GLHelper.translate(this.elements[i][0]);
                     this.elements[i][1].draw();
                 GLHelper.loadState();
-                
-                GLHelper.saveState();
-                    GLHelper.translate(this.elements[i][2]);
-                    this.elements[i][3].draw();
-                GLHelper.loadState();
             }
-        
-            GLHelper.saveState();
-                GLHelper.translate([-76,1,0]);
-                this.toolBar.draw();
-            GLHelper.loadState();
         
             GLHelper.saveState();
                 gl.depthFunc(gl.LEQUAL);

@@ -49,6 +49,6 @@ var Guis = {
 };
 
 Guis.registerCallback(function() {
-    Guis.registerGui("playerhud", new Gui().setName("playerHUD").setTexture(["res/textures/gui/playerHUD.png"]).setGuiPos([[0,0,0]]));
-    Guis.registerGui("inventory", new Gui().setName("Inventory").setTexture(["res/textures/gui/playerInventory.png"].setGuiPos([[0,0,0]]));
+    Guis.registerGui("playerhud", new Gui().setName("playerHUD"));
+    Guis.registerGui("inventory", new Gui().setName("Inventory"));
 });
