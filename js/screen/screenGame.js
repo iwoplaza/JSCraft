@@ -126,7 +126,25 @@ function ScreenGame() {
             Mouse.movementY = 0;
         }
         if(keyCode == 190) {
-            console.log(Math.round((VirtualCursor.x-gl.viewportWidth/2)/ScreenHandler.guiScale)+3.5,Math.round((VirtualCursor.y-gl.viewportHeight/2)/ScreenHandler.guiScale)-3);
+            console.log(((VirtualCursor.x-gl.viewportWidth/2)/ScreenHandler.guiScale),((VirtualCursor.y-gl.viewportHeight/2)/ScreenHandler.guiScale));
+        }
+        switch(event.keyCode){
+            case 38:
+                VirtualCursor.y += ScreenHandler.guiScale*0.5;
+                break;
+            case 40:
+                VirtualCursor.y -= ScreenHandler.guiScale*0.5;
+                break;
+            case 39:
+                VirtualCursor.x += ScreenHandler.guiScale*0.5;
+                break;
+            case 37:
+                VirtualCursor.x -= ScreenHandler.guiScale*0.5;
+                break;
+            case 188:
+                VirtualCursor.x = gl.viewportWidth/2;
+                VirtualCursor.y = gl.viewportHeight/2;
+                break;
         }
     }
 

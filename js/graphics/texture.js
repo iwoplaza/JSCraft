@@ -39,6 +39,7 @@ var TextureManager = {
         this.loadTexture("res/textures/gui/cursor.png");
         this.loadTexture("res/textures/gui/testBar.png");
         this.loadTexture("res/textures/gui/furnaceInventory.png");
+        this.loadTexture("res/textures/gui/craftingInventory.png");
     },
 
     loadTexture: function(filePath) {

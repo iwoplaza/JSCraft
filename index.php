@@ -55,6 +55,7 @@
         <script type="text/javascript" src="js/gui/plane.js"></script>
         <script type="text/javascript" src="js/gui/gui.js"></script>
         <script type="text/javascript" src="js/gui/vBar.js"></script>
+        <script type="text/javascript" src="js/gui/button.js"></script>
         
         <script type="text/javascript" src="js/world/structures/structureManager.js"></script>
         <script type="text/javascript" src="js/world/structures/smallTree.js"></script>

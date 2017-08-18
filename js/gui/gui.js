@@ -51,9 +51,11 @@ var Gui = {
 Gui.addGuiToLoadQueue("guiHUD");
 Gui.addGuiToLoadQueue("guiInventory");
 Gui.addGuiToLoadQueue("guiFurnace");
+Gui.addGuiToLoadQueue("guiCrafting");
 
 Gui.registerCallback(function() {
     Gui.registerGui("guihud", new GuiHUD());
     Gui.registerGui("inventory", new GuiInventory());
     Gui.registerGui("furnace", new GuiFurnace());
+    Gui.registerGui("crafting", new GuiCrafting());
 });
